@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react",
+    "strictNullChecks": false,
+    // Exchange configurations ------//
+    //"jsx": "preserve",
+    "downlevelIteration": true,
+    // "alwaysStrict": true,
+    // "noUnusedLocals": true,
+    // "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    // "noImplicitThis": true,
+    // "noImplicitReturns": true,
+    "types": ["react-spring", "jest"],
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules",
+      "./src/classic/frontend/theme/"
+    ]
+  },
+  //"exclude": ["./src/sushiclassic/exchange/cypress"],
+  //"include": ["./src/**/*.ts", "./src/**/*.tsx"]
+  //"include": ["src", "node_modules/**/*.d.ts", "node_modules/@types/**/*.d.ts"]
+  //stable //"include": ["src", "node_modules/**/*.d.ts", "node_modules/@types/**/*.d.ts"]
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "node_modules/**/*.d.ts",
+    "node_modules/@types/**/*.d.ts"
+  ]
+}
