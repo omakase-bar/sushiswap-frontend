@@ -17,6 +17,7 @@ import PoolTable from "../components/Table/Queries/PoolsZippo";
 //import Balance from "../sushiswap/views/Home/components/Balances";
 
 import WalletModal from "../components/Modals/Wallet";
+import ShareModal from "../components/Modals/Share";
 import useModal from "../shared/hooks/useModal";
 import useMenu from "../shared/hooks/useMenu";
 
@@ -32,11 +33,13 @@ import useMenu from "../shared/hooks/useMenu";
 // };
 
 const OmakaseBar = () => {
+  const share = useModal();
   const wallets = useModal();
   const mobileMenu = useMenu();
   return (
     <>
       <WalletModal isOpen={wallets.isOpen} closeModal={wallets.hide} />
+      <ShareModal isOpen={share.isOpen} closeModal={share.hide} />
       <div className="sushi-h-screen sushi-flex sushi-overflow-hidden sushi-bg-white">
         <Sidebar selected={"omakase"} />
         <div className="sushi-flex sushi-flex-col sushi-w-0 sushi-flex-1 sushi-overflow-hidden">
@@ -52,6 +55,7 @@ const OmakaseBar = () => {
             <PageTitle
               title={"Sushiswap Information Portal"}
               showWallets={wallets.show}
+              showShare={share.show}
             />
             {/* <Banner
               icon={"⛵"}
