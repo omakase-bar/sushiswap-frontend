@@ -18,6 +18,7 @@ const Governance = () => {
   const mobileMenu = useMenu();
   const share = useModal();
   const wallets = useModal();
+
   return (
     <>
       <WalletModal isOpen={wallets.isOpen} closeModal={wallets.hide} />
@@ -46,7 +47,7 @@ const Governance = () => {
             <SectionCards>
               <CardGovernanceMultisig />
               {/* <CardGovernanceActivity title={"Proposal Activity"} /> */}
-              <CardGovernanceActions title={"Proposal Actions"} />
+              <CardGovernanceActions />
             </SectionCards>
             {/* <TableProposals /> */}
           </main>

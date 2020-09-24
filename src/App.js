@@ -24,7 +24,9 @@ import Wallet from "./pages/Wallet";
 import WidgetBalance from "./components/Cards/Balance/Layout";
 import WidgetResources from "./components/Cards/Resources/Layout";
 import WidgetSocialMedia from "./components/Cards/SocialMedia/Layout";
-import WidgetSummary from "./components/Cards/WidgetsCard";
+import WidgetSummary from "./components/Cards/Summary";
+import WidgetGovernanceActions from "./components/Cards/GovernanceActions/Layout";
+import WidgetGovernanceElection from "./components/Cards/GovernanceMultisig/Layout";
 
 // import WidgetSwap from "./classic/exchange/pages/Swap";
 // import WidgetPool from "./classic/exchange/pages/Pool";
@@ -200,6 +202,16 @@ const App = () => {
                   exact
                   path="/widgets/balance"
                   component={WidgetBalance}
+                />
+                <Route
+                  exact
+                  path="/widgets/governance/actions"
+                  component={WidgetGovernanceActions}
+                />
+                <Route
+                  exact
+                  path="/widgets/governance/election"
+                  component={WidgetGovernanceElection}
                 />
                 {/* <Route exact path="/widgets/swap" component={WidgetSwap} />
                 <Route exact path="/widgets/pool" component={WidgetPool} /> */}
