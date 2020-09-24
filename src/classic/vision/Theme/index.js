@@ -31,14 +31,14 @@ const theme = (darkMode, color) => ({
   shadowColor: darkMode ? "#000" : "#2F80ED",
   mercuryGray: darkMode ? "#333333" : "#E1E1E1",
 
-  text1: darkMode ? "#FAFAFA" : "#1F1F1F",
+  text1: darkMode ? "#1F1F1F" : "#1F1F1F", // "#FAFAFA" : "#1F1F1F",
   text2: darkMode ? "#C3C5CB" : "#565A69",
   text3: darkMode ? "#6C7284" : "#888D9B",
   text4: darkMode ? "#565A69" : "#C3C5CB",
   text5: darkMode ? "#2C2F36" : "#EDEEF2",
 
   // special case text types
-  white: "#FFFFFF",
+  white: "#1F1F1F", //"#FFFFFF"
 
   // backgrounds / greys
   bg1: darkMode ? "#212429" : "#FAFAFA",
@@ -51,7 +51,7 @@ const theme = (darkMode, color) => ({
   //specialty colors
   modalBG: darkMode ? "rgba(0,0,0,0.85)" : "rgba(0,0,0,0.6)",
   advancedBG: darkMode ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.4)",
-  onlyLight: darkMode ? "#22242a" : "transparent",
+  onlyLight: darkMode ? "#22242a" : "#22242a", // "#22242a" : "transparent",
   divider: darkMode ? "rgba(43, 43, 43, 0.435)" : "rgba(43, 43, 43, 0.035)",
 
   //primary colors
