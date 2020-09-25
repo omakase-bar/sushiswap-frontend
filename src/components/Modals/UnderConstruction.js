@@ -61,6 +61,12 @@ const WalletModal = ({ isOpen, closeModal }) => {
                     </a>{" "}
                     for your functional needs.
                   </p>
+                  <br />
+                  <p className="sushi-text-sm sushi-leading-5 sushi-text-gray-500">
+                    This site would not have been possible without the open
+                    source community, please reference our contributors and
+                    licenses on the About page.
+                  </p>
                 </div>
               </div>
             </div>

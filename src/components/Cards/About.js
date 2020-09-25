@@ -74,28 +74,73 @@ const AboutCard = ({ title }) => {
           </p>
           <ul className="sushi-mt-6 sushi-space-y-4">
             {[
-              { source: "YAM", icon: "🍠" },
-              { source: "Uniswap Exchange", icon: "🦄" },
-              { source: "Uniswap Vision", icon: "🦄" },
+              {
+                name: "YAM WWW",
+                icon: "🍠",
+                url:
+                  "https://github.com/yam-finance/yam-protocol/tree/master/yam-www",
+              },
+              {
+                name: "Uniswap Interface",
+                icon: "🦄",
+                url: "https://github.com/Uniswap/uniswap-interface",
+              },
+              {
+                name: "Uniswap Info",
+                icon: "🦄",
+                url: "https://github.com/Uniswap/uniswap-info",
+              },
             ].map((source) => {
               return (
                 <li className="sushi-flex sushi-items-start">
-                  <div className="sushi-flex-shrink-0">{source.icon}</div>
-                  <p className="sushi-ml-3 sushi-text-base sushi-leading-6 sushi-text-gray-500">
-                    {source.source}
-                  </p>
+                  <div className="sushi-flex-shrink-0 sushi-text-base">
+                    {source.icon}
+                  </div>
+                  <div className="sushi-flex sushi-items-center">
+                    <a
+                      className="ml-3 sushi-flex sushi-items-center sushi-text-base sushi-leading-6 sushi-text-gray-500 hover:sushi-underline"
+                      href={source.url}
+                      target="_blank"
+                    >
+                      {source.name}
+                      <svg
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        className="sushi-w-4 sushi-h-4 sushi-ml-1"
+                      >
+                        <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />{" "}
+                        <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                      </svg>
+                    </a>{" "}
+                  </div>
                 </li>
               );
             })}
           </ul>
           <p className="sushi-mt-6 sushi-text-base sushi-leading-6 sushi-text-gray-500">
             You can find an open source GPL-3.0 project starter that we have
-            created here and utilize for this site. Additionally you can find an
-            open source build package for this site at the following. In order
-            to promote innovation and reflect the open foundation set before us
-            most components for this site will be released under GPL-3.0 License
-            and after we prepare and refactor the repository for such components
-            will be announced. For security purposes, the Sushiswap community
+            created{" "}
+            <a
+              href="https://github.com/omakase-bar/sushi-starter"
+              target="_blank"
+              className="sushi-group sushi-space-x-2 sushi-inline-flex sushi-items-center sushi-font-medium sushi-text-orange-600 hover:sushi-text-orange-900 sushi-transition sushi-ease-in-out sushi-duration-150"
+            >
+              here
+            </a>{" "}
+            and utilize for this site. Additionally you can find an open source
+            build package for this site at the{" "}
+            <a
+              href="https://github.com/omakase-bar/sushiswap-frontend-build"
+              target="_blank"
+              className="sushi-group sushi-space-x-2 sushi-inline-flex sushi-items-center sushi-font-medium sushi-text-orange-600 hover:sushi-text-orange-900 sushi-transition sushi-ease-in-out sushi-duration-150"
+            >
+              following
+            </a>
+            . In order to promote innovation and reflect the open foundation set
+            before us most components for this site will be released under
+            GPL-3.0 License. We will announce, after we prepare, refactor, and
+            publish the repository for accesible and reliable consumption of
+            such components. For security purposes, the Sushiswap community
             reserves the right to protect certain operationally sensitive
             offchain widgets such as support features, branding, and design
             assets. We will always strive to allow the most permissible
