@@ -67,7 +67,7 @@ const PairWidget = ({
                   onClick={() => {
                     history.push("/token/" + token0.id);
                   }}
-                  className="sushi-w-full sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-gray-300 sushi-text-xs sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 sushi-bg-white hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-shadow-outline-blue focus:sushi-border-blue-300 active:sushi-text-gray-800 active:sushi-bg-gray-50 sushi-transition sushi-duration-150 sushi-ease-in-out"
+                  className="md:sushi-truncate sushi-w-full sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-gray-300 sushi-text-xs sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 sushi-bg-white hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-shadow-outline-blue focus:sushi-border-blue-300 active:sushi-text-gray-800 active:sushi-bg-gray-50 sushi-transition sushi-duration-150 sushi-ease-in-out"
                 >
                   <img
                     src={`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
@@ -78,7 +78,10 @@ const PairWidget = ({
                     alt={formattedSymbol0 + " Logo"}
                   />
                   {token0 && token1
-                    ? `1 ${formattedSymbol0} = ${token0Rate} ${formattedSymbol1} ${
+                    ? `1 ${formattedSymbol0} = ${String(token0Rate).substr(
+                        0,
+                        6
+                      )} ${formattedSymbol1} ${
                         parseFloat(token0?.derivedETH)
                           ? "(" + token0USD + ")"
                           : ""
@@ -98,7 +101,7 @@ const PairWidget = ({
                   onClick={() => {
                     history.push("/token/" + token1.id);
                   }}
-                  className="sushi-w-full sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-gray-300 sushi-text-xs sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 sushi-bg-white hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-shadow-outline-blue focus:sushi-border-blue-300 active:sushi-text-gray-800 active:sushi-bg-gray-50 sushi-transition sushi-duration-150 sushi-ease-in-out"
+                  className="md:sushi-truncate sushi-w-full sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-gray-300 sushi-text-xs sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 sushi-bg-white hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-shadow-outline-blue focus:sushi-border-blue-300 active:sushi-text-gray-800 active:sushi-bg-gray-50 sushi-transition sushi-duration-150 sushi-ease-in-out"
                 >
                   <img
                     src={`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
@@ -109,7 +112,10 @@ const PairWidget = ({
                     alt={formattedSymbol1 + " Logo"}
                   />
                   {token0 && token1
-                    ? `1 ${formattedSymbol1} = ${token1Rate} ${formattedSymbol0}  ${
+                    ? `1 ${formattedSymbol1} = ${String(token1Rate).substr(
+                        0,
+                        6
+                      )} ${formattedSymbol0}  ${
                         parseFloat(token1?.derivedETH)
                           ? "(" + token1USD + ")"
                           : ""

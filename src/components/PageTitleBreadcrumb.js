@@ -111,7 +111,7 @@ const PageTitleBreadcrumb = ({
                   <span className="sushi-ml-3 sushi-shadow-sm sushi-rounded-md">
                     <button
                       type="button"
-                      className="sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-transparent sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-white sushi-bg-orange-600 hover:sushi-bg-orange-500 focus:sushi-outline-none focus:sushi-shadow-outline-orange focus:sushi-border-orange-700 active:sushi-bg-orange-700 sushi-transition sushi-duration-150 sushi-ease-in-out"
+                      className="sushi-h-full sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-transparent sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-white sushi-bg-orange-600 hover:sushi-bg-orange-500 focus:sushi-outline-none focus:sushi-shadow-outline-orange focus:sushi-border-orange-700 active:sushi-bg-orange-700 sushi-transition sushi-duration-150 sushi-ease-in-out"
                     >
                       Trade
                     </button>
