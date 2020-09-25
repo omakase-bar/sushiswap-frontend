@@ -1307,6 +1307,12 @@ img {
   word-break: break-all;
 }
 
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .w-4 {
   width: 1rem;
 }

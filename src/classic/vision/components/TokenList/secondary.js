@@ -13,7 +13,7 @@ import { Divider } from "..";
 import { formattedNum, formattedPercent } from "../../utils";
 import { useMedia } from "react-use";
 import { withRouter } from "react-router-dom";
-//import { OVERVIEW_TOKEN_BLACKLIST } from "../../constants";
+import { OVERVIEW_TOKEN_BLACKLIST } from "../../constants";
 import { TOKEN_WHITELIST } from "../../constants";
 import FormattedName from "../FormattedName";
 import { TYPE } from "../../Theme";
@@ -57,7 +57,7 @@ const DashGrid = styled.div`
     &:first-child {
       justify-content: flex-start;
       text-align: left;
-      width: 100px;
+      width: 245px;
     }
   }
 
@@ -149,8 +149,8 @@ function TopTokenList({ tokens, itemMax = 10 }) {
       Object.keys(tokens)
         .filter((key) => {
           //console.log("key:", key);
-          return TOKEN_WHITELIST.includes(key);
-          //return !OVERVIEW_TOKEN_BLACKLIST.includes(key);
+          //return TOKEN_WHITELIST.includes(key); // include only farm tokens
+          return !OVERVIEW_TOKEN_BLACKLIST.includes(key); // include non farm tokens
         })
         .map((key) => tokens[key])
     );
@@ -210,17 +210,21 @@ function TopTokenList({ tokens, itemMax = 10 }) {
         ) : (
           <Row>
             <td
-              className="py-1.5 text-sm whitespace-no-wrap border-b border-gray-200 bg-white"
-              style={{
-                position: "-webkit-sticky",
-                position: "sticky",
-                width: "16rem",
-                minWidth: "16rem",
-                maxWidth: "16rem",
-                left: "0px",
-                boxShadow: "10px 0 5px -2px #f3f3f3",
-                borderColor: "transparent",
-              }}
+              //className="py-1.5 text-sm whitespace-no-wrap border-b border-gray-200 bg-white truncate"
+              className="py-1.5 text-sm whitespace-no-wrap bg-white truncate"
+              style={
+                {
+                  //minWidth: "15rem",
+                  // position: "-webkit-sticky",
+                  // position: "sticky",
+                  // width: "16rem",
+                  // minWidth: "16rem",
+                  // maxWidth: "16rem",
+                  // left: "0px",
+                  // boxShadow: "10px 0 5px -2px #f3f3f3",
+                  // borderColor: "transparent",
+                }
+              }
             >
               <div className="flex items-center">
                 <div className="flex-shrink-0 w-10 h-10 text-3xl">

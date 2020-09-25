@@ -8,17 +8,18 @@ import { searchables } from "../../constants/searchables.json";
 
 const SearchIcon = () => {
   return (
-    <svg
-      className="sushi-mr-3 sushi-h-5 sushi-w-5 sushi-text-gray-400"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-    >
-      <path
-        fillRule="evenodd"
-        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-        clipRule="evenodd"
-      />
-    </svg>
+    <span className="sushi-mr-3 sushi-h-5 sushi-w-5">🔮</span>
+    // <svg
+    //   className="sushi-mr-3 sushi-h-5 sushi-w-5 sushi-text-gray-400"
+    //   viewBox="0 0 20 20"
+    //   fill="currentColor"
+    // >
+    //   <path
+    //     fillRule="evenodd"
+    //     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+    //     clipRule="evenodd"
+    //   />
+    // </svg>
   );
 };
 
@@ -61,7 +62,9 @@ const TokenResult = ({ item }) => {
             className="sushi-flex-shrink-0 sushi-h-6 sushi-w-6 sushi-rounded-full"
           />
           {/* Selected: "font-semibold", Not Selected: "font-normal" */}
-          <span className="sushi-font-normal sushi-block sushi-truncate">{result.name}</span>
+          <span className="sushi-font-normal sushi-block sushi-truncate">
+            {result.name}
+          </span>
         </div>
       </Link>
     </li>
@@ -78,7 +81,9 @@ const FaqResult = ({ item }) => {
     >
       <div className="sushi-flex sushi-items-center sushi-space-x-3">
         {/* Selected: "font-semibold", Not Selected: "font-normal" */}
-        <span className="sushi-font-normal sushi-block sushi-truncate">{result.title}</span>
+        <span className="sushi-font-normal sushi-block sushi-truncate">
+          {result.title}
+        </span>
         {/* <span className="sushi-font-sm sushi-block">{result.description}</span> */}
       </div>
     </li>
@@ -95,7 +100,9 @@ const GovernanceResult = ({ item }) => {
     >
       <div className="sushi-flex sushi-items-center sushi-space-x-3">
         {/* Selected: "font-semibold", Not Selected: "font-normal" */}
-        <span className="sushi-font-normal sushi-block sushi-truncate">{result.title}</span>
+        <span className="sushi-font-normal sushi-block sushi-truncate">
+          {result.title}
+        </span>
         {/* <span className="sushi-font-sm sushi-block">{result.description}</span> */}
       </div>
     </li>
@@ -134,7 +141,10 @@ const MainSearch = ({ theme }) => {
       <label htmlFor="search" className="sushi-sr-only">
         Search
       </label>
-      <div className="sushi-mt-1 sushi-relative sushi-rounded-md sushi-shadow-sm" ref={ref}>
+      <div
+        className="sushi-mt-1 sushi-relative sushi-rounded-md sushi-shadow-sm"
+        ref={ref}
+      >
         <div className="sushi-absolute sushi-inset-y-0 sushi-left-0 sushi-pl-3 sushi-flex sushi-items-center">
           {!showMenu ? (
             <SearchIcon />
@@ -148,7 +158,7 @@ const MainSearch = ({ theme }) => {
             "sushi-form-input sushi-block sushi-w-full sushi-pl-10 sushi-py-3 sm:sushi-text-sm sm:sushi-leading-5 " +
             theme
           }
-          placeholder="🔮 Search for anything in Sushiswap"
+          placeholder="Search for anything in Sushiswap"
           value={term}
           //value={value}
           onChange={(e) => {
