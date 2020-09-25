@@ -23,7 +23,7 @@ import useMenu from "../shared/hooks/useMenu";
 import SushiGlobalChart from "../classic/vision/components/GlobalChart";
 import UniGlobalChart from "../classic/analytics/components/charts/globalChart";
 import Flickity from "react-flickity-component";
-import GlobalStats from "../classic/vision/components/GlobalStats";
+import GlobalStats from "../classic/vision/components/GlobalStats/secondary";
 import Panel from "../classic/vision/components/Panel";
 
 // import styled from "styled-components";
@@ -176,7 +176,7 @@ const Home = () => {
             />
             <MainSearch />
             {/* <SummaryStats /> */}
-            <div className="sushi-px-8 sushi-mt-8">
+            <div className="sushi-px-8 sushi-mt-4">
               <span className="sushi-w-full">
                 <div className="sushi-flex sushi-items-start sushi-justify-between sushi-space-x-3">
                   <GlobalStats />
