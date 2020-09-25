@@ -41,7 +41,20 @@ const StakeSushi = () => {
 
   return (
     <>
-      {!allowance.toNumber() ? (
+      <a href={"https://sushiswapclassic.org/staking"} target="_blank">
+        <button
+          className="sushi-mr-4 sushi-w-16 sushi-h-20 sushi-text-3xl sushi-rounded-md sushi-shadow-md"
+          style={{
+            border: "1px solid rgb(238, 109, 72)",
+            backgroundColor: "#feeddc",
+          }}
+        >
+          ⛏️
+          <br />
+          <p className="sushi-text-sm">Stake</p>
+        </button>
+      </a>
+      {/* {!allowance.toNumber() ? (
         <button
           disabled={requestedApproval}
           onClick={handleApprove}
@@ -71,7 +84,7 @@ const StakeSushi = () => {
             <p className="sushi-text-sm">Stake</p>
           </button>
         </>
-      )}
+      )} */}
     </>
   );
 };

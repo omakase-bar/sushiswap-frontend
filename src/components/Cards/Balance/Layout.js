@@ -145,7 +145,8 @@ const BalanceCard = ({ title, showWallets }) => {
                       </span>{" "}
                     </div>
                     <div className="sushi-mt-0.5 sushi-text-gray-700">
-                      Pending Harvest: <PendingRewards />
+                      Pending Harvest:{"   "}
+                      <PendingRewards />
                     </div>
                   </dd>
                 </dl>
