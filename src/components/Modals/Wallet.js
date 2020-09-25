@@ -35,7 +35,7 @@ const WalletModal = ({ isOpen, closeModal }) => {
       leaveFrom="opacity-100 translate-y-0 sm:scale-100"
       leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     >
-      <div className="sushi-fixed sushi-z-10 sushi-inset-0 sushi-flex sushi-items-end sushi-justify-center sushi-min-h-screen sushi-pt-4 sushi-px-4 sushi-pb-20 sushi-text-center sm:sushi-block sm:sushi-p-0">
+      <div className="sushi-fixed sushi-z-10 sushi-inset-0 sushi-flex sushi-items-center sushi-justify-center sushi-min-h-screen sushi-pt-4 sushi-px-4 sushi-pb-20 sushi-text-center sm:sushi-block sm:sushi-p-0">
         <div className="sushi-fixed sushi-inset-0 sushi-transition-opacity">
           <div className="sushi-absolute sushi-inset-0 sushi-bg-gray-500 sushi-opacity-75" />
         </div>

@@ -1,5 +1,9 @@
-/* :root {
-  @apply .light;
+:root {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #edf2f7;
+  --color-text-primary: #2d3748;
+  --color-text-secondary: #4a5568;
+  --color-text-accent: #2b6cb0;
 }
 
 .dark {
@@ -16,7 +20,7 @@
   --color-text-primary: #2d3748;
   --color-text-secondary: #4a5568;
   --color-text-accent: #2b6cb0;
-} */
+}
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
@@ -1204,6 +1208,10 @@ img {
 
 .sushi-items-start {
   align-items: flex-start;
+}
+
+.sushi-items-end {
+  align-items: flex-end;
 }
 
 .sushi-items-center {
@@ -2878,10 +2886,6 @@ img {
 
   .md\:sushi-w-5 {
     width: 1.25rem;
-  }
-
-  .md\:sushi-w-auto {
-    width: auto;
   }
 
   .md\:sushi-gap-3 {

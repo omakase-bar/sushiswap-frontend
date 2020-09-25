@@ -10,13 +10,13 @@ const PageTitle = ({ title, showWallets, showShare }) => {
         </h1>
       </div>
       <div className="sushi-mt-4 sushi-flex sm:sushi-mt-0 sm:sushi-ml-4">
-        <span className="sushi-order-1 sushi-ml-3 sushi-shadow-sm sushi-rounded-md sm:sushi-order-0 sm:sushi-ml-0">
+        <span className="sushi-w-full md:sushi-w-auto sushi-order-1 sushi-ml-3 sushi-shadow-sm sushi-rounded-md sm:sushi-order-0 sm:sushi-ml-0">
           <button
             type="button"
             onClick={() => {
               showShare();
             }}
-            className="sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-gray-300 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 sushi-bg-white hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-shadow-outline-blue focus:sushi-border-blue-300 active:sushi-text-gray-800 active:sushi-bg-orange-50 sushi-transition sushi-duration-150 sushi-ease-in-out"
+            className="sushi-w-full sushi-h-full sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-gray-300 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 sushi-bg-white hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-shadow-outline-blue focus:sushi-border-blue-300 active:sushi-text-gray-800 active:sushi-bg-orange-50 sushi-transition sushi-duration-150 sushi-ease-in-out"
           >
             Share
             <svg
@@ -34,7 +34,7 @@ const PageTitle = ({ title, showWallets, showShare }) => {
             </svg>
           </button>
         </span>
-        <span className="sushi-order-0 sm:sushi-order-1 sm:sushi-ml-3 sushi-shadow-sm sushi-rounded-md">
+        <span className="sushi-w-full md:sushi-w-auto sushi-order-0 sm:sushi-order-1 sm:sushi-ml-3 sushi-shadow-sm sushi-rounded-md">
           <WalletButton showWallets={showWallets} />
         </span>
       </div>

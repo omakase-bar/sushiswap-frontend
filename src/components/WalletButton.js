@@ -8,11 +8,14 @@ const WalletButton = ({ showWallets }) => {
       {account ? (
         <button
           type="button"
-          className="sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-transparent sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-orange-600 sushi-bg-orange-100 hover:sushi-bg-orange-200 focus:sushi-outline-none focus:sushi-border-orange-400 focus:sushi-shadow-outline-orange active:sushi-bg-orange-200 sushi-transition sushi-duration-150 sushi-ease-in-out"
+          className="sushi-h-full sushi-w-full sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-transparent sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-orange-600 sushi-bg-orange-100 hover:sushi-bg-orange-200 focus:sushi-outline-none focus:sushi-border-orange-400 focus:sushi-shadow-outline-orange active:sushi-bg-orange-200 sushi-transition sushi-duration-150 sushi-ease-in-out"
           //onClick={() => showWallets()}
         >
           Connected
-          <svg viewBox="0 0 24 24" className="sushi-h-6 sushi-w-6 sushi-ml-2 sushi-flex-shrink-0">
+          <svg
+            viewBox="0 0 24 24"
+            className="sushi-h-6 sushi-w-6 sushi-ml-2 sushi-flex-shrink-0"
+          >
             <circle
               cx={12}
               cy={12}
@@ -28,7 +31,7 @@ const WalletButton = ({ showWallets }) => {
       ) : (
         <button
           type="button"
-          className="sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-transparent sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-orange-600 sushi-bg-orange-100 hover:sushi-bg-orange-200 focus:sushi-outline-none focus:sushi-border-orange-400 focus:sushi-shadow-outline-orange active:sushi-bg-orange-200 sushi-transition sushi-duration-150 sushi-ease-in-out"
+          className="sushi-h-full sushi-w-full sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-transparent sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-orange-600 sushi-bg-orange-100 hover:sushi-bg-orange-200 focus:sushi-outline-none focus:sushi-border-orange-400 focus:sushi-shadow-outline-orange active:sushi-bg-orange-200 sushi-transition sushi-duration-150 sushi-ease-in-out"
           onClick={() => showWallets()}
         >
           Connect Wallet
