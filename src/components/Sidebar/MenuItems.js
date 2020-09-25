@@ -203,7 +203,30 @@ const MenuItems = ({ selected }) => {
                   2
                 </span>
               </Link> */}
-        <a
+        <Link
+          to={"/about"}
+          className={
+            selected === "about"
+              ? "sushi-neumorphic-drop-shadow sushi-group sushi-flex sushi-items-center sushi-px-2 sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-900 sushi-bg-orange-50 focus:sushi-outline-none focus:sushi-bg-orange-50 sushi-transition sushi-ease-in-out sushi-duration-150"
+              : "sushi-group sushi-flex sushi-items-center sushi-px-2 sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 hover:sushi-text-gray-900 hover:sushi-bg-orange-200 focus:sushi-outline-none focus:sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150"
+          }
+        >
+          <svg
+            className="sushi-mr-3 sushi-h-6 sushi-w-6 sushi-text-gray-400 group-hover:sushi-text-gray-500 group-focus:sushi-text-gray-600 sushi-transition sushi-ease-in-out sushi-duration-150"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+          About
+        </Link>
+        {/* <a
           href="https://help.sushidocs.com/faqs/faqs"
           className={
             selected === "faqs"
@@ -225,7 +248,7 @@ const MenuItems = ({ selected }) => {
             ></path>
           </svg>
           FAQ
-        </a>
+        </a> */}
       </div>
       <div className="sushi-mt-8">
         {/* Secondary navigation */}

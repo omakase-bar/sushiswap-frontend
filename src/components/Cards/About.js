@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import ExpandButton from "./ExpandButton";
 
 const AboutCard = ({ title }) => {
   return (
@@ -10,24 +11,10 @@ const AboutCard = ({ title }) => {
             <h3 className="sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-gray-900">
               About Sushiswap
             </h3>
-            <Link
-              to="/home"
-              className="sushi-ml-2 sushi-pb-4 sushi-text-sm sushi-leading-5 sushi-text-gray-500 sushi-truncate"
-            >
-              <svg
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="#b4bfd8"
-                class="sushi-arrows-expand sushi-w-6 sushi-h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                ></path>
-              </svg>
-            </Link>
+            <ExpandButton
+              widgetPath={"/widgets/about"}
+              dashboardPath={"/about"}
+            />
           </div>
         </div>
         <div className="sushi-bg-white sushi-px-2 sushi-py-6 sushi-">
@@ -80,7 +67,40 @@ const AboutCard = ({ title }) => {
               );
             })}
           </ul>
-
+          <p className="sushi-mt-6 sushi-text-base sushi-leading-6 sushi-text-gray-500">
+            Additionally progress in cryptocurrency would not have been possible
+            without many open source projects that have led the way. This site
+            currently derives certain components from:
+          </p>
+          <ul className="sushi-mt-6 sushi-space-y-4">
+            {[
+              { source: "YAM", icon: "🍠" },
+              { source: "Uniswap Exchange", icon: "🦄" },
+              { source: "Uniswap Vision", icon: "🦄" },
+            ].map((source) => {
+              return (
+                <li className="sushi-flex sushi-items-start">
+                  <div className="sushi-flex-shrink-0">{source.icon}</div>
+                  <p className="sushi-ml-3 sushi-text-base sushi-leading-6 sushi-text-gray-500">
+                    {source.source}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
+          <p className="sushi-mt-6 sushi-text-base sushi-leading-6 sushi-text-gray-500">
+            You can find an open source GPL-3.0 project starter that we have
+            created here and utilize for this site. Additionally you can find an
+            open source build package for this site at the following. In order
+            to promote innovation and reflect the open foundation set before us
+            most components for this site will be released under GPL-3.0 License
+            and after we prepare and refactor the repository for such components
+            will be announced. For security purposes, the Sushiswap community
+            reserves the right to protect certain operationally sensitive
+            offchain widgets such as support features, branding, and design
+            assets. We will always strive to allow the most permissible
+            licensing possible to balance these constraints.
+          </p>
           <div className="sushi-mt-8">
             <div className="sushi-flex sushi-items-center">
               <h4 className="sushi-flex-shrink-0 sushi-pr-4 sushi-bg-white sushi-text-sm sushi-leading-5 sushi-tracking-wider sushi-font-semibold sushi-uppercase sushi-text-orange-600">

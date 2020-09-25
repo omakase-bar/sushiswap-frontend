@@ -21,6 +21,7 @@ import About from "./pages/About";
 import OmakaseBar from "./pages/OmakaseBar";
 import Wallet from "./pages/Wallet";
 // Widgets
+import WidgetAbout from "./components/Cards/About";
 import WidgetBalance from "./components/Cards/Balance/Layout";
 import WidgetResources from "./components/Cards/Resources/Layout";
 import WidgetSocialMedia from "./components/Cards/SocialMedia/Layout";
@@ -122,7 +123,6 @@ const App = () => {
   const globalData = useGlobalData();
   const globalChartData = useGlobalChartData();
   const latestBlock = useLatestBlock();
-
   const construction = useModalOpen();
   return (
     <>
@@ -213,6 +213,7 @@ const App = () => {
                   path="/widgets/governance/election"
                   component={WidgetGovernanceElection}
                 />
+                <Route exact path="/widgets/about" component={WidgetAbout} />
                 {/* <Route exact path="/widgets/swap" component={WidgetSwap} />
                 <Route exact path="/widgets/pool" component={WidgetPool} /> */}
 
