@@ -45,9 +45,10 @@ const Governance = () => {
             announcement={"Learn more about voting and token timelocks"}
           /> */}
             <SectionCards>
+              <CardGovernanceActions />
+              {/* <CardGovernanceActions /> */}
               <CardGovernanceMultisig />
               {/* <CardGovernanceActivity title={"Proposal Activity"} /> */}
-              <CardGovernanceActions />
             </SectionCards>
             {/* <TableProposals /> */}
           </main>

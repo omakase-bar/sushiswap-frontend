@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { isAddress } from "../classic/vision/utils";
 import WalletButton from "./WalletButton";
 //import TokenLogo from "../classic/vision/components/TokenLogo";
@@ -17,6 +17,7 @@ const PageTitleBreadcrumb = ({
   id2,
   showWallets,
 }) => {
+  const history = useHistory();
   return (
     <>
       {
@@ -25,8 +26,10 @@ const PageTitleBreadcrumb = ({
             <div className="sushi-border-b sushi-border-gray-200 sushi-py-6 sushi-px-8">
               <div>
                 <nav className="sm:sushi-hidden">
-                  <Link
-                    href="/pairs"
+                  <button
+                    onClick={() => {
+                      history.goBack();
+                    }}
                     className="sushi-flex sushi-items-center sushi-text-sm sushi-leading-5 sushi-font-medium sushi-text-gray-500 hover:sushi-text-gray-700 sushi-transition sushi-duration-150 sushi-ease-in-out"
                   >
                     <svg
@@ -41,7 +44,7 @@ const PageTitleBreadcrumb = ({
                       />
                     </svg>
                     Back
-                  </Link>
+                  </button>
                 </nav>
                 <nav className="sushi-hidden sm:sushi-flex sushi-items-center sushi-text-sm sushi-leading-5 sushi-font-medium">
                   <Link
@@ -127,8 +130,10 @@ const PageTitleBreadcrumb = ({
             <div className="sushi-border-b sushi-border-gray-200 sushi-py-6 sushi-px-8">
               <div>
                 <nav className="sm:sushi-hidden">
-                  <Link
-                    href="/tokens"
+                  <button
+                    onClick={() => {
+                      history.goBack();
+                    }}
                     className="sushi-flex sushi-items-center sushi-text-sm sushi-leading-5 sushi-font-medium sushi-text-gray-500 hover:sushi-text-gray-700 sushi-transition sushi-duration-150 sushi-ease-in-out"
                   >
                     <svg
@@ -143,7 +148,7 @@ const PageTitleBreadcrumb = ({
                       />
                     </svg>
                     Back
-                  </Link>
+                  </button>
                 </nav>
                 <nav className="sushi-hidden sm:sushi-flex sushi-items-center sushi-text-sm sushi-leading-5 sushi-font-medium">
                   <Link
@@ -206,7 +211,7 @@ const PageTitleBreadcrumb = ({
                   <span className="sushi-ml-3 sushi-shadow-sm sushi-rounded-md">
                     <button
                       type="button"
-                      className="sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-transparent sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-white sushi-bg-orange-600 hover:sushi-bg-orange-500 focus:sushi-outline-none focus:sushi-shadow-outline-orange focus:sushi-border-orange-700 active:sushi-bg-orange-700 sushi-transition sushi-duration-150 sushi-ease-in-out"
+                      className="sushi-h-full sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-transparent sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-white sushi-bg-orange-600 hover:sushi-bg-orange-500 focus:sushi-outline-none focus:sushi-shadow-outline-orange focus:sushi-border-orange-700 active:sushi-bg-orange-700 sushi-transition sushi-duration-150 sushi-ease-in-out"
                     >
                       Trade
                     </button>
