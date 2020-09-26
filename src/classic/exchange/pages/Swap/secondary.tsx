@@ -252,7 +252,7 @@ export default function Swap() {
     recipient
   );
 
-  console.log("🍣", swapCallback, trade, allowedSlippage, deadline, recipient);
+  //console.log("🍣", swapCallback, trade, allowedSlippage, deadline, recipient);
 
   const { priceImpactWithoutFee } = computeTradePriceBreakdown(trade);
 
