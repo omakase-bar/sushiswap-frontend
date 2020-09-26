@@ -76,6 +76,8 @@ import AppBody from "../AppBody";
 import { ClickableText } from "../Pool/styleds";
 import Loader from "../../components/Loader";
 
+import Settings from '../../components/Settings'
+
 export default function Swap() {
   const loadedUrlParams = useDefaultsFromURLSearch();
 
@@ -250,7 +252,7 @@ export default function Swap() {
     recipient
   );
 
-  //console.log("🍣", swapCallback, trade, allowedSlippage, deadline, recipient);
+  console.log("🍣", swapCallback, trade, allowedSlippage, deadline, recipient);
 
   const { priceImpactWithoutFee } = computeTradePriceBreakdown(trade);
 
@@ -380,6 +382,7 @@ export default function Swap() {
         onConfirm={handleConfirmTokenWarning}
       />
       <Wrapper id="swap-page">
+        <Settings />
         <ConfirmSwapModal
           isOpen={showConfirm}
           trade={trade}
