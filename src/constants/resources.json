@@ -1,0 +1,118 @@
+{
+  "announcements": [
+    {
+      "title": "Team proposal: Omakase + Jiro Ono",
+      "description": "We need to grow the team before moving forward I’d like to share a brief draft of ...",
+      "url": "https://forum.sushiswapclassic.org/t/team-proposal-omakasebar-jiroono/399",
+      "cta": "Forum"
+    },
+    {
+      "title": "Update regarding temporary lock-up of emissions",
+      "description": "We have found a safer, and more efficient way, of doing the temporary lock-up of 2/3...",
+      "url": "https://discord.com/channels/748031363935895552/748478893929005066/758812303407317002",
+      "cta": "Discord"
+    },
+    {
+      "title": "Bentobox lending solution proposal",
+      "description": "https://forum.sushiswapclassic.org/t/bentobox-lending-solution-proposal/343",
+      "url": "/",
+      "cta": "Forum"
+    },
+    {
+      "title": "New interface for sushiswap.fi live",
+      "description": "Soft launch for smoke testing (4 versions behind). Please note, active changes are being made...",
+      "url": "/",
+      "cta": "Twitter"
+    },
+    {
+      "title": "Hiring of our very own @ctrl as COO",
+      "description": "2 Proposals have been submitted to the brand new Snapshot interface...",
+      "url": "https://snapshot.page/#/sushi/proposal/QmVNYANPeQaoxqmh46S2fpR2j8iKa1qW4RxWqT6PuRRafh",
+      "cta": "Snapshot"
+    },
+    {
+      "title": "Rotation of pool incentives",
+      "description": "2 Proposals have been submitted to the brand new Snapshot interface...",
+      "url": "https://snapshot.page/#/sushi/proposal/QmWQjtyfmJZ6CQEu2ULsAyTrLoBnHZr9Nw5y9wCcRRZUD3",
+      "cta": "Snapshot"
+    }
+  ],
+  "mediums": [
+    {
+      "title": "Grand Opening of SushiSwap",
+      "description": "Migration was a success congratulations to everyone involved and the LP who are going to be receiving some extra...",
+      "url": "/",
+      "cta": "Read"
+    },
+    {
+      "title": "Migration FAQ",
+      "description": "So what’s happening? 🔀",
+      "url": "/",
+      "cta": "Read"
+    },
+    {
+      "title": "🍣 SushiSwap BUIDL Grants",
+      "description": "I don’t have much time these days. So I will try to keep this post short and concise...",
+      "url": "/",
+      "cta": "Read"
+    },
+    {
+      "title": "24 Hours Countdown for SUSHI distributions",
+      "description": "With 48-hour admin timelock enabled, we’re now 100%....",
+      "url": "/",
+      "cta": "Read"
+    },
+    {
+      "title": "The SushiSwap Project 🍣🍣🍣",
+      "description": "An evolution of Uniswap with SUSHI tokenomics.",
+      "url": "/",
+      "cta": "Read"
+    }
+  ],
+  "tweets": [
+    {
+      "title": "New on the @SushiSwap menu: 🌑 Moonbeam ",
+      "description": "We've submitted a proposal to port SushiSwap to Moonbeam (+ @Polkadot) using our Ethereum...",
+      "url": "https://twitter.com/MoonbeamNetwork/status/1309587317435387905",
+      "cta": "Read"
+    },
+    {
+      "title": "My next project, better lending solution for DeFi:",
+      "description": "Platforms like Compound and Aave allow users to deposit assets as collateral...",
+      "url": "https://twitter.com/Boring_Crypto/status/1309008698161999877",
+      "cta": "Read"
+    },
+    {
+      "title": "SushiSwap Wechat Official Account is live now! To keep our Chinese community updated...",
+      "description": "Search SushiSwap on Wechat or scan the QR code now.",
+      "url": "https://twitter.com/SushiSwap/status/1308922341641027585",
+      "cta": "Read"
+    },
+    {
+      "title": "A new core proposal to make items on the menu rotate every week",
+      "description": "10 new pairs voted by the community, more details here...",
+      "url": "https://twitter.com/SushiSwap/status/1308625110757187584",
+      "cta": "Read"
+    },
+    {
+      "title": "Unique users on top Dapps",
+      "description": "@UniswapProtocol- 229,161 Forsage -  71,709 @SushiSwap- 18,251",
+      "url": "https://twitter.com/Bitquery_io/status/1308436792119451649",
+      "cta": "Read"
+    }
+  ],
+  "wechats": [
+    {
+      "title": "社区治理议案：建立社区成长基金",
+      "description": "目前，SushiSwap拥有一个总值大约1100万SUSHI...",
+      "url": "https://mp.weixin.qq.com/s?__biz=Mzg4NjQ5NzczOA==&mid=2247483671&idx=1&sn=86648a0ce0dae5ea185851c285cd5dc4&chksm=cf9989b2f8ee00a4cba21e3d434e7a229dd29faee0a1bf6c8bbbed9058ca1b4e035255d13700&token=1236085375&lang=zh_CN#rd",
+      "cta": "Read"
+    },
+    {
+      "title": " 团队扩招",
+      "description": "SushiSwap技术研发团队正在全球扩...",
+      "url": "https://mp.weixin.qq.com/s?__biz=Mzg4NjQ5NzczOA==&mid=2247483657&idx=1&sn=c244c39a05924d0fe51df8df0737506e&chksm=cf9989acf8ee00ba0fdaff641e87201ab061b1229d9258a3815fd5d7ae063e27eb50c2e4cad8&token=1236085375&lang=zh_CN#rd",
+      "cta": "Read"
+    }
+  ]
+}

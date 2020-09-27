@@ -1,0 +1,30 @@
+{
+  "completed": [
+    {
+      "title": "Liquidity Migration™️ Proposal",
+      "description": "Deploy all the necessary smart contracts - Migrator, SushiSwapFactory (UniswapFactory), SushiMaker, and SushiBar- and set 'setMigrator' function call the Timelock smart contract.",
+      "url": "/",
+      "cta": "View"
+    },
+    {
+      "title": "Grant Proposal: https://sushi.zippo.io",
+      "description": "Transfer weighted average value devshare $SUSHI tokens to @zippoxer address",
+      "url": "/",
+      "cta": "View"
+    }
+  ],
+  "pending": [
+    {
+      "title": "Liquidity Migration™️ Proposal",
+      "description": "Deploy all the necessary smart contracts - Migrator, SushiSwapFactory (UniswapFactory), SushiMaker, and SushiBar- and set 'setMigrator' function call the Timelock smart contract.",
+      "url": "/",
+      "cta": "View"
+    },
+    {
+      "title": "Grant Proposal: https://sushi.zippo.io",
+      "description": "Transfer weighted average value devshare $SUSHI tokens to @zippoxer address",
+      "url": "/",
+      "cta": "View"
+    }
+  ]
+}

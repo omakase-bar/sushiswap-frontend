@@ -14,6 +14,10 @@ const Tabs = ({ selected, setSelected }) => {
       title: "Medium",
       id: "medium",
     },
+    {
+      title: "Wechat",
+      id: "wechat",
+    },
   ];
   return (
     <div>
