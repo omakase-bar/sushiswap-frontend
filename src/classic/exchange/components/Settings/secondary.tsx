@@ -106,11 +106,6 @@ const MenuFlyout = styled.span`
   top: 3rem;
   right: 0rem;
   z-index: 100;
-
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-    min-width: 18.125rem;
-    right: -46px;
-  `};
 `;
 
 const Break = styled.div`
