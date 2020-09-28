@@ -76,7 +76,7 @@ import AppBody from "../AppBody";
 import { ClickableText } from "../Pool/styleds";
 import Loader from "../../components/Loader";
 
-import Settings from '../../components/Settings'
+import Settings from "../../components/Settings/secondary";
 
 export default function Swap() {
   const loadedUrlParams = useDefaultsFromURLSearch();
