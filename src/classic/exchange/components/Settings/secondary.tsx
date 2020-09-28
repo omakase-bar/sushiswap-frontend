@@ -49,20 +49,24 @@ const StyledMenuButton = styled.button`
   width: 100%;
   height: 100%;
   border: none;
-  background-color: transparent;
-  margin: 0;
-  padding: 0;
-  height: 35px;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: #ffffff;
+  margin-bottom: 5px;
+  border: 1px solid #d2d6dc;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  color: #374151;
 
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.5rem;
-
-  :hover,
+  :hover {
+    cursor: pointer;
+    outline: none;
+    color: #6b7280;
+  }
   :focus {
     cursor: pointer;
     outline: none;
-    background-color: ${({ theme }) => theme.bg4};
+    color: #6b7280;
+    box-shadow: 0 0 0 3px rgba(164, 202, 254, 0.45);
   }
 
   svg {
@@ -77,7 +81,6 @@ const EmojiWrapper = styled.div`
 `;
 
 const StyledMenu = styled.div`
-  margin-left: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,6 +90,7 @@ const StyledMenu = styled.div`
 `;
 
 const MenuFlyout = styled.span`
+  width: 100%;
   min-width: 20.125rem;
   background-color: ${({ theme }) => theme.bg1};
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04),
@@ -196,7 +200,7 @@ export default function SettingsTab() {
         </ModalContentWrapper>
       </Modal>
       <StyledMenuButton onClick={toggle} id="open-settings-dialog-button">
-        Settings
+        ⚙️ Settings
         {expertMode && (
           <EmojiWrapper>
             <span role="img" aria-label="wizard-icon">
