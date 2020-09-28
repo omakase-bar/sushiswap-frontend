@@ -76,6 +76,8 @@ import AppBody from "../AppBody";
 import { ClickableText } from "../Pool/styleds";
 import Loader from "../../components/Loader";
 
+import Settings from "../../components/Settings/secondary";
+
 export default function Swap() {
   const loadedUrlParams = useDefaultsFromURLSearch();
 
@@ -380,6 +382,7 @@ export default function Swap() {
         onConfirm={handleConfirmTokenWarning}
       />
       <Wrapper id="swap-page">
+        <Settings />
         <ConfirmSwapModal
           isOpen={showConfirm}
           trade={trade}
