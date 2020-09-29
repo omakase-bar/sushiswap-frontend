@@ -436,4 +436,17 @@ export const supportedPools = [
     tokenSymbol: "CRO",
     icon: "👨🏻‍🍳",
   },
+  {
+    pid: 28,
+    lpAddresses: {
+      1: "0x518d6CE2D7A689A591Bf46433443C31615b206C5",
+    },
+    tokenAddresses: {
+      1: "0xeb4c2781e4eba804ce9a9803c67d0893436bb27d",
+    },
+    name: "Chef's Menu",
+    symbol: "renBTC-WBTC SLP",
+    tokenSymbol: "renBTC",
+    icon: "👨🏻‍🍳",
+  },
 ];
