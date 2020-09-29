@@ -3358,14 +3358,14 @@ class SushiBar extends Web3Component {
     super(options);
 
     this.makerPairs = [];
-    this.eth_rate = 0n;
-    this.sushi = 0n;
-    this.barSushi = 0n;
-    this.xsushi = 0n;
-    this.totalXSushi = 0n;
-    this.allowance = 0n;
-    this.poolShare = 0n;
-    this.sushiStake = 0n;
+    this.eth_rate = BigInt(0);
+    this.sushi = BigInt(0);
+    this.barSushi = BigInt(0);
+    this.xsushi = BigInt(0);
+    this.totalXSushi = BigInt(0);
+    this.allowance = BigInt(0);
+    this.poolShare = BigInt(0);
+    this.sushiStake = BigInt(0);
   }
 
   ETHtoCurrency(value) {
@@ -3434,7 +3434,7 @@ class SushiBar extends Web3Component {
 
       pair.shareOfPool = pair.totalSupply
         ? (pair.balance * BigInt("1000000000000000000")) / pair.totalSupply
-        : 0n;
+        : BigInt(0);
       pair.totalToken0 =
         (pair.reserve0 * pair.shareOfPool) / BigInt("1000000000000000000");
       pair.totalToken1 =
@@ -3486,7 +3486,7 @@ class SushiBar extends Web3Component {
               l.events[1].value == "0x8798249c2e607446efb7ad49ec89dd1865ff4272"
           )
           .map((l) => BigInt(l.events[2].value))
-          .reduce((a, b) => a + b, 0n);
+          .reduce((a, b) => a + b, BigInt(0));
         serve.pair = logsData.filter((l) => l.name == "Burn")[0].address;
         return serve;
       }
@@ -3549,7 +3549,10 @@ class SushiBar extends Web3Component {
 
   async allow() {
     await this.web3.sushi
-      .approve(this.web3.bar.address, 1000000000000000000000000000000000000n)
+      .approve(
+        this.web3.bar.address,
+        BigInt(1000000000000000000000000000000000000)
+      )
       .send({ from: this.address, gas: 60000 });
   }
 
@@ -3664,7 +3667,7 @@ class ERC20Handler {
       )
       .call();
     for (var i in balances) {
-      if (BigInt(balances[i].balance) > 0n) {
+      if (BigInt(balances[i].balance) > BigInt(0)) {
         this.assets.add(
           {
             address: balances[i].token,
@@ -3701,7 +3704,7 @@ class ERC20Handler {
       let asset = this.assets.get(balances[i].token);
       objAssign(asset, rpcToObj(balances[i]));
       if (asset.address == "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2") {
-        asset.rate = 1000000000000000000n;
+        asset.rate = BigInt(1000000000000000000);
       }
     }
   }
@@ -3732,19 +3735,19 @@ class UniV2Handler {
   async find(address, allAssets) {
     for (let i in this.factories) {
       let factory = this.factories[i];
-      let stepsize = 3333n;
-      for (let b = 0n; b <= factory.allPairsLength / stepsize; b++) {
+      let stepsize = BigInt(3333);
+      for (let b = BigInt(0); b <= factory.allPairsLength / stepsize; b++) {
         let pairs = await this.assets.web3.dashboard
           .findPairs(
             address,
             factory.factory,
             b * stepsize,
-            bigIntMin(factory.allPairsLength, (b + 1n) * stepsize)
+            bigIntMin(factory.allPairsLength, (b + BigInt(1)) * stepsize)
           )
           .call();
         console.log(
           b * stepsize,
-          bigIntMin(factory.allPairsLength, (b + 1n) * stepsize),
+          bigIntMin(factory.allPairsLength, (b + BigInt(1)) * stepsize),
           pairs
         );
         for (let i in pairs) {
@@ -3817,7 +3820,7 @@ class Assets extends Web3Component {
     if (this._allAssetsMap[asset.address]) {
       objAssign(asset, this._allAssetsMap[asset.address]);
     }
-    asset.balance = asset.balance || 0n;
+    asset.balance = asset.balance || BigInt(0);
     asset.handler = this._handlerMap[handler];
     if (!this._assetmap[asset.address]) {
       this.assets.push(asset);
@@ -3996,7 +3999,7 @@ class SushiPools extends Web3Component {
       pool.shareOfUniswapPool = pool.uniTotalSupply
         ? (pool.totalSupply * BigInt("1000000000000000000")) /
           pool.uniTotalSupply
-        : 0n; // Staked share of all lp tokens. 100% = 1e18.
+        : BigInt(0); // Staked share of all lp tokens. 100% = 1e18.
       pool.totalStakedToken0 =
         (pool.reserve0 * pool.shareOfUniswapPool) /
         BigInt("1000000000000000000"); // Staked lp tokens contain this much of token0.
@@ -4018,7 +4021,7 @@ class SushiPools extends Web3Component {
 
       pool.shareOfPool = pool.totalSupply
         ? (pool.balance * BigInt("1000000000000000000")) / pool.totalSupply
-        : 0n;
+        : BigInt(0);
       pool.userStakedToken0 =
         (pool.totalStakedToken0 * pool.shareOfPool) /
         BigInt("1000000000000000000"); // Staked lp tokens contain this much of token0.
@@ -4036,12 +4039,12 @@ class SushiPools extends Web3Component {
         pool.valueStakedToken0 + pool.valueStakedToken1
           ? (pool.sushiRewardInETH * BigInt(276000000)) /
             (pool.valueStakedToken0 + pool.valueStakedToken1)
-          : 0n; // Hourly ROI
+          : BigInt(0); // Hourly ROI
       pool.dailyROI =
         pool.valueStakedToken0 + pool.valueStakedToken1
           ? (pool.sushiRewardInETH * BigInt(6613000000)) /
             (pool.valueStakedToken0 + pool.valueStakedToken1)
-          : 0n; // Daily ROI
+          : BigInt(0); // Daily ROI
       pool.monthlyROI = pool.dailyROI * BigInt(30); // Monthly ROI
       pool.yearlyROI = pool.dailyROI * BigInt(365); // Yearly ROI
 
