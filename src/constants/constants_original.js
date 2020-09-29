@@ -276,7 +276,7 @@ export const supportedPools = [
       1: "0x68A118Ef45063051Eac49c7e647CE5Ace48a68a5",
     },
     name: "BASED Bull",
-    symbol: "BASED-sUSD SLP",
+    symbol: "BASE-sUSD SLP",
     tokenSymbol: "BASED",
     icon: "🐂",
   },
@@ -319,121 +319,21 @@ export const supportedPools = [
     tokenSymbol: "CRV",
     icon: "🐊",
   },
+];
+
+export const menuOfTheWeek = [
   {
-    pid: 19,
+    pid: 12,
     lpAddresses: {
-      1: "0x36e2FCCCc59e5747Ff63a03ea2e5C0c2C14911e7",
+      1: "0x795065dCc9f64b5614C407a6EFDC400DA6221FB0",
     },
     tokenAddresses: {
-      1: "0x8798249c2E607446EfB7Ad49eC89dD1865Ff4272",
+      1: "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2",
     },
-    name: "Chef's Menu",
-    symbol: "xSUSHI-ETH SLP",
-    tokenSymbol: "xSUSHI",
-    icon: "👨🏻‍🍳",
-  },
-  {
-    pid: 20,
-    lpAddresses: {
-      1: "0x0Cfe7968e7c34A51217a7C9b9dc1690F416E027e",
-    },
-    tokenAddresses: {
-      1: "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643",
-    },
-    name: "Chef's Menu",
-    symbol: "cDAI-DAI SLP",
-    tokenSymbol: "cDAI",
-    icon: "‍👨🏻‍🍳",
-  },
-  {
-    pid: 21,
-    lpAddresses: {
-      1: "0xceff51756c56ceffca006cd410b03ffc46dd3a58",
-    },
-    tokenAddresses: {
-      1: "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
-    },
-    name: "Chef's Menu",
-    symbol: "WBTC-ETH SLP",
-    tokenSymbol: "WBTC",
-    icon: "👨🏻‍🍳",
-  },
-  {
-    pid: 22,
-    lpAddresses: {
-      1: "0xf169CeA51EB51774cF107c88309717ddA20be167",
-    },
-    tokenAddresses: {
-      1: "0x2ba592F78dB6436527729929AAf6c908497cB200",
-    },
-    name: "Chef's Menu",
-    symbol: "CREAM-ETH SLP",
-    tokenSymbol: "CREAM",
-    icon: "👨🏻‍🍳",
-  },
-  {
-    pid: 23,
-    lpAddresses: {
-      1: "0x17b3C19Bd640a59E832AB73eCcF716CB47419846",
-    },
-    tokenAddresses: {
-      1: "0xD5525D397898e5502075Ea5E830d8914f6F0affe",
-    },
-    name: "Chef's Menu",
-    symbol: "MEME-ETH SLP",
-    tokenSymbol: "MEME",
-    icon: "👨🏻‍🍳",
-  },
-  {
-    pid: 24,
-    lpAddresses: {
-      1: "0xFcff3b04C499A57778ae2CF05584ab24278A7FCb",
-    },
-    tokenAddresses: {
-      1: "0x0d438f3b5175bebc262bf23753c1e53d03432bde",
-    },
-    name: "Chef's Menu",
-    symbol: "wNXM-ETH SLP",
-    tokenSymbol: "wNXM",
-    icon: "👨🏻‍🍳",
-  },
-  {
-    pid: 25,
-    lpAddresses: {
-      1: "0x382c4a5147Fd4090F7BE3A9Ff398F95638F5D39E",
-    },
-    tokenAddresses: {
-      1: "0x5dbcf33d8c2e976c6b560249878e6f1491bca25c",
-    },
-    name: "Chef's Menu",
-    symbol: "yUSD-ETH SLP",
-    tokenSymbol: "yUSD",
-    icon: "👨🏻‍🍳",
-  },
-  {
-    pid: 26,
-    lpAddresses: {
-      1: "0x2024324a99231509a3715172d4f4f4e751b38d4d",
-    },
-    tokenAddresses: {
-      1: "0x5dbcf33d8c2e976c6b560249878e6f1491bca25c",
-    },
-    name: "Chef's Menu",
-    symbol: "yUSD-WBTC SLP",
-    tokenSymbol: "yUSD",
-    icon: "👨🏻‍🍳",
-  },
-  {
-    pid: 27,
-    lpAddresses: {
-      1: "0x0be88ac4b5C81700acF3a606a52a31C261a24A35",
-    },
-    tokenAddresses: {
-      1: "0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b",
-    },
-    name: "Chef's Menu",
-    symbol: "CRO-ETH SLP",
-    tokenSymbol: "CRO",
-    icon: "👨🏻‍🍳",
+    name: "Sushi Party!",
+    symbol: "SUSHI-ETH SLP",
+    tokenSymbol: "SUSHI",
+    icon: "🍣",
+    uniswapPairId: "",
   },
 ];

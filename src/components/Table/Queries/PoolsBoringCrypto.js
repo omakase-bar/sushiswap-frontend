@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import _ from "lodash";
 
-import Pools from "../PoolsBoring";
+//import Pools from "../PoolsBoring";
 import Loading from "../Loading";
 
 import { SushiPools } from "../../../sushiswap";

@@ -20,6 +20,7 @@ import Faqs from "./pages/Faqs";
 import About from "./pages/About";
 import OmakaseBar from "./pages/OmakaseBar";
 import Wallet from "./pages/Wallet";
+import WeeklyMenu from "./pages/WeeklyMenu";
 // Widgets
 import WidgetAbout from "./components/Cards/About";
 import WidgetBalance from "./components/Cards/Balance/Layout";
@@ -156,6 +157,7 @@ const App = () => {
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/wallet" component={Wallet} />
                 <Route exact path="/omakase-bar" component={OmakaseBar} />
+                <Route exact path="/weekly" component={WeeklyMenu} />
                 <Route exact path="/tokens" component={Tokens} />
                 <Route
                   exacts

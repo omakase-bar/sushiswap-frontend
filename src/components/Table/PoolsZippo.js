@@ -160,7 +160,9 @@ const Stake = ({ pool, lpContract, pid, tokenName, lpTokenAddress }) => {
       </td>
       <td className="sushi-px-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
         <div>{Number(getBalanceNumber(stakedBalance)).toFixed(4)}</div>{" "}
-        <div className="sushi-mt-1 sushi-text-xs sushi-text-gray-500">{tokenName}</div>
+        <div className="sushi-mt-1 sushi-text-xs sushi-text-gray-500">
+          {tokenName}
+        </div>
       </td>
       <td className="sushi-pl-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
         {!allowance.toNumber() ? (
@@ -238,9 +240,13 @@ const Stake = ({ pool, lpContract, pid, tokenName, lpTokenAddress }) => {
                     <Value
                       value={!!account ? getBalanceNumber(earnings) : "Locked"}
                     />{" "}
-                    <span className="sushi-text-xs sushi-text-gray-500">SUSHI</span>
+                    <span className="sushi-text-xs sushi-text-gray-500">
+                      SUSHI
+                    </span>
                   </div>
-                  <div className="sushi-text-xs sushi-text-gray-500">Click to harvest</div>
+                  <div className="sushi-text-xs sushi-text-gray-500">
+                    Click to harvest
+                  </div>
                 </div>
               </>
             ) : (
@@ -253,9 +259,13 @@ const Stake = ({ pool, lpContract, pid, tokenName, lpTokenAddress }) => {
                     <Value
                       value={!!account ? getBalanceNumber(earnings) : "Locked"}
                     />
-                    <span className="sushi-ml-2 sushi-text-xs sushi-text-gray-500">SUSHI</span>
+                    <span className="sushi-ml-2 sushi-text-xs sushi-text-gray-500">
+                      SUSHI
+                    </span>
                   </div>
-                  <div className="sushi-text-xs sushi-text-gray-500">No rewards</div>
+                  <div className="sushi-text-xs sushi-text-gray-500">
+                    No rewards
+                  </div>
                 </div>
               </>
             )}
@@ -293,7 +303,7 @@ const Pools = ({
   const BLOCKS_PER_YEAR = new BigNumber(2336000);
   const SUSHI_PER_BLOCK = new BigNumber(100);
 
-  console.log("POOLS:", farms);
+  console.log("ZIPPO POOLS:", pools);
 
   return (
     <>

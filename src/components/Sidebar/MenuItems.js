@@ -52,6 +52,32 @@ const MenuItems = ({ selected }) => {
           Omakase Bar
         </Link>
         <Link
+          to="/weekly"
+          className={
+            selected === "weekly"
+              ? "sushi-neumorphic-drop-shadow sushi-group sushi-flex sushi-items-center sushi-px-2 sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-900 sushi-bg-orange-50 focus:sushi-outline-none focus:sushi-bg-orange-50 sushi-transition sushi-ease-in-out sushi-duration-150"
+              : "sushi-group sushi-flex sushi-items-center sushi-px-2 sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 hover:sushi-text-gray-900 hover:sushi-bg-orange-200 focus:sushi-outline-none focus:sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150"
+          }
+        >
+          <svg
+            className="sushi-mr-3 sushi-h-6 sushi-w-6 sushi-text-gray-400 group-hover:sushi-text-gray-500 group-focus:sushi-text-gray-600 sushi-transition sushi-ease-in-out sushi-duration-150"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+            />
+          </svg>
+          Menu of the Week
+          <span className="sushi-ml-auto sushi-inline-block sushi-py-0.5 sushi-px-3 sushi-text-xs sushi-leading-4 sushi-font-medium sushi-rounded-full sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150 group-hover:sushi-bg-orange-200 group-focus:sushi-bg-orange-200">
+            NEW
+          </span>
+        </Link>
+        <Link
           to="/pools"
           className={
             selected === "pools"
@@ -122,9 +148,9 @@ const MenuItems = ({ selected }) => {
             ></path>
           </svg>
           Pairs
-          <span className="sushi-ml-auto sushi-inline-block sushi-py-0.5 sushi-px-3 sushi-text-xs sushi-leading-4 sushi-font-medium sushi-rounded-full sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150 group-hover:sushi-bg-orange-200 group-focus:sushi-bg-orange-200">
+          {/* <span className="sushi-ml-auto sushi-inline-block sushi-py-0.5 sushi-px-3 sushi-text-xs sushi-leading-4 sushi-font-medium sushi-rounded-full sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150 group-hover:sushi-bg-orange-200 group-focus:sushi-bg-orange-200">
             3
-          </span>
+          </span> */}
         </Link>
         {/* <Link
                 to="/accounts"
@@ -173,9 +199,9 @@ const MenuItems = ({ selected }) => {
             ></path>
           </svg>
           Governance
-          <span className="sushi-ml-auto sushi-inline-block sushi-py-0.5 sushi-px-3 sushi-text-xs sushi-leading-4 sushi-font-medium sushi-rounded-full sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150 group-hover:sushi-bg-orange-200 group-focus:sushi-bg-orange-200">
+          {/* <span className="sushi-ml-auto sushi-inline-block sushi-py-0.5 sushi-px-3 sushi-text-xs sushi-leading-4 sushi-font-medium sushi-rounded-full sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150 group-hover:sushi-bg-orange-200 group-focus:sushi-bg-orange-200">
             47
-          </span>
+          </span> */}
         </Link>
         {/* <Link
                 to="/grants"
