@@ -77,7 +77,8 @@ const Pools = ({ pools, showWallets }) => {
     },
   ];
 
-  console.log("WEEKLY POOLS:", pools);
+  pools = pools.splice(0, 19);
+  //console.log("WEEKLY POOLS:", pools);
 
   return (
     <>
