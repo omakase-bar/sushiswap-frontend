@@ -85,7 +85,7 @@ const Pools = ({ pools, showWallets }) => {
       <div className="sushi-px-4 lg:sushi-flex lg:sushi-items-center lg:sushi-justify-between">
         <div className="sushi-flex-1 sushi-min-w-0">
           <h2 className="sushi-max-w-6xl sushi-mx-auto sushi-mt-8 sushi-px-4 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-cool-gray-900 sushi-">
-            Menu of the Week
+            Menu of the Week ✨
           </h2>
           <Toggle showWallets={showWallets} />
         </div>
