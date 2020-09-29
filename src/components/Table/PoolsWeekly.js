@@ -25,6 +25,8 @@ import useEarnings from "../../classic/frontend/hooks/useEarnings";
 import useReward from "../../classic/frontend/hooks/useReward";
 import Value from "../Cards/Balance/Value";
 
+import _ from "lodash";
+
 //import { isAddress } from "../../classic/vision/utils/index.js";
 //import logoNotFound from "../../assets/logoNotFound.png";
 
@@ -74,8 +76,10 @@ const Pools = ({ pools, showWallets }) => {
       id: "rewards.hourlyROI",
     },
   ];
-  pools = pools.slice(-9);
   //console.log("WEEKLY POOLS:", pools);
+  const filtered = _.filter(pools, function(pool) {
+    return pool.pid > 18;
+  });
 
   return (
     <>
@@ -146,8 +150,8 @@ const Pools = ({ pools, showWallets }) => {
               </tr>
             </thead>
             <tbody className="sushi-bg-white sushi-divide-y sushi-divide-gray-200">
-              {pools && pools.length > 0
-                ? pools.map((pool) => {
+              {filtered && filtered.length > 0
+                ? filtered.map((pool) => {
                     return (
                       <tr>
                         <td
