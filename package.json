@@ -55,6 +55,7 @@
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
     "apollo-link-token-refresh": "^0.3.1",
+    "big-integer": "^1.6.48",
     "bignumber.js": "^9.0.0",
     "cids": "^1.0.0",
     "classnames": "^2.2.6",

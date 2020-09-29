@@ -28,6 +28,9 @@ import WidgetSocialMedia from "./components/Cards/SocialMedia/Layout";
 import WidgetSummary from "./components/Cards/Summary";
 import WidgetGovernanceActions from "./components/Cards/GovernanceActions/Layout";
 import WidgetGovernanceElection from "./components/Cards/GovernanceMultisig/Layout";
+// Design Proposals
+import ProposalLanding from "./playground/Landing";
+import SushiswapSDK from "./components/Table/Queries/PoolsBoringCrypto";
 
 // import WidgetSwap from "./classic/exchange/pages/Swap";
 // import WidgetPool from "./classic/exchange/pages/Pool";
@@ -139,6 +142,16 @@ const App = () => {
           <Router>
             <Web3ReactManager>
               <Switch>
+                <Route
+                  exact
+                  path="/playground/tools/sdk"
+                  component={SushiswapSDK}
+                />
+                <Route
+                  exact
+                  path="/playground/proposals/landing"
+                  component={ProposalLanding}
+                />
                 <Route exact path="/" component={Home} />
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/wallet" component={Wallet} />
