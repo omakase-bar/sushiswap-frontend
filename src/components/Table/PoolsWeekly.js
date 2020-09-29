@@ -25,8 +25,8 @@ import useEarnings from "../../classic/frontend/hooks/useEarnings";
 import useReward from "../../classic/frontend/hooks/useReward";
 import Value from "../Cards/Balance/Value";
 
-import { isAddress } from "../../classic/vision/utils/index.js";
-import logoNotFound from "../../assets/logoNotFound.png";
+//import { isAddress } from "../../classic/vision/utils/index.js";
+//import logoNotFound from "../../assets/logoNotFound.png";
 
 const APYWrapper = ({ showWallets }) => {
   const [farms] = useFarms();
@@ -63,9 +63,7 @@ const APYWrapper = ({ showWallets }) => {
 };
 
 const Pools = ({ pools, showWallets }) => {
-  // For regular pool display
   const { account } = useWallet();
-
   const headers = [
     {
       name: "Pool",
@@ -76,8 +74,7 @@ const Pools = ({ pools, showWallets }) => {
       id: "rewards.hourlyROI",
     },
   ];
-
-  pools = pools.splice(0, 19);
+  pools = pools.slice(-9);
   //console.log("WEEKLY POOLS:", pools);
 
   return (
