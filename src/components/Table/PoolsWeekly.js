@@ -34,7 +34,10 @@ import "../../assets/shine.css";
 
 const UnlockWallet = ({ showWallets }) => {
   return (
-    <div className="sushi-mt-8 sushi-inline-block sushi-min-w-full sushi-align-middle">
+    <div
+      className="relative sushi-h-full sushi-inline-block sushi-min-w-full sushi-align-middle sushi-border-b sushi-border-gray-200 sushi-shadow sm:sushi-rounded-lg"
+      style={{ backgroundColor: "#ffeddb", overflowX: "hidden" }}
+    >
       <div
         className="relative sushi-mx-4 sushi-bg-cover sushi-bg-center sushi-border-b sushi-border-gray-200 sushi-shadow sm:sushi-rounded-lg"
         style={{
