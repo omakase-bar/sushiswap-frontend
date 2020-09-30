@@ -174,6 +174,7 @@ export const ThemedBackground = styled.div`
   top: 0px;
   left: 0px;
   z-index: 9999;
+  background: #ffffff
 
   transform: translateY(-110vh);
 `;
