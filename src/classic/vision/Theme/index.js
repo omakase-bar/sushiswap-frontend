@@ -170,8 +170,6 @@ export const ThemedBackground = styled.div`
   max-width: 100vw !important;
   height: 200vh;
   mix-blend-mode: color;
-  background: ${({ backgroundColor }) =>
-    `radial-gradient(50% 50% at 50% 50%, ${backgroundColor} 0%, rgba(255, 255, 255, 0) 100%)`};
   position: absolute;
   top: 0px;
   left: 0px;
@@ -179,6 +177,25 @@ export const ThemedBackground = styled.div`
 
   transform: translateY(-110vh);
 `;
+
+// export const ThemedBackground = styled.div`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   pointer-events: none;
+//   max-width: 100vw !important;
+//   height: 200vh;
+//   mix-blend-mode: color;
+//   background: ${({ backgroundColor }) =>
+//     `radial-gradient(50% 50% at 50% 50%, ${backgroundColor} 0%, rgba(255, 255, 255, 0) 100%)`};
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   z-index: 9999;
+
+//   transform: translateY(-110vh);
+// `;
 
 export const GlobalStyle = createGlobalStyle`
   html { font-family: 'Inter', sans-serif; }

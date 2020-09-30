@@ -2915,6 +2915,14 @@ img {
   .md\:sushi-grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .md\:sushi-grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:sushi-col-span-2 {
+    grid-column: span 2 / span 2;
+  }
 }
 
 @media (min-width: 1024px) {

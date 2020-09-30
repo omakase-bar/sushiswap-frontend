@@ -119,8 +119,12 @@ const Pools = ({ pools, showWallets }) => {
     <>
       <div className="sushi-px-4 lg:sushi-flex lg:sushi-items-center lg:sushi-justify-between">
         <div className="sushi-flex-1 sushi-min-w-0">
-          <h2 className="sushi-max-w-6xl sushi-mx-auto sushi-mt-8 sushi-px-4 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-cool-gray-900 sushi-">
-            Menu of the Week ✨
+          <h2 className="sushi-max-w-6xl sushi-mt-8 sushi-px-4 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-cool-gray-900 sushi-">
+            Menu of the Week
+            <span class="sushi-ml-3 sushi-inline-flex sushi-items-center sushi-px-3 sushi-py-0.5 sushi-rounded-full sushi-text-sm sushi-font-medium sushi-leading-5 sushi-bg-orange-100 sushi-text-orange-800">
+              Up to 350% APY
+            </span>
+            <span> ✨</span>
           </h2>
           <Toggle showWallets={showWallets} />
         </div>

@@ -4,7 +4,7 @@ import SearchHeader from "../components/SearchHeader2";
 import Sidebar from "../components/Sidebar/Layout";
 import MainSearch from "../components/MainSearch/Desktop";
 //import TableTopPairs from "../components/Table/Queries/TopPairs";
-import PoolsWeekly from "../components/Table/PoolsWeekly";
+import PoolsWeekly from "../components/Table/PoolsWeeklyZippo";
 import WalletModal from "../components/Modals/Wallet";
 import useMenu from "../shared/hooks/useMenu";
 import useModal from "../shared/hooks/useModal";

@@ -267,11 +267,6 @@ body {
   min-height: 100vh;
   background-position: 0 -30vh;
   background-repeat: no-repeat;
-  background-image: ${({ theme }) =>
-    `radial-gradient(50% 50% at 50% 50%, ${theme.primary5} 0%, ${transparentize(
-      1,
-      theme.primary4
-    )} 100%)`};
 }
 `;
 
