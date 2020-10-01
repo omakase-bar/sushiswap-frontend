@@ -155,7 +155,8 @@
     "build:styles": "postcss src/tailwind.css -o src/styles.css",
     "prebuild": "NODE_ENV=production npm run build:styles",
     "prestart": "npm run build:styles",
-    "generate": "graphql-codegen"
+    "generate": "graphql-codegen",
+    "postinstall": "rm -rf ./node_modules/@uniswap/sdk; cp -r ./forks/@uniswap/sdk ./node_modules/@uniswap/sdk"
   },
   "devDependencies": {},
   "browserslist": [
