@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { RowFixed, RowBetween } from "../Row";
 import { useMedia } from "react-use";
 import { useGlobalData, useEthPrice } from "../../contexts/GlobalData";
-import { formattedNum, localNumber } from "../../utils";
+import { formattedNum, formattedPercent, localNumber } from "../../utils";
+
+import { useTokenData } from "../../..//vision/contexts/TokenData";
 
 import UniPrice from "../UniPrice";
 import { TYPE } from "../../Theme";
@@ -27,6 +29,13 @@ export default function GlobalStats() {
 
   //const [showPriceCard, setShowPriceCard] = useState(false);
 
+  // SUSHI price
+  const { priceUSD, priceChangeUSD } = useTokenData(
+    "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2"
+  );
+  const price = priceUSD ? formattedNum(priceUSD, true) : "";
+  const priceChange = priceChangeUSD ? formattedPercent(priceChangeUSD) : "";
+
   const { oneDayVolumeUSD, oneDayTxns, pairCount } = useGlobalData();
   const [ethPrice] = useEthPrice();
   const formattedEthPrice = ethPrice ? formattedNum(ethPrice, true) : "-";
@@ -39,13 +48,13 @@ export default function GlobalStats() {
       <RowBetween style={{ padding: below816 ? "0.5rem" : ".5rem" }}>
         <RowFixed>
           <TYPE.main mr={"1rem"} style={{ position: "relative" }}>
-            ETH Price: <Medium>{formattedEthPrice}</Medium>
+            ETH: <Medium>{formattedEthPrice}</Medium>
+          </TYPE.main>
+          <TYPE.main mr={"1rem"} style={{ position: "relative" }}>
+            SUSHI: <Medium>{price}</Medium>
           </TYPE.main>
           <TYPE.main mr={"1rem"}>
             Transactions (24H): <Medium>{localNumber(oneDayTxns)}</Medium>
-          </TYPE.main>
-          <TYPE.main mr={"1rem"}>
-            Pairs: <Medium>{localNumber(pairCount)}</Medium>
           </TYPE.main>
           {/* {!below400 && (
             <TYPE.main
