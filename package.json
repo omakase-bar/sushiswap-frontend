@@ -55,6 +55,7 @@
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
     "apollo-link-token-refresh": "^0.3.1",
+    "big-integer": "^1.6.48",
     "bignumber.js": "^9.0.0",
     "cids": "^1.0.0",
     "classnames": "^2.2.6",
@@ -154,7 +155,8 @@
     "build:styles": "postcss src/tailwind.css -o src/styles.css",
     "prebuild": "NODE_ENV=production npm run build:styles",
     "prestart": "npm run build:styles",
-    "generate": "graphql-codegen"
+    "generate": "graphql-codegen",
+    "postinstall": "rm -rf ./node_modules/@uniswap/sdk; cp -r ./forks/@uniswap/sdk ./node_modules/@uniswap/sdk"
   },
   "devDependencies": {},
   "browserslist": [

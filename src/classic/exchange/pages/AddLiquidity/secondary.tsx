@@ -80,6 +80,10 @@ export default function AddLiquidity({ currencyIdA, currencyIdB }) {
         (currencyB && currencyEquals(currencyB, WETH[chainId])))
   );
 
+  // console.log("CURRENCYA:", currencyA);
+  // console.log("CURRENCYB:", currencyB);
+  // console.log("isWETH:", oneCurrencyIsWETH);
+
   const toggleWalletModal = useWalletModalToggle(); // toggle wallet when disconnected
 
   const expertMode = useIsExpertMode();
@@ -102,6 +106,23 @@ export default function AddLiquidity({ currencyIdA, currencyIdB }) {
   const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity);
 
   const isValid = !error;
+
+  // console.log("CURRENCYA2:", currencyA);
+  // console.log("CURRENCYB2:", currencyB);
+  // console.log("isValid:", isValid);
+  // console.log("Info:", {
+  //   dependentField,
+  //   currencies,
+  //   pair,
+  //   pairState,
+  //   currencyBalances,
+  //   parsedAmounts,
+  //   price,
+  //   noLiquidity,
+  //   liquidityMinted,
+  //   poolTokenPercentage,
+  //   error,
+  // });
 
   // modal and loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false);

@@ -21,6 +21,7 @@ import About from "./pages/About";
 import OmakaseBar from "./pages/OmakaseBar";
 import SushiBar from "./pages/SushiBar";
 import Wallet from "./pages/Wallet";
+import WeeklyMenu from "./pages/WeeklyMenu";
 // Widgets
 import WidgetAbout from "./components/Cards/About";
 import WidgetBalance from "./components/Cards/Balance/Layout";
@@ -29,6 +30,10 @@ import WidgetSocialMedia from "./components/Cards/SocialMedia/Layout";
 import WidgetSummary from "./components/Cards/Summary";
 import WidgetGovernanceActions from "./components/Cards/GovernanceActions/Layout";
 import WidgetGovernanceElection from "./components/Cards/GovernanceMultisig/Layout";
+import WidgetWeekly from "./components/Table/PoolsWeeklyZippo";
+// Design Proposals
+import ProposalLanding from "./playground/Landing";
+import SushiswapSDK from "./components/Table/Queries/PoolsBoringCrypto";
 
 // import WidgetSwap from "./classic/exchange/pages/Swap";
 // import WidgetPool from "./classic/exchange/pages/Pool";
@@ -140,11 +145,21 @@ const App = () => {
           <Router>
             <Web3ReactManager>
               <Switch>
+                <Route
+                  exact
+                  path="/playground/tools/sdk"
+                  component={SushiswapSDK}
+                />
+                <Route
+                  exact
+                  path="/playground/proposals/landing"
+                  component={ProposalLanding}
+                />
                 <Route exact path="/" component={Home} />
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/wallet" component={Wallet} />
                 <Route exact path="/omakase-bar" component={OmakaseBar} />
-                <Route exact path="/sushi-bar" component={SushiBar} />
+                <Route exact path="/weekly" component={WeeklyMenu} />
                 <Route exact path="/tokens" component={Tokens} />
                 <Route
                   exacts
@@ -216,6 +231,7 @@ const App = () => {
                   component={WidgetGovernanceElection}
                 />
                 <Route exact path="/widgets/about" component={WidgetAbout} />
+                <Route exact path="/widgets/weekly" component={WidgetWeekly} />
                 {/* <Route exact path="/widgets/swap" component={WidgetSwap} />
                 <Route exact path="/widgets/pool" component={WidgetPool} /> */}
 

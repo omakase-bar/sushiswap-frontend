@@ -41,11 +41,11 @@ const Sidebar = ({ selected }) => {
           {/* Sidebar Search */}
           {/* <SidebarSearch /> */}
           {/* Navigation */}
-          <nav className="sushi-px-3 sushi-mt-11">
+          <nav className="sushi-px-3 sushi-mt-6">
             <MenuItems selected={selected} />
           </nav>
         </div>
-        <div className="sushi-flex-shrink-0 sushi-flex sushi-p-4 sushi-pl-6">
+        {/* <div className="sushi-flex-shrink-0 sushi-flex sushi-p-4 sushi-pl-6">
           <a href="#" className="sushi-flex-shrink-0 sushi-w-full sushi-group sushi-block">
             <button
               ariaLabel="Activate Light Mode"
@@ -67,7 +67,7 @@ const Sidebar = ({ selected }) => {
               </svg>
             </button>
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );

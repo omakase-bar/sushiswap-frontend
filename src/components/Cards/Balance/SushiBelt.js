@@ -7,10 +7,10 @@ const SushiBelt = () => {
         <div className="room">
           <div className="lantern">
             <span>
-              <a>寿</a>
+              <a>司</a>
             </span>
             <span>
-              <a>司</a>
+              <a>寿</a>
             </span>
           </div>
           <div className="windows">

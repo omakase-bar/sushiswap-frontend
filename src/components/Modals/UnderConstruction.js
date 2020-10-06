@@ -46,13 +46,13 @@ const WalletModal = ({ isOpen, closeModal }) => {
                   className="sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-gray-900"
                   id="modal-headline"
                 >
-                  Under construction 🚧
+                  Open for business 🍽️
                 </h3>
                 <div className="sushi-mt-2">
                   <p className="sushi-text-sm sushi-leading-5 sushi-text-gray-500">
                     Many features are currently being added refactored and
-                    polished by chefs hard at work. Use at your own risk. Please
-                    continue to use the{" "}
+                    polished by chefs hard at work. Use at your own risk. Feel
+                    free to use the{" "}
                     <a
                       href="https://sushiswapclassic.org"
                       className="sushi-group sushi-space-x-2 sushi-inline-flex sushi-items-center sushi-font-medium sushi-text-orange-600 hover:sushi-text-orange-900 sushi-transition sushi-ease-in-out sushi-duration-150"

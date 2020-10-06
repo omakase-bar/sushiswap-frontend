@@ -221,6 +221,10 @@ button:-moz-focusring,
  * Add the correct vertical alignment in Chrome, Firefox, and Opera.
  */
 
+progress {
+  vertical-align: baseline;
+}
+
 /**
  * Remove the default vertical scrollbar in IE 10+.
  */
@@ -1001,6 +1005,14 @@ img {
   background-color: rgba(180, 52, 3, var(--bg-opacity));
 }
 
+.sushi-bg-center {
+  background-position: center;
+}
+
+.sushi-bg-cover {
+  background-size: cover;
+}
+
 .sushi-border-transparent {
   border-color: transparent;
 }
@@ -1414,6 +1426,11 @@ img {
 .sushi-mx-3 {
   margin-left: 0.75rem;
   margin-right: 0.75rem;
+}
+
+.sushi-mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .sushi-mx-auto {
@@ -2876,6 +2893,12 @@ img {
     top: 0.75rem;
   }
 
+  .md\:sushi-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .md\:sushi-w-5 {
     width: 1.25rem;
   }
@@ -2891,6 +2914,14 @@ img {
 
   .md\:sushi-grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:sushi-grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:sushi-col-span-2 {
+    grid-column: span 2 / span 2;
   }
 }
 
