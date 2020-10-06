@@ -159,6 +159,7 @@ const App = () => {
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/wallet" component={Wallet} />
                 <Route exact path="/omakase-bar" component={OmakaseBar} />
+                <Route exact path="/sushi-bar" component={SushiBar} />
                 <Route exact path="/weekly" component={WeeklyMenu} />
                 <Route exact path="/tokens" component={Tokens} />
                 <Route
