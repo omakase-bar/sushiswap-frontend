@@ -26,6 +26,7 @@ import Value from "../Cards/Balance/Value";
 import _ from "lodash";
 import Toggle from "../ToggleExpand";
 import Loading from "./Loading";
+import useSortableData from "../../shared/hooks/useSortableData";
 import SushiChef from "../../assets/sushi-chef_bg-fill-light.jpg";
 import "../../assets/shine.css";
 
@@ -112,8 +113,6 @@ const UnlockWallet = ({ showWallets }) => {
 };
 
 const PoolsQuery = ({ showWallets }) => {
-  const [sort, setSort] = useState("name");
-  const [sortDirection, setSortDirection] = useState("asc");
   const [pools, setPools] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -147,43 +146,12 @@ const PoolsQuery = ({ showWallets }) => {
         <Pools
           title={"Active Pools on Sushiswap"}
           pools={pools}
-          sort={sort}
-          sortDirection={sortDirection}
-          setSort={setSort}
-          setSortDirection={setSortDirection}
           showWallets={showWallets}
         />
       )}
     </>
   );
 };
-
-const headers = [
-  {
-    name: "Pool",
-    id: "name",
-  },
-  {
-    name: "Yield per $1,000",
-    id: null,
-  },
-  {
-    name: "ROI",
-    id: "rewards.hourlyROI",
-  },
-  //   {
-  //     name: "Staked",
-  //     id: "balance",
-  //   },
-  {
-    name: "Underlying Tokens",
-    id: null,
-  },
-  //   {
-  //     name: "Total Value Locked",
-  //     id: "balanceUSD",
-  //   },
-];
 
 const formatNumber = (x, decimal) => {
   return Number(x)
@@ -216,8 +184,34 @@ const Pools = ({ title, pools, showWallets }) => {
       : new BigNumber(0);
   const BLOCKS_PER_YEAR = new BigNumber(2336000);
   const SUSHI_PER_BLOCK = new BigNumber(100);
-
   console.log("ZIPPO POOLS:", pools);
+
+  // Table Sorting
+  const { items, requestSort, sortConfig } = useSortableData(pools);
+  const getClassNamesFor = (name) => {
+    if (!sortConfig) {
+      return;
+    }
+    return sortConfig.key === name ? sortConfig.direction : undefined;
+  };
+  const headers = [
+    {
+      name: "Pool",
+      sortId: "uniswapPair.name",
+    },
+    {
+      name: "Yield per $1,000",
+      sortId: "rewards.hourlyROI",
+    },
+    {
+      name: "ROI",
+      sortId: "rewards.hourlyROI",
+    },
+    {
+      name: "Underlying Tokens",
+      sortId: "balanceUSD",
+    },
+  ];
 
   return (
     <>
@@ -235,6 +229,7 @@ const Pools = ({ title, pools, showWallets }) => {
                 {headers.map((header, index) => {
                   return (
                     <th
+                      onClick={() => requestSort(header.sortId)}
                       className="sushi-px-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-500 sushi-uppercase sushi-border-b sushi-border-t sushi-border-gray-200 sushi-bg-gray-50"
                       style={
                         index === 0
@@ -252,18 +247,46 @@ const Pools = ({ title, pools, showWallets }) => {
                     >
                       <a href="#" className="sushi-flex sushi-items-center">
                         <span>{header.name}</span>
+                        {
+                          {
+                            ascending: (
+                              <svg
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                className="sushi-self-start sushi-flex-shrink-0 sushi-w-5 sushi-h-5 sushi-ml-1 sushi--mb-1 sushi-transform sushi-rotate-180"
+                              >
+                                <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h7a1 1 0 100-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z" />
+                              </svg>
+                            ),
+                            descending: (
+                              <svg
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                className="sushi-self-start sushi-flex-shrink-0 sushi-w-5 sushi-h-5 sushi-ml-1 sushi--mb-1"
+                              >
+                                <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h7a1 1 0 100-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z" />
+                              </svg>
+                            ),
+                          }[getClassNamesFor(header.sortId)]
+                        }
                       </a>
                     </th>
                   );
                 })}
                 {account ? (
                   <>
-                    <th className="sushi-pl-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-800 sushi-uppercase sushi-border-b sushi-border-t sushi-border-orange-200 sushi-bg-orange-100">
+                    <th
+                      // onClick={() => requestSort("name")}
+                      className="sushi-pl-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-800 sushi-uppercase sushi-border-b sushi-border-t sushi-border-orange-200 sushi-bg-orange-100"
+                    >
                       <a href="#" className="sushi-flex sushi-items-center">
                         <span>Balance</span>
                       </a>
                     </th>
-                    <th className="sushi-pl-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-800 sushi-uppercase sushi-border-b sushi-border-t sushi-border-orange-200 sushi-bg-orange-100">
+                    <th
+                      //onClick={() => requestSort("name")}
+                      className="sushi-pl-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-800 sushi-uppercase sushi-border-b sushi-border-t sushi-border-orange-200 sushi-bg-orange-100"
+                    >
                       <a href="#" className="sushi-flex sushi-items-center">
                         <span>Rewards</span>
                       </a>
@@ -275,8 +298,8 @@ const Pools = ({ title, pools, showWallets }) => {
               </tr>
             </thead>
             <tbody className="sushi-bg-white sushi-divide-y sushi-divide-gray-200">
-              {pools && pools.length > 0
-                ? pools.map((pool) => {
+              {pools && items.length > 0
+                ? items.map((pool) => {
                     return (
                       <tr>
                         <td
