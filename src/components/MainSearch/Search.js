@@ -52,7 +52,9 @@ const TokenResult = ({ item }) => {
         <div className="sushi-flex sushi-items-center sushi-space-x-3">
           <img
             src={
-              result.name === "SushiSwap" || result.name === "YAMv2"
+              result.name === "SushiSwap" ||
+              result.name === "YAMv2" ||
+              result.name == "SushiBar"
                 ? result.logoURI
                 : "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/" +
                   result.address +

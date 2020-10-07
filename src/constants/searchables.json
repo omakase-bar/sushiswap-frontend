@@ -2,6 +2,15 @@
   "searchables": [
     {
       "type": "token",
+      "address": "0x8798249c2e607446efb7ad49ec89dd1865ff4272",
+      "chainId": 1,
+      "name": "SushiBar",
+      "symbol": "xSUSHI",
+      "decimals": 18,
+      "logoURI": "https://raw.githubusercontent.com/sushiswapclassic/token-list/master/assets/SUSHI.png"
+    },
+    {
+      "type": "token",
       "address": "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2",
       "chainId": 1,
       "name": "SushiSwap",
