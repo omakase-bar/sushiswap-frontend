@@ -326,7 +326,7 @@ const MenuItems = ({ selected }) => {
             <span className="sushi-truncate">Docs</span>
           </a>
           <a
-            href="https://discord.gg/tqPAXA2"
+            href="https://discord.gg/NVPXN4e"
             target="_blank"
             className="sushi-group sushi-flex sushi-items-center sushi-px-3 sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-text-gray-700 sushi-rounded-md hover:sushi-text-gray-900 hover:sushi-bg-orange-50 focus:sushi-outline-none focus:sushi-bg-orange-50 sushi-transition sushi-ease-in-out sushi-duration-150"
           >
