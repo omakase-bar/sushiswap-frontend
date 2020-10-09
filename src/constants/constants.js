@@ -588,17 +588,17 @@ export const supportedPools = [
   {
     pid: 32,
     lpAddresses: {
-      "1": "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
+      "1": "0x2dbc7dd86c6cd87b525bd54ea73ebeebbc307f68",
     },
     tokenAddresses: {
-      "1": "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5",
+      "1": "0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa",
     },
     name: "Chef's Menu",
-    symbol: "PICKLE-ETH SLP",
-    tokenSymbol: "PICKLE",
+    symbol: "wBTC-tBTC SLP",
+    tokenSymbol: "tBTC",
     icon: "‍👨🏻‍🍳",
-    uniswapPair: "PICKLE/ETH",
-    lpToken: "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
+    uniswapPair: "wBTC/tBTC",
+    lpToken: "0x2dbc7dd86c6cd87b525bd54ea73ebeebbc307f68",
     allocPoint: "200",
   },
   {
@@ -636,17 +636,17 @@ export const supportedPools = [
   {
     pid: 35,
     lpAddresses: {
-      "1": "0x2dbc7dd86c6cd87b525bd54ea73ebeebbc307f68",
+      "1": "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
     },
     tokenAddresses: {
-      "1": "0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa",
+      "1": "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5",
     },
     name: "Chef's Menu",
-    symbol: "wBTC-tBTC SLP",
-    tokenSymbol: "tBTC",
+    symbol: "PICKLE-ETH SLP",
+    tokenSymbol: "PICKLE",
     icon: "‍👨🏻‍🍳",
-    uniswapPair: "wBTC/tBTC",
-    lpToken: "0x2dbc7dd86c6cd87b525bd54ea73ebeebbc307f68",
+    uniswapPair: "PICKLE/ETH",
+    lpToken: "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
     allocPoint: "200",
   },
   {

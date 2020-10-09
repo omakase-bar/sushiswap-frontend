@@ -68,7 +68,7 @@ export async function getPoolData() {
   ) {
     //if (pool.id !== 29) {
     // if using constants.js, 29 is exluded by default
-    if (pool.pid !== 29) {
+    if ((pool.pid && pool.pid !== 29) || (pool.id && pool.id !== 29)) {
       return Number(pool.allocPoint);
     }
   });
