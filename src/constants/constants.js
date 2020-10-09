@@ -604,22 +604,6 @@ export const supportedPools = [
   {
     pid: 33,
     lpAddresses: {
-      "1": "0x68c6d02d44e16f1c20088731ab032f849100d70f",
-    },
-    tokenAddresses: {
-      "1": "0x62359Ed7505Efc61FF1D56fEF82158CcaffA23D7",
-    },
-    name: "Chef's Menu",
-    symbol: "CORE-ETH SLP",
-    tokenSymbol: "CORE",
-    icon: "‍👨🏻‍🍳",
-    uniswapPair: "CORE/ETH",
-    lpToken: "0x68c6d02d44e16f1c20088731ab032f849100d70f",
-    allocPoint: "200",
-  },
-  {
-    pid: 34,
-    lpAddresses: {
       "1": "0xba13afecda9beb75de5c56bbaf696b880a5a50dd",
     },
     tokenAddresses: {
@@ -631,6 +615,22 @@ export const supportedPools = [
     icon: "‍👨🏻‍🍳",
     uniswapPair: "MKR/ETH",
     lpToken: "0xba13afecda9beb75de5c56bbaf696b880a5a50dd",
+    allocPoint: "200",
+  },
+  {
+    pid: 34,
+    lpAddresses: {
+      "1": "0x68c6d02d44e16f1c20088731ab032f849100d70f",
+    },
+    tokenAddresses: {
+      "1": "0x62359Ed7505Efc61FF1D56fEF82158CcaffA23D7",
+    },
+    name: "Chef's Menu",
+    symbol: "CORE-ETH SLP",
+    tokenSymbol: "CORE",
+    icon: "‍👨🏻‍🍳",
+    uniswapPair: "CORE/ETH",
+    lpToken: "0x68c6d02d44e16f1c20088731ab032f849100d70f",
     allocPoint: "200",
   },
   {
