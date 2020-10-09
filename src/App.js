@@ -29,7 +29,8 @@ import WidgetSocialMedia from "./components/Cards/SocialMedia/Layout";
 import WidgetSummary from "./components/Cards/Summary";
 import WidgetGovernanceActions from "./components/Cards/GovernanceActions/Layout";
 import WidgetGovernanceElection from "./components/Cards/GovernanceMultisig/Layout";
-import WidgetWeekly from "./components/Table/PoolsWeeklyZippo";
+import WidgetWeeklyPrevious from "./components/Table/PoolsWeeklyZippo";
+import WidgetWeeklyCurrent from "./components/Table/PoolsWeeklyApollo";
 // Design Proposals
 import ProposalLanding from "./playground/Landing";
 import SushiswapSDK from "./components/Table/Queries/PoolsBoringCrypto";
@@ -230,7 +231,16 @@ const App = () => {
                   component={WidgetGovernanceElection}
                 />
                 <Route exact path="/widgets/about" component={WidgetAbout} />
-                <Route exact path="/widgets/weekly" component={WidgetWeekly} />
+                <Route
+                  exact
+                  path="/widgets/weekly/previous"
+                  component={WidgetWeeklyPrevious}
+                />
+                <Route
+                  exact
+                  path="/widgets/weekly/current"
+                  component={WidgetWeeklyCurrent}
+                />
                 {/* <Route exact path="/widgets/swap" component={WidgetSwap} />
                 <Route exact path="/widgets/pool" component={WidgetPool} /> */}
 

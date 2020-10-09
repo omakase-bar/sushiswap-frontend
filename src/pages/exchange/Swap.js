@@ -6,6 +6,8 @@ import useMenu from "../../shared/hooks/useMenu";
 import WalletModal from "../../components/Modals/Wallet";
 import useModal from "../../shared/hooks/useModal";
 
+import Background from "../../assets/sushi-mountains.jpg";
+
 const Swap = () => {
   const mobileMenu = useMenu();
   const wallets = useModal();
@@ -24,6 +26,10 @@ const Swap = () => {
           <main
             className="sushi-flex-1 sushi-relative sushi-z-0 sushi-overflow-y-auto focus:sushi-outline-none"
             tabIndex={0}
+            style={{
+              background: `url(${Background})`,
+              backgroundSize: "cover",
+            }}
           >
             <div className="sushi-max-w-lg sushi-mx-auto md:sushi-p-10 lg:sushi-mx-0 lg:sushi-p-12">
               <CardTokenActions

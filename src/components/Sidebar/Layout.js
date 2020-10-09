@@ -19,7 +19,7 @@ const Sidebar = ({ selected }) => {
               target="_blank"
             >
               <span className="sushi-inline-flex sushi-items-center sushi-ml-2 sushi-px-2.5 sushi-py-0.5 sushi-rounded-full sushi-text-xs sushi-font-medium sushi-leading-4 sushi-bg-orange-200 sushi-text-orange-800">
-                NewUI
+                v1.0.1
                 <svg
                   viewBox="0 0 20 20"
                   fill="currentColor"

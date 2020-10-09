@@ -103,7 +103,7 @@ const PageTitleBreadcrumb = ({
                   </div>
                 </div>
                 <div className="sushi-mt-4 sushi-flex-shrink-0 sushi-flex md:sushi-mt-0 md:sushi-ml-4">
-                  <span className="sushi-shadow-sm sushi-rounded-md">
+                  {/* <span className="sushi-shadow-sm sushi-rounded-md">
                     <button
                       type="button"
                       className="sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-gray-300 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 sushi-bg-white hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-shadow-outline-blue focus:sushi-border-blue-300 active:sushi-text-gray-800 active:sushi-bg-gray-50 sushi-transition sushi-duration-150 sushi-ease-in-out"
@@ -118,7 +118,7 @@ const PageTitleBreadcrumb = ({
                     >
                       Trade
                     </button>
-                  </span>
+                  </span> */}
                   <span className="sushi-ml-3">
                     <WalletButton showWallets={showWallets} />
                   </span>
@@ -200,7 +200,7 @@ const PageTitleBreadcrumb = ({
                   </div>
                 </div>
                 <div className="sushi-mt-4 sushi-flex-shrink-0 sushi-flex md:sushi-mt-0 md:sushi-ml-4">
-                  <span className="sushi-shadow-sm sushi-rounded-md">
+                  {/* <span className="sushi-shadow-sm sushi-rounded-md">
                     <button
                       type="button"
                       className="sushi-inline-flex sushi-items-center sushi-px-4 sushi-py-2 sushi-border sushi-border-gray-300 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 sushi-bg-white hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-shadow-outline-blue focus:sushi-border-blue-300 active:sushi-text-gray-800 active:sushi-bg-gray-50 sushi-transition sushi-duration-150 sushi-ease-in-out"
@@ -215,7 +215,7 @@ const PageTitleBreadcrumb = ({
                     >
                       Trade
                     </button>
-                  </span>
+                  </span> */}
                   <span className="sushi-ml-3">
                     <WalletButton showWallets={showWallets} />
                   </span>

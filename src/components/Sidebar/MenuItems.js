@@ -6,6 +6,29 @@ const MenuItems = ({ selected }) => {
     <>
       <div className="sushi-space-y-1">
         <Link
+          to="/swap"
+          className={
+            selected === "swap"
+              ? "sushi-neumorphic-drop-shadow sushi-group sushi-flex sushi-items-center sushi-px-2 sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-900 sushi-bg-orange-50 focus:sushi-outline-none focus:sushi-bg-orange-50 sushi-transition sushi-ease-in-out sushi-duration-150"
+              : "sushi-group sushi-flex sushi-items-center sushi-px-2 sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 hover:sushi-text-gray-900 hover:sushi-bg-orange-200 focus:sushi-outline-none focus:sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150"
+          }
+        >
+          <svg
+            className="sushi-mr-3 sushi-h-6 sushi-w-6 sushi-text-gray-400 group-hover:sushi-text-gray-500 group-focus:sushi-text-gray-600 sushi-transition sushi-ease-in-out sushi-duration-150"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+            />
+          </svg>
+          Quick Swap ⭐
+        </Link>
+        <Link
           to="/home"
           className={
             selected === "home"
@@ -148,32 +171,6 @@ const MenuItems = ({ selected }) => {
             ></path>
           </svg>
           Pairs
-          {/* <span className="sushi-ml-auto sushi-inline-block sushi-py-0.5 sushi-px-3 sushi-text-xs sushi-leading-4 sushi-font-medium sushi-rounded-full sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150 group-hover:sushi-bg-orange-200 group-focus:sushi-bg-orange-200">
-            3
-          </span> */}
-        </Link>
-        <Link
-          to="/swap"
-          className={
-            selected === "swap"
-              ? "sushi-neumorphic-drop-shadow sushi-group sushi-flex sushi-items-center sushi-px-2 sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-900 sushi-bg-orange-50 focus:sushi-outline-none focus:sushi-bg-orange-50 sushi-transition sushi-ease-in-out sushi-duration-150"
-              : "sushi-group sushi-flex sushi-items-center sushi-px-2 sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-700 hover:sushi-text-gray-900 hover:sushi-bg-orange-200 focus:sushi-outline-none focus:sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150"
-          }
-        >
-          <svg
-            className="sushi-mr-3 sushi-h-6 sushi-w-6 sushi-text-gray-400 group-hover:sushi-text-gray-500 group-focus:sushi-text-gray-600 sushi-transition sushi-ease-in-out sushi-duration-150"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-            />
-          </svg>
-          Quick Swap
           {/* <span className="sushi-ml-auto sushi-inline-block sushi-py-0.5 sushi-px-3 sushi-text-xs sushi-leading-4 sushi-font-medium sushi-rounded-full sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150 group-hover:sushi-bg-orange-200 group-focus:sushi-bg-orange-200">
             3
           </span> */}
@@ -341,14 +338,14 @@ const MenuItems = ({ selected }) => {
             <span className="sushi-w-2.5 sushi-h-2.5 sushi-mr-4 sushi-bg-teal-400 sushi-rounded-full" />
             <span className="sushi-truncate">Twitter</span>
           </a>
-          <a
+          {/* <a
             href="https://www.notion.so/Sushiswap-Shiny-Frontend-38629fec29bd41a3bbe0fa52d404c921"
             target="_blank"
             className="sushi-group sushi-flex sushi-items-center sushi-px-3 sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-text-gray-700 sushi-rounded-md hover:sushi-text-gray-900 hover:sushi-bg-orange-50 focus:sushi-outline-none focus:sushi-bg-orange-50 sushi-transition sushi-ease-in-out sushi-duration-150"
           >
             <span className="sushi-w-2.5 sushi-h-2.5 sushi-mr-4 sushi-bg-white sushi-rounded-full" />
             <span className="sushi-truncate">Changelog</span>
-          </a>
+          </a> */}
         </div>
       </div>
     </>

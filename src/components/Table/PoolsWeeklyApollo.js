@@ -27,30 +27,31 @@ import _ from "lodash";
 import Toggle from "../ToggleExpand";
 import Loading from "./Loading";
 import useSortableData from "../../shared/hooks/useSortableData";
-import SushiChef from "../../assets/sushi-chef_bg-fill-light_empty.jpg";
+import SushiChef from "../../assets/sushi-chef_bg-fill-light.jpg";
 import "../../assets/shine.css";
 
 import { isAddress } from "../../classic/vision/utils/index.js";
 import logoNotFound from "../../assets/logoNotFound.png";
 
-import axios from "axios";
+import { getPoolData } from "./PoolsWeeklyApolloQuery";
 
 const PoolsWeekly = ({ showWallets }) => {
   const { account } = useWallet();
+  const [highestAPY, setAPY] = useState();
   return (
     <>
       <div className="sushi-px-4 lg:sushi-flex lg:sushi-items-center lg:sushi-justify-between">
         <div className="sushi-flex-1 sushi-min-w-0">
           <h2 className="sushi-max-w-6xl sushi-mt-8 sushi-px-4 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-cool-gray-900 sushi-">
-            Previous Menus of the Week
-            {/* <span class="sushi-ml-3 sushi-inline-flex sushi-items-center sushi-px-3 sushi-py-0.5 sushi-rounded-full sushi-text-sm sushi-font-medium sushi-leading-5 sushi-bg-orange-100 sushi-text-orange-800">
-              Up to 350% APY
+            Current Menu of the Week
+            <span class="sushi-ml-3 sushi-inline-flex sushi-items-center sushi-px-3 sushi-py-0.5 sushi-rounded-full sushi-text-sm sushi-font-medium sushi-leading-5 sushi-bg-orange-100 sushi-text-orange-800">
+              Up to {formatNumber(highestAPY, 0)}% APY
             </span>
-            <span> ✨</span> */}
+            <span> ✨</span>
           </h2>
           <Toggle
             showWallets={showWallets}
-            widgetPath={"/widgets/weekly/previous"}
+            widgetPath={"/widgets/weekly/current"}
             dashboardPath={"/weekly"}
           />
         </div>
@@ -60,7 +61,7 @@ const PoolsWeekly = ({ showWallets }) => {
           <div className="sushi-relative sushi-w-full sushi-mx-auto">
             <div className="sushi-grid sushi-gap-4 sushi-mx-auto sushi-grid-cols-1 md:sushi-grid-cols-3 lg:sushi-grid-cols-3 lg:sushi-max-w-none">
               <div className="sushi-col-span-1 md:sushi-col-span-2">
-                <PoolsQuery showWallets={showWallets} />
+                <PoolsQuery showWallets={showWallets} setAPY={setAPY} />
               </div>
               <div className="">
                 <UnlockWallet showWallets={showWallets} />
@@ -70,7 +71,7 @@ const PoolsWeekly = ({ showWallets }) => {
         </div>
       ) : (
         <div className="sushi-mt-6">
-          <PoolsQuery showWallets={showWallets} />
+          <PoolsQuery showWallets={showWallets} setAPY={setAPY} />
         </div>
       )}
     </>
@@ -101,42 +102,40 @@ const UnlockWallet = ({ showWallets }) => {
                 }}
                 className="sushi-w-full sushi-flex sushi-items-center sushi-justify-center sushi-px-5 sushi-py-3 sushi-border sushi-border-transparent sushi-text-base sushi-leading-6 sushi-font-medium sushi-rounded-md sushi-text-white sushi-bg-orange-600 hover:sushi-bg-orange-700 focus:sushi-outline-none focus:sushi-shadow-outline sushi-transition sushi-duration-150 sushi-ease-in-out"
               >
-                Connect wallet to harvest
+                Connect wallet to begin
               </button>
             </div>
           </div>
         </div>
       </div>
-      {/* <div className="sushi-shine" /> */}
+      <div className="sushi-shine" />
     </div>
   );
 };
 
-const PoolsQuery = ({ showWallets }) => {
+const PoolsQuery = ({ showWallets, setAPY }) => {
   const [pools, setPools] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const fetchPools = async () => {
+    async function fetchData() {
       setIsError(false);
       setIsLoading(true);
       try {
-        const result = await axios("https://back.sushi.zippo.io/api/dashboard");
-        const filtered = _.filter(result.data.pools, function(pool) {
-          return pool.id > 18;
-        });
-        setPools(filtered);
+        let data = await getPoolData();
+        setPools(data.pools);
+        setAPY(data.highestAPY);
+        console.log("APY:", data.highestAPY);
       } catch (e) {
-        console.log("zippo error:", e);
+        console.log("apollo error:", e);
         setIsError(true);
       }
       setIsLoading(false);
-    };
-    fetchPools();
+    }
+    fetchData();
   }, []);
-
-  console.log("ZIPPO POOLS:", pools);
+  console.log("APOLLO POOLS:", pools);
   return (
     <>
       {isError && <div>Something went wrong ...</div>}
@@ -526,7 +525,7 @@ const Pools = ({ title, pools, showWallets }) => {
                                 />
                               </svg>
                               ${formatNumber(pool.balanceUSD, 0)} TVL{" "}
-                              {pool.history.dayAgo ? (
+                              {/* {pool.history.dayAgo ? (
                                 pool.history.dayAgo &&
                                 pool.balanceUSD >
                                   pool.history.dayAgo.balanceUSD ? (
@@ -554,7 +553,7 @@ const Pools = ({ title, pools, showWallets }) => {
                                     />
                                   </svg>
                                 )
-                              ) : null}
+                              ) : null} */}
                             </div>
                           </div>
                         </td>

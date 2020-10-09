@@ -23,7 +23,7 @@ module.exports = {
   ],
 };
 
-//Run for full tailwinds in development
+// //Run for full tailwinds in development
 // module.exports = {
 //   plugins: [require("tailwindcss"), require("autoprefixer")],
 // };

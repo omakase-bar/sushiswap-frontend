@@ -1,17 +1,35 @@
-import React from "react";
+import React, { useRef } from "react";
 import SearchHeader from "../components/SearchHeader2";
 //import MobileMenu from "../components/MobileMenu";
 import Sidebar from "../components/Sidebar/Layout";
 import MainSearch from "../components/MainSearch/Desktop";
 //import TableTopPairs from "../components/Table/Queries/TopPairs";
-import PoolsWeekly from "../components/Table/PoolsWeeklyZippo";
 import WalletModal from "../components/Modals/Wallet";
 import useMenu from "../shared/hooks/useMenu";
 import useModal from "../shared/hooks/useModal";
 
+import WeeklyMenuInfo from "../components/WeeklyMenuInfo";
+import WeeklyMenus from "../components/WeeklyMenus";
+import CurrentPools from "../components/Table/PoolsWeeklyApollo";
+import PreviousPools from "../components/Table/PoolsWeeklyZippo";
+
 const Pools = () => {
   const mobileMenu = useMenu();
   const wallets = useModal();
+
+  const menuRef = useRef(null);
+  const currentRef = useRef(null);
+  const previousRef = useRef(null);
+  const scrollToMenu = () => scrollToRef(menuRef);
+  const scrollToCurrent = () => scrollToRef(currentRef);
+  const scrollToPrevious = () => scrollToRef(previousRef);
+  const scrollToRef = (ref) => {
+    //error: https://stackoverflow.com/questions/1174863/javascript-scrollto-method-does-nothing/18573599#18573599
+    //console.log(ref.current.offsetTop);
+    //window.scrollTo(0, ref.current.offsetTop);
+    ref.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <>
       <WalletModal isOpen={wallets.isOpen} closeModal={wallets.hide} />
@@ -29,7 +47,19 @@ const Pools = () => {
             tabIndex={0}
           >
             <MainSearch />
-            <PoolsWeekly showWallets={wallets.show} />
+            <WeeklyMenuInfo scrollToMenu={scrollToMenu} />
+            <div ref={menuRef} id="menus">
+              <WeeklyMenus
+                scrollToCurrent={scrollToCurrent}
+                scrollToPrevious={scrollToPrevious}
+              />
+            </div>
+            <div ref={currentRef} id="current">
+              <CurrentPools showWallets={wallets.show} />
+            </div>
+            <div ref={previousRef} id="previous">
+              <PreviousPools showWallets={wallets.show} />
+            </div>
           </main>
         </div>
       </div>

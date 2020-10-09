@@ -1192,6 +1192,10 @@ img {
   margin-left: -0.5rem;
 }
 
+.-mt-6 {
+  margin-top: -1.5rem;
+}
+
 .-mt-24 {
   margin-top: -6rem;
 }
@@ -1368,6 +1372,10 @@ img {
 
 .pb-12 {
   padding-bottom: 3rem;
+}
+
+.pb-3\/5 {
+  padding-bottom: 60%;
 }
 
 .placeholder-gray-400::-webkit-input-placeholder {
@@ -2088,6 +2096,10 @@ img {
 
   .md\:p-4 {
     padding: 1rem;
+  }
+
+  .md\:pb-1\/2 {
+    padding-bottom: 50%;
   }
 
   .md\:w-auto {
