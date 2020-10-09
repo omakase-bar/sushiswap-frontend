@@ -17,7 +17,7 @@ export async function getPoolData() {
     query: MASTERCHEF_POOLS(),
     fetchPolicy: "cache-first",
   });
-  const masterChefPools = masterChefStats?.data?.masterChefPools;
+  let masterChefPools = masterChefStats?.data?.masterChefPools;
   const chefAddress = "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd";
   // Choose which pools to display on Menu based on PID for now -----------//
   const active = menus["current"];
@@ -37,6 +37,7 @@ export async function getPoolData() {
       return pool;
     });
     lpTokens = _.map(filtered, "lpToken");
+    masterChefPools = supportedPools;
     console.log("ACTIVE:", active.length);
     console.log("FILTERED_backup:", filtered.length);
   }
@@ -61,17 +62,25 @@ export async function getPoolData() {
   });
 
   // Initialize --------------------------------------------------------//
+  console.log("MASTERCHEF_POOLS:", masterChefPools);
   const totalAllocPointWithoutVesting = _.sumBy(masterChefPools, function(
     pool
   ) {
-    if (pool.id !== 29) {
+    //if (pool.id !== 29) {
+    // if using constants.js, 29 is exluded by default
+    if (pool.pid !== 29) {
       return Number(pool.allocPoint);
     }
   });
-  // const totalAllocPoint = _.sumBy(masterChefPools, function(pool) {
+  const totalAllocPoint = totalAllocPointWithoutVesting;
+  // const totalAllocPointWithVesting = _.sumBy(masterChefPools, function(pool) {
   //   return Number(pool.allocPoint);
   // });
-  const totalAllocPoint = totalAllocPointWithoutVesting;
+  // console.log(
+  //   "ALLOC:",
+  //   totalAllocPointWithoutVesting,
+  //   totalAllocPointWithVesting
+  // );
   const sushiPerBlock = 100;
   const baseAllocPoint = 1e3;
 
