@@ -264,7 +264,10 @@ const VoteNextMenu = () => {
                 You decide!
               </span>
             </p>
-            <a href="https://forum.sushiswapclassic.org/" target="_blank">
+            <a
+              href="https://forum.sushiswapclassic.org/t/pool-rotation-menu-of-the-week-week-42/629"
+              target="_blank"
+            >
               <button className="sushi-mt-8 sushi-w-full sushi-bg-orange-600 sushi-border sushi-border-transparent sushi-rounded-md sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-semibold sushi-text-white hover:sushi-bg-orange-500 focus:sushi-outline-none focus:sushi-border-orange-700 focus:sushi-shadow-outline-orange active:sushi-bg-orange-700 sushi-transition sushi-duration-150 sushi-ease-in-out">
                 Vote Now
               </button>
