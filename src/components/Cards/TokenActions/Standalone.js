@@ -52,6 +52,7 @@ const TokenActionsCard = ({
   title,
   currencyIdA,
   currencyIdB,
+  showWallets,
 }) => {
   const [section, setSection] = useState(initialSection);
   return (
@@ -69,7 +70,7 @@ const TokenActionsCard = ({
           {
             swap: (
               <div className="sushi-mt-6 sushi-flex-1">
-                <ClassicSwap />
+                <ClassicSwap showWallets={showWallets} />
               </div>
             ),
             pool: (

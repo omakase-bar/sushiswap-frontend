@@ -78,7 +78,7 @@ import Loader from "../../components/Loader";
 
 import Settings from "../../components/Settings/secondary";
 
-export default function Swap() {
+export default function Swap({ showWallets }) {
   const loadedUrlParams = useDefaultsFromURLSearch();
 
   // token warning stuff
@@ -525,7 +525,11 @@ export default function Swap() {
             // >
             //   Connect Wallet
             // </button>
-            <ButtonLight onClick={toggleWalletModal}>
+            //
+            // <ButtonLight onClick={toggleWalletModal}>
+            //   Connect Wallet
+            // </ButtonLight>
+            <ButtonLight onClick={() => showWallets()}>
               Connect Wallet
             </ButtonLight>
           ) : showWrap ? (
