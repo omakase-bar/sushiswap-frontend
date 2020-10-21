@@ -11,7 +11,8 @@ import useModal from "../shared/hooks/useModal";
 import WeeklyMenuInfo from "../components/WeeklyMenuInfo";
 import WeeklyMenus from "../components/WeeklyMenus";
 import CurrentPools from "../components/Table/PoolsWeeklyApollo";
-import PreviousPools from "../components/Table/PoolsWeeklyZippo";
+import PreviousPools from "../components/Table/PoolsWeeklyApolloPrevious";
+//import PreviousPools from "../components/Table/PoolsWeeklyZippo";
 
 const Pools = () => {
   const mobileMenu = useMenu();
@@ -37,11 +38,7 @@ const Pools = () => {
         {/* <MobileMenu /> */}
         <Sidebar selected={"weekly"} />
         <div className="sushi-flex sushi-flex-col sushi-w-0 sushi-flex-1 sushi-overflow-hidden">
-          <SearchHeader
-            changeMenu={mobileMenu.change}
-            isOpen={mobileMenu.isOpen}
-            selected={"weekly"}
-          />
+          <SearchHeader changeMenu={mobileMenu.change} isOpen={mobileMenu.isOpen} selected={"weekly"} />
           <main
             className="sushi-flex-1 sushi-relative sushi-z-0 sushi-overflow-y-auto focus:sushi-outline-none"
             tabIndex={0}
@@ -49,10 +46,7 @@ const Pools = () => {
             <MainSearch />
             <WeeklyMenuInfo scrollToMenu={scrollToMenu} />
             <div ref={menuRef} id="menus">
-              <WeeklyMenus
-                scrollToCurrent={scrollToCurrent}
-                scrollToPrevious={scrollToPrevious}
-              />
+              <WeeklyMenus scrollToCurrent={scrollToCurrent} scrollToPrevious={scrollToPrevious} />
             </div>
             <div ref={currentRef} id="current">
               <CurrentPools showWallets={wallets.show} />

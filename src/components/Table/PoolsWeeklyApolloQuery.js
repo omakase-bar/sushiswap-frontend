@@ -5,7 +5,9 @@ import axios from "axios";
 
 import { supportedPools, menus } from "../../constants/constants";
 
-export async function getPoolData() {
+export async function getPoolData(status) {
+  // status is only "current" or "previous"
+
   // console.log(
   //   "SUPPORTED_POOLS:",
   //   JSON.stringify(_.sortBy(supportedPools, ["pid"]))
@@ -20,7 +22,7 @@ export async function getPoolData() {
   let masterChefPools = masterChefStats?.data?.masterChefPools;
   const chefAddress = "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd";
   // Choose which pools to display on Menu based on PID for now -----------//
-  const active = menus["current"];
+  const active = menus[status];
   let filtered = _.filter(masterChefPools, function(pool) {
     return active.includes(Number(pool.id));
   });
@@ -63,9 +65,7 @@ export async function getPoolData() {
 
   // Initialize --------------------------------------------------------//
   console.log("MASTERCHEF_POOLS:", masterChefPools);
-  const totalAllocPointWithoutVesting = _.sumBy(masterChefPools, function(
-    pool
-  ) {
+  const totalAllocPointWithoutVesting = _.sumBy(masterChefPools, function(pool) {
     //if (pool.id !== 29) {
     // if using constants.js, 29 is exluded by default
     if ((pool.pid && pool.pid !== 29) || (pool.id && pool.id !== 29)) {
@@ -129,13 +129,9 @@ export async function getPoolData() {
 
   let formatted = [];
   mergeConstants.map((pair) => {
-    const balanceUSD = pair.totalSupply
-      ? (pair.liquidityTokenBalance / pair.totalSupply) * pair.reserveUSD
-      : 0;
+    const balanceUSD = pair.totalSupply ? (pair.liquidityTokenBalance / pair.totalSupply) * pair.reserveUSD : 0;
     const rewardPerBlock = (pair.allocPoint / totalAllocPoint) * sushiPerBlock;
-    const roiPerBlock = balanceUSD
-      ? (rewardPerBlock * token.price.USD) / balanceUSD
-      : 0;
+    const roiPerBlock = balanceUSD ? (rewardPerBlock * token.price.USD) / balanceUSD : 0;
     const roiPerHour = (3600 / ethereum.currentStats.block_time) * roiPerBlock;
     // console.log("DETAILS_ROI:", {
     //   id: pair.id,
@@ -157,10 +153,7 @@ export async function getPoolData() {
         token0: {
           id: pair.token0?.id,
           symbol:
-            pair.token0?.symbol &&
-            pair.token0?.symbol === "yyDAI+yUSDC+yUSDT+yTUSD"
-              ? "yUSD"
-              : pair.token0?.symbol, // find another way to handle yUSD edge case
+            pair.token0?.symbol && pair.token0?.symbol === "yyDAI+yUSDC+yUSDT+yTUSD" ? "yUSD" : pair.token0?.symbol, // find another way to handle yUSD edge case
           decimals: pair.token0?.decimals,
           derivedETH: pair.token0?.derivedETH,
         },
@@ -182,14 +175,9 @@ export async function getPoolData() {
         },
       },
       balance: pair.liquidityTokenBalance,
-      balanceETH: pair.totalSupply
-        ? (pair.liquidityTokenBalance / pair.totalSupply) * pair.reserveETH
-        : 0,
-      balanceUSD: pair.totalSupply
-        ? (pair.liquidityTokenBalance / pair.totalSupply) * pair.reserveUSD
-        : 0,
-      balancePercent:
-        pair.totalSupply ?? 0 ? (pair.balance ?? 0) / pair.totalSupply : 0,
+      balanceETH: pair.totalSupply ? (pair.liquidityTokenBalance / pair.totalSupply) * pair.reserveETH : 0,
+      balanceUSD: pair.totalSupply ? (pair.liquidityTokenBalance / pair.totalSupply) * pair.reserveUSD : 0,
+      balancePercent: pair.totalSupply ?? 0 ? (pair.balance ?? 0) / pair.totalSupply : 0,
       history: {
         hourAgo: {
           balance: "",
@@ -205,8 +193,7 @@ export async function getPoolData() {
       rewards: {
         multiplier: baseAllocPoint ? pair.allocPoint / baseAllocPoint : 0,
         rewardPerBlock: rewardPerBlock,
-        rewardPerThousand:
-          pair.balanceUSD ?? 0 ? (1e3 / pair.balanceUSD) * rewardPerBlock : 0,
+        rewardPerThousand: pair.balanceUSD ?? 0 ? (1e3 / pair.balanceUSD) * rewardPerBlock : 0,
         hourlyROI: roiPerHour,
       },
     });

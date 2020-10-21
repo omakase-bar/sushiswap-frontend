@@ -504,7 +504,7 @@ export const supportedPools = [
     icon: "👨🏻‍🍳",
     uniswapPair: "wNXM/ETH",
     lpToken: "0xFcff3b04C499A57778ae2CF05584ab24278A7FCb",
-    allocPoint: "0",
+    allocPoint: "200",
   },
   {
     pid: 25,
