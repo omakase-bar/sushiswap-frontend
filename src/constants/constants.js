@@ -97,11 +97,12 @@ SLP Address on mainnet for reference
 
 // week1: ["19", "20", "21", "22", "23", "24", "25", "26", "27", "28"],
 // week2: ["22", "24", "25", "31", "32", "33", "34", "35", "36", "37"],
+// week3: [ 22, 24, 32, 33, 38, 39, 40, 41, 42]
 
 export const menus = {
-  current: [22, 24, 25, 31, 32, 33, 34, 35, 36, 37],
+  current: [22, 24, 32, 33, 38, 39, 40, 41, 42],
   upcoming: [],
-  previous: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28],
+  previous: [19, 20, 21, 23, 25, 26, 27, 28, 31, 34, 35, 36, 37],
 };
 
 export const supportedPools = [
@@ -503,7 +504,7 @@ export const supportedPools = [
     icon: "👨🏻‍🍳",
     uniswapPair: "wNXM/ETH",
     lpToken: "0xFcff3b04C499A57778ae2CF05584ab24278A7FCb",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 25,
@@ -519,7 +520,7 @@ export const supportedPools = [
     icon: "‍👨🏻‍🍳",
     uniswapPair: "yUSD/ETH",
     lpToken: "0x382c4a5147Fd4090F7BE3A9Ff398F95638F5D39E",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 26,
@@ -583,7 +584,7 @@ export const supportedPools = [
     icon: "‍👨🏻‍🍳",
     uniswapPair: "HEGIC/ETH",
     lpToken: "0x6463bd6026a2e7bfab5851b62969a92f7cca0eb6",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 32,
@@ -631,7 +632,7 @@ export const supportedPools = [
     icon: "‍👨🏻‍🍳",
     uniswapPair: "CORE/ETH",
     lpToken: "0x68c6d02d44e16f1c20088731ab032f849100d70f",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 35,
@@ -647,7 +648,7 @@ export const supportedPools = [
     icon: "‍👨🏻‍🍳",
     uniswapPair: "PICKLE/ETH",
     lpToken: "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 36,
@@ -663,7 +664,7 @@ export const supportedPools = [
     icon: "‍👨🏻‍🍳",
     uniswapPair: "OMG/ETH",
     lpToken: "0x742c15d71ea7444964bc39b0ed729b3729adc361",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 37,
@@ -679,6 +680,86 @@ export const supportedPools = [
     icon: "‍👨🏻‍🍳",
     uniswapPair: "AAVE/ETH",
     lpToken: "0xD75EA151a61d06868E31F8988D28DFE5E9df57B4",
+    allocPoint: "0",
+  },
+  {
+    pid: 38,
+    lpAddresses: {
+      1: '0x15e86e6f65ef7ea1dbb72a5e51a07926fb1c82e3',
+    },
+    tokenAddresses: {
+      1: '0xff20817765cb7f73d4bde2e66e067e58d11095c2',
+    },
+    name: "Chef's Menu",
+    symbol: 'AMP-ETH SLP',
+    tokenSymbol: 'AMP',
+    icon: '‍👨🏻‍🍳',
+    uniswapPair: "AMP/ETH",
+    lpToken: "0x15e86e6f65ef7ea1dbb72a5e51a07926fb1c82e3",
     allocPoint: "200",
   },
+  {
+    pid: 39,
+    lpAddresses: {
+      1: '0xd597924b16cc1904d808285bc9044fd51ceeead7',
+    },
+    tokenAddresses: {
+      1: '0x8798249c2E607446EfB7Ad49eC89dD1865Ff4272',
+    },
+    name: "Chef's Menu",
+    symbol: 'xSUSHI-USDC SLP',
+    tokenSymbol: 'xSUSHI',
+    icon: '‍👨🏻‍🍳',
+    uniswapPair: "xSUSHI/USDC",
+    lpToken: "0xd597924b16cc1904d808285bc9044fd51ceeead7",
+    allocPoint: "200",
+  },
+  {
+    pid: 40,
+    lpAddresses: {
+      1: '0x5a2943b25ce0678dc0b351928d2db331a55d94ea',
+    },
+    tokenAddresses: {
+      1: '0x3F382DbD960E3a9bbCeaE22651E88158d2791550',
+    },
+    name: "Chef's Menu",
+    symbol: 'GHST-ETH SLP',
+    tokenSymbol: 'GHST',
+    icon: '‍👨🏻‍🍳',
+    uniswapPair: "GHST/ETH",
+    lpToken: "0x5a2943b25ce0678dc0b351928d2db331a55d94ea",
+    allocPoint: "200",
+  },
+  {
+    pid: 41,
+    lpAddresses: {
+      1: '0x53aabccae8c1713a6a150d9981d2ee867d0720e8',
+    },
+    tokenAddresses: {
+      1: '0xfca59cd816ab1ead66534d82bc21e7515ce441cf',
+    },
+    name: "Chef's Menu",
+    symbol: 'RARI-ETH SLP',
+    tokenSymbol: 'RARI',
+    icon: '‍👨🏻‍🍳',
+    uniswapPair: "RARI/ETH",
+    lpToken: "0x53aabccae8c1713a6a150d9981d2ee867d0720e8",
+    allocPoint: "200",
+  },
+  {
+    pid: 42,
+    lpAddresses: {
+      1: '0x34b13f8cd184f55d0bd4dd1fe6c07d46f245c7ed',
+    },
+    tokenAddresses: {
+      1: '0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b',
+    },
+    name: "Chef's Menu",
+    symbol: 'DPI-ETH SLP',
+    tokenSymbol: 'DPI',
+    icon: '‍👨🏻‍🍳',
+    uniswapPair: "DPI/ETH",
+    lpToken: "0x34b13f8cd184f55d0bd4dd1fe6c07d46f245c7ed",
+    allocPoint: "200",
+  }
 ];
