@@ -16,9 +16,7 @@ export const INTEGERS = {
   ONE: new BigNumber(1),
   ONES_31: new BigNumber("4294967295"), // 2**32-1
   ONES_127: new BigNumber("340282366920938463463374607431768211455"), // 2**128-1
-  ONES_255: new BigNumber(
-    "115792089237316195423570985008687907853269984665640564039457584007913129639935"
-  ), // 2**256-1
+  ONES_255: new BigNumber("115792089237316195423570985008687907853269984665640564039457584007913129639935"), // 2**256-1
   INTEREST_RATE_BASE: new BigNumber("1e18"),
 };
 
@@ -100,7 +98,7 @@ SLP Address on mainnet for reference
 // week3: [ 22, 24, 32, 33, 38, 39, 40, 41, 42]
 
 export const menus = {
-  current: [22, 24, 32, 33, 38, 39, 40, 41, 42],
+  current: [22, 24, 32, 33, 38, 39, 40, 41, 42, 43],
   upcoming: [],
   previous: [19, 20, 21, 23, 25, 26, 27, 28, 31, 34, 35, 36, 37],
 };
@@ -685,15 +683,15 @@ export const supportedPools = [
   {
     pid: 38,
     lpAddresses: {
-      1: '0x15e86e6f65ef7ea1dbb72a5e51a07926fb1c82e3',
+      1: "0x15e86e6f65ef7ea1dbb72a5e51a07926fb1c82e3",
     },
     tokenAddresses: {
-      1: '0xff20817765cb7f73d4bde2e66e067e58d11095c2',
+      1: "0xff20817765cb7f73d4bde2e66e067e58d11095c2",
     },
     name: "Chef's Menu",
-    symbol: 'AMP-ETH SLP',
-    tokenSymbol: 'AMP',
-    icon: '‍👨🏻‍🍳',
+    symbol: "AMP-ETH SLP",
+    tokenSymbol: "AMP",
+    icon: "‍👨🏻‍🍳",
     uniswapPair: "AMP/ETH",
     lpToken: "0x15e86e6f65ef7ea1dbb72a5e51a07926fb1c82e3",
     allocPoint: "200",
@@ -701,15 +699,15 @@ export const supportedPools = [
   {
     pid: 39,
     lpAddresses: {
-      1: '0xd597924b16cc1904d808285bc9044fd51ceeead7',
+      1: "0xd597924b16cc1904d808285bc9044fd51ceeead7",
     },
     tokenAddresses: {
-      1: '0x8798249c2E607446EfB7Ad49eC89dD1865Ff4272',
+      1: "0x8798249c2E607446EfB7Ad49eC89dD1865Ff4272",
     },
     name: "Chef's Menu",
-    symbol: 'xSUSHI-USDC SLP',
-    tokenSymbol: 'xSUSHI',
-    icon: '‍👨🏻‍🍳',
+    symbol: "xSUSHI-USDC SLP",
+    tokenSymbol: "xSUSHI",
+    icon: "‍👨🏻‍🍳",
     uniswapPair: "xSUSHI/USDC",
     lpToken: "0xd597924b16cc1904d808285bc9044fd51ceeead7",
     allocPoint: "200",
@@ -717,15 +715,15 @@ export const supportedPools = [
   {
     pid: 40,
     lpAddresses: {
-      1: '0x5a2943b25ce0678dc0b351928d2db331a55d94ea',
+      1: "0x5a2943b25ce0678dc0b351928d2db331a55d94ea",
     },
     tokenAddresses: {
-      1: '0x3F382DbD960E3a9bbCeaE22651E88158d2791550',
+      1: "0x3F382DbD960E3a9bbCeaE22651E88158d2791550",
     },
     name: "Chef's Menu",
-    symbol: 'GHST-ETH SLP',
-    tokenSymbol: 'GHST',
-    icon: '‍👨🏻‍🍳',
+    symbol: "GHST-ETH SLP",
+    tokenSymbol: "GHST",
+    icon: "‍👨🏻‍🍳",
     uniswapPair: "GHST/ETH",
     lpToken: "0x5a2943b25ce0678dc0b351928d2db331a55d94ea",
     allocPoint: "200",
@@ -733,15 +731,15 @@ export const supportedPools = [
   {
     pid: 41,
     lpAddresses: {
-      1: '0x53aabccae8c1713a6a150d9981d2ee867d0720e8',
+      1: "0x53aabccae8c1713a6a150d9981d2ee867d0720e8",
     },
     tokenAddresses: {
-      1: '0xfca59cd816ab1ead66534d82bc21e7515ce441cf',
+      1: "0xfca59cd816ab1ead66534d82bc21e7515ce441cf",
     },
     name: "Chef's Menu",
-    symbol: 'RARI-ETH SLP',
-    tokenSymbol: 'RARI',
-    icon: '‍👨🏻‍🍳',
+    symbol: "RARI-ETH SLP",
+    tokenSymbol: "RARI",
+    icon: "‍👨🏻‍🍳",
     uniswapPair: "RARI/ETH",
     lpToken: "0x53aabccae8c1713a6a150d9981d2ee867d0720e8",
     allocPoint: "200",
@@ -749,17 +747,33 @@ export const supportedPools = [
   {
     pid: 42,
     lpAddresses: {
-      1: '0x34b13f8cd184f55d0bd4dd1fe6c07d46f245c7ed',
+      1: "0x34b13f8cd184f55d0bd4dd1fe6c07d46f245c7ed",
     },
     tokenAddresses: {
-      1: '0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b',
+      1: "0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b",
     },
     name: "Chef's Menu",
-    symbol: 'DPI-ETH SLP',
-    tokenSymbol: 'DPI',
-    icon: '‍👨🏻‍🍳',
+    symbol: "DPI-ETH SLP",
+    tokenSymbol: "DPI",
+    icon: "‍👨🏻‍🍳",
     uniswapPair: "DPI/ETH",
     lpToken: "0x34b13f8cd184f55d0bd4dd1fe6c07d46f245c7ed",
     allocPoint: "200",
-  }
+  },
+  {
+    pid: 43,
+    lpAddresses: {
+      1: "0xbcedc25cbb0ea44e03e41dc2d00d54fe6d4646db",
+    },
+    tokenAddresses: {
+      1: "0xe1406825186D63980fd6e2eC61888f7B91C4bAe4",
+    },
+    name: "Chef's Menu",
+    symbol: "vBTC-tBTC SLP",
+    tokenSymbol: "vBTC",
+    icon: "‍👨🏻‍🍳",
+    uniswapPair: "vBTC/tBTC",
+    lpToken: "0xbcedc25cbb0ea44e03e41dc2d00d54fe6d4646db",
+    allocPoint: "200",
+  },
 ];
