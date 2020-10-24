@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import WechatModal from "../Modals/Wechat";
+import useModal from "../../shared/hooks/useModalPatch";
 
 const MenuItems = ({ selected }) => {
+  const [onPresentWechat] = useModal(<WechatModal />, null, null);
   return (
     <>
       <div className="sushi-space-y-1">
@@ -301,11 +304,7 @@ const MenuItems = ({ selected }) => {
       </div>
       <div className="sushi-mt-8">
         {/* Secondary navigation */}
-        <div
-          className="sushi-mt-1 sushi-space-y-1"
-          role="group"
-          aria-labelledby="teams-headline"
-        >
+        <div className="sushi-mt-1 sushi-space-y-1" role="group" aria-labelledby="teams-headline">
           <a
             href="https://sushiswapclassic.org/"
             target="_blank"
@@ -338,6 +337,13 @@ const MenuItems = ({ selected }) => {
             <span className="sushi-w-2.5 sushi-h-2.5 sushi-mr-4 sushi-bg-teal-400 sushi-rounded-full" />
             <span className="sushi-truncate">Twitter</span>
           </a>
+          <button
+            onClick={onPresentWechat}
+            className="sushi-group sushi-flex sushi-items-center sushi-px-3 sushi-py-2 sushi-text-sm sushi-leading-5 sushi-font-medium sushi-text-gray-700 sushi-rounded-md hover:sushi-text-gray-900 hover:sushi-bg-orange-50 focus:sushi-outline-none focus:sushi-bg-orange-50 sushi-transition sushi-ease-in-out sushi-duration-150"
+          >
+            <span className="sushi-w-2.5 sushi-h-2.5 sushi-mr-4 sushi-bg-green-400 sushi-rounded-full" />
+            <span className="sushi-truncate">Wechat</span>
+          </button>
           {/* <a
             href="https://www.notion.so/Sushiswap-Shiny-Frontend-38629fec29bd41a3bbe0fa52d404c921"
             target="_blank"

@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 //import { isMobile } from "react-device-detect";
 
 import Home from "./pages/Home";
@@ -66,21 +61,14 @@ import { GlobalStyle } from "./classic/vision/Theme";
 import LocalStorageContextProvider, {
   Updater as LocalStorageContextUpdater,
 } from "./classic/vision/contexts/LocalStorage";
-import TokenDataContextProvider, {
-  Updater as TokenDataContextUpdater,
-} from "./classic/vision/contexts/TokenData";
+import TokenDataContextProvider, { Updater as TokenDataContextUpdater } from "./classic/vision/contexts/TokenData";
 import GlobalDataContextProvider from "./classic/vision/contexts/GlobalData";
-import PairDataContextProvider, {
-  Updater as PairDataContextUpdater,
-} from "./classic/vision/contexts/PairData";
+import PairDataContextProvider, { Updater as PairDataContextUpdater } from "./classic/vision/contexts/PairData";
 import ApplicationContextProvider from "./classic/vision/contexts/Application";
 import UserContextProvider from "./classic/vision/contexts/User";
 import { ApolloProvider } from "react-apollo";
 import LocalLoader from "./classic/vision/components/LocalLoader";
-import {
-  useGlobalData,
-  useGlobalChartData,
-} from "./classic/vision/contexts/GlobalData";
+import { useGlobalData, useGlobalChartData } from "./classic/vision/contexts/GlobalData";
 import { useLatestBlock } from "./classic/vision/contexts/Application";
 import { isAddress } from "./classic/vision/utils";
 
@@ -114,16 +102,14 @@ import RemoveLiquidity from "./classic/exchange/pages/RemoveLiquidity";
 import { RedirectOldRemoveLiquidityPathStructure } from "./classic/exchange/pages/RemoveLiquidity/redirects";
 
 // import Swap from "./classic/exchange/pages/Swap";
-import {
-  RedirectPathToSwapOnly,
-  RedirectToSwap,
-} from "./classic/exchange/pages/Swap/redirects";
+import { RedirectPathToSwapOnly, RedirectToSwap } from "./classic/exchange/pages/Swap/redirects";
 
 import SwapWrapper from "./pages/exchange/Swap";
 import PoolWrapper from "./pages/exchange/Pool";
 
 import UnderConstructionModal from "./components/Modals/UnderConstruction";
 import useModalOpen from "./shared/hooks/useModalOpen";
+import ModalsProviderPatch from "./shared/contexts/ModalsContext";
 
 const App = () => {
   const globalData = useGlobalData();
@@ -138,23 +124,12 @@ const App = () => {
       globalChartData &&
       Object.keys(globalChartData).length > 0 ? (
         <>
-          <UnderConstructionModal
-            isOpen={construction.isOpen}
-            closeModal={construction.hide}
-          />
+          <UnderConstructionModal isOpen={construction.isOpen} closeModal={construction.hide} />
           <Router>
             <Web3ReactManager>
               <Switch>
-                <Route
-                  exact
-                  path="/playground/tools/sdk"
-                  component={SushiswapSDK}
-                />
-                <Route
-                  exact
-                  path="/playground/proposals/landing"
-                  component={ProposalLanding}
-                />
+                <Route exact path="/playground/tools/sdk" component={SushiswapSDK} />
+                <Route exact path="/playground/proposals/landing" component={ProposalLanding} />
                 <Route exact path="/" component={Home} />
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/wallet" component={Wallet} />
@@ -167,11 +142,7 @@ const App = () => {
                   path="/token/:tokenAddress"
                   render={({ match }) => {
                     if (isAddress(match.params.tokenAddress.toLowerCase())) {
-                      return (
-                        <Token
-                          address={match.params.tokenAddress.toLowerCase()}
-                        />
-                      );
+                      return <Token address={match.params.tokenAddress.toLowerCase()} />;
                     } else {
                       return <Redirect to="/home" />;
                     }
@@ -183,11 +154,7 @@ const App = () => {
                   path="/pair/:pairAddress"
                   render={({ match }) => {
                     if (isAddress(match.params.pairAddress.toLowerCase())) {
-                      return (
-                        <Pair
-                          pairAddress={match.params.pairAddress.toLowerCase()}
-                        />
-                      );
+                      return <Pair pairAddress={match.params.pairAddress.toLowerCase()} />;
                     } else {
                       return <Redirect to="/home" />;
                     }
@@ -200,83 +167,28 @@ const App = () => {
                 <Route exact path="/about" component={About} />
                 <Route exact path="/faq" component={Faqs} />
                 <Route exact path="/faqs" component={Faqs} />
-                <Route
-                  exact
-                  path="/widgets/social-media"
-                  component={WidgetSocialMedia}
-                />
-                <Route
-                  exact
-                  path="/widgets/resources"
-                  component={WidgetResources}
-                />
-                <Route
-                  exact
-                  path="/widgets/summary"
-                  component={WidgetSummary}
-                />
-                <Route
-                  exact
-                  path="/widgets/balance"
-                  component={WidgetBalance}
-                />
-                <Route
-                  exact
-                  path="/widgets/governance/actions"
-                  component={WidgetGovernanceActions}
-                />
-                <Route
-                  exact
-                  path="/widgets/governance/election"
-                  component={WidgetGovernanceElection}
-                />
+                <Route exact path="/widgets/social-media" component={WidgetSocialMedia} />
+                <Route exact path="/widgets/resources" component={WidgetResources} />
+                <Route exact path="/widgets/summary" component={WidgetSummary} />
+                <Route exact path="/widgets/balance" component={WidgetBalance} />
+                <Route exact path="/widgets/governance/actions" component={WidgetGovernanceActions} />
+                <Route exact path="/widgets/governance/election" component={WidgetGovernanceElection} />
                 <Route exact path="/widgets/about" component={WidgetAbout} />
-                <Route
-                  exact
-                  path="/widgets/weekly/previous"
-                  component={WidgetWeeklyPrevious}
-                />
-                <Route
-                  exact
-                  path="/widgets/weekly/current"
-                  component={WidgetWeeklyCurrent}
-                />
+                <Route exact path="/widgets/weekly/previous" component={WidgetWeeklyPrevious} />
+                <Route exact path="/widgets/weekly/current" component={WidgetWeeklyCurrent} />
                 {/* <Route exact path="/widgets/swap" component={WidgetSwap} />
                 <Route exact path="/widgets/pool" component={WidgetPool} /> */}
 
                 {/* Exchange Routes */}
                 <Route exact strict path="/swap" component={SwapWrapper} />
-                <Route
-                  exact
-                  strict
-                  path="/swap/:outputCurrency"
-                  component={RedirectToSwap}
-                />
-                <Route
-                  exact
-                  strict
-                  path="/send"
-                  component={RedirectPathToSwapOnly}
-                />
+                <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
+                <Route exact strict path="/send" component={RedirectPathToSwapOnly} />
                 <Route exact strict path="/find" component={PoolFinder} />
                 <Route exact strict path="/pool" component={PoolWrapper} />
-                <Route
-                  exact
-                  strict
-                  path="/create"
-                  component={RedirectToAddLiquidity}
-                />
+                <Route exact strict path="/create" component={RedirectToAddLiquidity} />
                 <Route exact path="/add" component={AddLiquidity} />
-                <Route
-                  exact
-                  path="/add/:currencyIdA"
-                  component={RedirectOldAddLiquidityPathStructure}
-                />
-                <Route
-                  exact
-                  path="/add/:currencyIdA/:currencyIdB"
-                  component={RedirectDuplicateTokenIds}
-                />
+                <Route exact path="/add/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
+                <Route exact path="/add/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
                 {/* <Route
                   exact
                   strict
@@ -289,12 +201,7 @@ const App = () => {
                   path="/remove/:tokens"
                   component={RedirectOldRemoveLiquidityPathStructure}
                 /> */}
-                <Route
-                  exact
-                  strict
-                  path="/remove/:currencyIdA/:currencyIdB"
-                  component={RemoveLiquidity}
-                />
+                <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
                 {/* <Route exact strict path="/migrate/v1" component={MigrateV1} />
                 <Route
                   exact
@@ -320,7 +227,9 @@ const ClassicProviders = ({ children }) => {
       <SushiExchangeProviders>
         <SushiVisionProviders>
           <SushiFrontendProviders>
-            <App />
+            <ModalsProviderPatch>
+              <App />
+            </ModalsProviderPatch>
           </SushiFrontendProviders>
         </SushiVisionProviders>
       </SushiExchangeProviders>
