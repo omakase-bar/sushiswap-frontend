@@ -53,7 +53,7 @@ import { ThemeProvider } from "styled-components";
 //Services - Frontend Dependencies
 import { UseWalletProvider } from "use-wallet";
 import FarmsProvider from "./services/frontend/contexts/Farms";
-import servicesModalsProvider from "./services/frontend/contexts/Modals";
+import ClassicModalsProvider from "./services/frontend/contexts/Modals";
 import TransactionProvider from "./services/frontend/contexts/Transactions";
 import SushiProvider from "./services/frontend/contexts/SushiProvider";
 import theme from "./services/frontend/theme";
@@ -234,7 +234,7 @@ const SushiFrontendProviders = ({ children }) => {
             <FarmsProvider>
               <AnalyticsApplicationContextProvider>
                 <AnalyticsGlobalDataContextProvider>
-                  <servicesModalsProvider>{children}</servicesModalsProvider>
+                  <ClassicModalsProvider>{children}</ClassicModalsProvider>
                 </AnalyticsGlobalDataContextProvider>
               </AnalyticsApplicationContextProvider>
             </FarmsProvider>
