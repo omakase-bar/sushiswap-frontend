@@ -87,93 +87,82 @@ const Token = ({ pairAddress, history }) => {
 
   return (
     <>
-      <div className="sushi-h-screen sushi-flex sushi-overflow-hidden sushi-bg-white">
-        <Sidebar selected={""} />
-        <div className="sushi-flex sushi-flex-col sushi-w-0 sushi-flex-1 sushi-overflow-hidden">
-          <SearchHeader changeMenu={mobileMenu.change} isOpen={mobileMenu.isOpen} selected={""} />
-          <main
-            className="sushi-flex-1 sushi-relative sushi-z-0 sushi-overflow-y-auto focus:sushi-outline-none"
-            tabIndex={0}
-          >
-            {token0 && token1 ? (
-              <>
-                <PageTitleBreadcrumb
-                  type={"pair"}
-                  name={token0.symbol + "-" + token1.symbol + " Pair"}
-                  price={token0USD}
-                  price2={token1USD}
-                  // priceChange={priceChange}
-                  symbol={token0.symbol}
-                  symbol2={token1.symbol}
-                  id={token0.id}
-                  id2={token1.id}
-                />
-                <PairWidgets
-                  token0={token0}
-                  token1={token1}
-                  token0Rate={token0Rate}
-                  token1Rate={token1Rate}
-                  formattedSymbol0={formattedSymbol0}
-                  formattedSymbol1={formattedSymbol1}
-                  token0USD={token0USD}
-                  token1USD={token1USD}
-                  reserve0={formattedNum(reserve0)}
-                  reserve1={formattedNum(reserve1)}
-                />
-              </>
-            ) : (
-              ""
-            )}
-            <MarketWidgets
-              type={"pair"}
-              liquidity={liquidity}
-              liquidityChange={liquidityChange}
-              volume={volume}
-              volumeChange={volumeChange}
-              fees={fees}
-              fessChange={volumeChange}
+      {token0 && token1 ? (
+        <>
+          <PageTitleBreadcrumb
+            type={"pair"}
+            name={token0.symbol + "-" + token1.symbol + " Pair"}
+            price={token0USD}
+            price2={token1USD}
+            // priceChange={priceChange}
+            symbol={token0.symbol}
+            symbol2={token1.symbol}
+            id={token0.id}
+            id2={token1.id}
+          />
+          <PairWidgets
+            token0={token0}
+            token1={token1}
+            token0Rate={token0Rate}
+            token1Rate={token1Rate}
+            formattedSymbol0={formattedSymbol0}
+            formattedSymbol1={formattedSymbol1}
+            token0USD={token0USD}
+            token1USD={token1USD}
+            reserve0={formattedNum(reserve0)}
+            reserve1={formattedNum(reserve1)}
+          />
+        </>
+      ) : (
+        ""
+      )}
+      <MarketWidgets
+        type={"pair"}
+        liquidity={liquidity}
+        liquidityChange={liquidityChange}
+        volume={volume}
+        volumeChange={volumeChange}
+        fees={fees}
+        fessChange={volumeChange}
+      />
+      <SectionCards>
+        <Panel>
+          <PairChart
+            address={pairAddress}
+            color={backgroundColor}
+            base0={reserve1 / reserve0}
+            base1={reserve0 / reserve1}
+          />
+        </Panel>
+        {token0 && token1 ? (
+          <>
+            <CardTokenActions
+              initialSection={"pool"}
+              title={"What would you like to do?"}
+              symbol={token0.symbol}
+              currencyIdA={token0.id}
+              currencyIdB={token1.id}
             />
-            <SectionCards>
-              <Panel>
-                <PairChart
-                  address={pairAddress}
-                  color={backgroundColor}
-                  base0={reserve1 / reserve0}
-                  base1={reserve0 / reserve1}
-                />
-              </Panel>
-              {token0 && token1 ? (
-                <>
-                  <CardTokenActions
-                    initialSection={"pool"}
-                    title={"What would you like to do?"}
-                    symbol={token0.symbol}
-                    currencyIdA={token0.id}
-                    currencyIdB={token1.id}
-                  />
-                </>
-              ) : (
-                ""
-              )}
-            </SectionCards>
-            {transactions ? (
-              <div className="sushi-py-10 sushi-inline-block sushi-min-w-full sushi-overflow-hidden sushi-align-middle sushi-px-6">
-                <div
-                  style={{
-                    position: "relative",
-                    overflow: "auto",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  <TxnList transactions={transactions} />
-                </div>
-              </div>
-            ) : (
-              <Loader />
-            )}
-          </main>
+          </>
+        ) : (
+          ""
+        )}
+      </SectionCards>
+      {transactions ? (
+        <div className="sushi-py-10 sushi-inline-block sushi-min-w-full sushi-overflow-hidden sushi-align-middle sushi-px-6">
+          <div
+            style={{
+              position: "relative",
+              overflow: "auto",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <TxnList transactions={transactions} />
+          </div>
         </div>
-      </div>
+      ) : (
+        <Loader />
+      )}
     </>
   );
 };

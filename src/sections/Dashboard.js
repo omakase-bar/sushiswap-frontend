@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, createContext, useContext, useReducer } from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 // Dashboard
 import SearchHeader from "../components/MobileMenu";
 import Sidebar from "../components/Sidebar/Layout";
@@ -35,6 +35,10 @@ import TablePools from "../components/Table/PoolsWeeklyApollo";
 import { useAllPairData } from "../services/vision/contexts/PairData";
 import PairList from "../services/vision/components/PairList/secondary";
 // Pair
+import { isAddress } from "../services/vision/utils";
+import Pair from "../pages/Pair";
+// Token
+import Token from "../pages/Token";
 // About
 import CardAbout from "../components/Cards/About";
 // Faq
@@ -118,11 +122,34 @@ const DashboardRoutes = () => {
       <Route exact path="/tokens" component={Tokens} />
       <Route exact path="/pools" component={Pools} />
       <Route exact path="/pairs" component={Pairs} />
-      <Route exact path="/pair/:pairId" component={Pair} />
       <Route exact path="/governance" component={Governance} />
       <Route exact path="/about" component={About} />
       <Route exact path="/faqs" component={Faqs} />
       <Route exact path="/bentobox" component={BentoBoxWrapper} />
+      <Route
+        exacts
+        strict
+        path="/token/:tokenAddress"
+        render={({ match }) => {
+          if (isAddress(match.params.tokenAddress.toLowerCase())) {
+            return <Token address={match.params.tokenAddress.toLowerCase()} />;
+          } else {
+            return <Redirect to="/home" />;
+          }
+        }}
+      />
+      <Route
+        exacts
+        strict
+        path="/pair/:pairAddress"
+        render={({ match }) => {
+          if (isAddress(match.params.pairAddress.toLowerCase())) {
+            return <Pair pairAddress={match.params.pairAddress.toLowerCase()} />;
+          } else {
+            return <Redirect to="/home" />;
+          }
+        }}
+      />
     </>
   );
 };
@@ -317,10 +344,6 @@ const Pairs = () => {
       </div>
     </>
   );
-};
-
-const Pair = () => {
-  return <></>;
 };
 
 const Governance = () => {

@@ -140,8 +140,12 @@ const App = () => {
                 <Route exact path="/about" component={Dashboard} />
                 <Route exact path="/faq" component={Dashboard} />
                 <Route exact path="/faqs" component={Dashboard} />
-                <Route exact path="/bentobox" component={Dashboard} />
-                <Route
+                <Route exact path="/faq" component={Dashboard} />
+                <Route exact path="/faqs" component={Dashboard} />
+                <Route exacts strict path="/token/:tokenAddress" component={Dashboard} />
+                <Route exacts strict path="/pair/:pairAddress" component={Dashboard} />
+                {/* <Route exact path="/bentobox" component={Dashboard} /> */}
+                {/* <Route
                   exacts
                   strict
                   path="/token/:tokenAddress"
@@ -164,7 +168,7 @@ const App = () => {
                       return <Redirect to="/home" />;
                     }
                   }}
-                />
+                /> */}
                 <Route exact path="/widgets/social-media" component={WidgetSocialMedia} />
                 <Route exact path="/widgets/resources" component={WidgetResources} />
                 <Route exact path="/widgets/summary" component={WidgetSummary} />
@@ -174,7 +178,6 @@ const App = () => {
                 <Route exact path="/widgets/about" component={WidgetAbout} />
                 <Route exact path="/widgets/weekly/previous" component={WidgetWeeklyPrevious} />
                 <Route exact path="/widgets/weekly/current" component={WidgetWeeklyCurrent} />
-
                 {/* Exchange Routes */}
                 <Route exact strict path="/swap" component={SwapWrapper} />
                 <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
@@ -187,7 +190,6 @@ const App = () => {
                 <Route exact path="/add/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
                 <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
                 <Redirect to="/home" />
-
                 {/* 404 or Redirect */}
                 <Redirect to="/home" />
               </Switch>

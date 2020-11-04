@@ -162,7 +162,7 @@ const MenuItems = ({ selected }) => {
             /> */}
           </svg>
           Farms
-          <span className="sushi-ml-auto sushi-inline-block sushi-py-0.5 sushi-px-3 sushi-text-xs sushi-leading-4 sushi-font-medium sushi-rounded-md sushi-bg-orange-200 sushi-transition sushi-ease-in-out sushi-duration-150 group-hover:sushi-bg-orange-200 group-focus:sushi-bg-orange-200">
+          <span className="sushi-ml-auto sushi-inline-block sushi-py-0.5 sushi-px-3 sushi-text-xs sushi-leading-4 sushi-font-medium sushi-rounded-md sushi-bg-orange-200 sushi-text-orange-800 sushi-transition sushi-ease-in-out sushi-duration-150 group-hover:sushi-bg-orange-200 group-focus:sushi-bg-orange-200">
             Earn SUSHI
           </span>
         </Link>
