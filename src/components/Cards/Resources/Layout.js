@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import Tabs from "./Tabs";
 import Support from "./Support";
-import ExpandButton from "../ExpandButton";
+import ExpandButton from "../../Buttons/ExpandButton";
 
 const guides = [
   {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { isAddress } from "../../classic/vision/utils";
-import logoNotFound from "../../assets/logoNotFound.png";
+import { isAddress } from "../../services/vision/utils";
+import logoNotFound from "../../assets/img/logoNotFound.png";
 
 // const Stacked = ({price, price2, id, id2, symbol, symbol2}) => {
 //   return (
@@ -82,9 +82,7 @@ const PairWidget = ({
                         0,
                         6
                       )} ${formattedSymbol1} ${
-                        parseFloat(token0?.derivedETH)
-                          ? "(" + token0USD + ")"
-                          : ""
+                        parseFloat(token0?.derivedETH) ? "(" + token0USD + ")" : ""
                       }`
                     : "-"}
                 </button>
@@ -116,9 +114,7 @@ const PairWidget = ({
                         0,
                         6
                       )} ${formattedSymbol0}  ${
-                        parseFloat(token1?.derivedETH)
-                          ? "(" + token1USD + ")"
-                          : ""
+                        parseFloat(token1?.derivedETH) ? "(" + token1USD + ")" : ""
                       }`
                     : "-"}
                 </button>

@@ -1,26 +1,26 @@
 import BigNumber from "bignumber.js";
 import React, { useCallback, useState } from "react";
 // import styled from "styled-components";
-// import Button from "../../../classic/frontend/components/Button";
-// import Card from "../../../classic/frontend/components/Card";
-// import CardContent from "../../../classic/frontend/components/CardContent";
-// import CardIcon from "../../../classic/frontend/components/CardIcon";
-// import IconButton from "../../../classic/frontend/components/IconButton";
-// import { AddIcon } from "../../../classic/frontend/components/icons";
-// import Label from "../../../classic/frontend/components/Label";
-// import Value from "../../../classic/frontend/components/Value";
-import useAllowance from "../../../classic/frontend/hooks/useAllowance";
-import useApprove from "../../../classic/frontend/hooks/useApprove";
-import useModal from "../../../classic/frontend/hooks/useModal";
-import useStake from "../../../classic/frontend/hooks/useStake";
-import useStakedBalance from "../../../classic/frontend/hooks/useStakedBalance";
-import useTokenBalance from "../../../classic/frontend/hooks/useTokenBalance";
-import useUnstake from "../../../classic/frontend/hooks/useUnstake";
-import { getBalanceNumber } from "../../../classic/frontend/utils/formatBalance";
-import DepositModal from "../../../classic/frontend/views/Farm/components/DepositModal";
-import WithdrawModal from "../../../classic/frontend/views/Farm/components/WithdrawModal";
+// import Button from "../../../services/frontend/components/Button";
+// import Card from "../../../services/frontend/components/Card";
+// import CardContent from "../../../services/frontend/components/CardContent";
+// import CardIcon from "../../../services/frontend/components/CardIcon";
+// import IconButton from "../../../services/frontend/components/IconButton";
+// import { AddIcon } from "../../../services/frontend/components/icons";
+// import Label from "../../../services/frontend/components/Label";
+// import Value from "../../../services/frontend/components/Value";
+import useAllowance from "../../../services/frontend/hooks/useAllowance";
+import useApprove from "../../../services/frontend/hooks/useApprove";
+import useModal from "../../../services/frontend/hooks/useModal";
+import useStake from "../../../services/frontend/hooks/useStake";
+import useStakedBalance from "../../../services/frontend/hooks/useStakedBalance";
+import useTokenBalance from "../../../services/frontend/hooks/useTokenBalance";
+import useUnstake from "../../../services/frontend/hooks/useUnstake";
+import { getBalanceNumber } from "../../../services/frontend/utils/formatBalance";
+import DepositModal from "../../../services/frontend/views/Farm/components/DepositModal";
+import WithdrawModal from "../../../services/frontend/views/Farm/components/WithdrawModal";
 
-import Loader from "../../../classic/exchange/components/Loader";
+import Loader from "../../../services/exchange/components/Loader";
 
 const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
   const [requestedApproval, setRequestedApproval] = useState(false);

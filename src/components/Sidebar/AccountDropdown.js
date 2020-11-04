@@ -16,16 +16,12 @@ const AccountDropdown = () => {
             <div className="sushi-flex sushi-items-center sushi-justify-between sushi-space-x-3">
               <img
                 className="sushi-w-10 sushi-h-10 sushi-bg-orange-300 sushi-rounded-full sushi-flex-shrink-0"
-                src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                src=""
                 alt=""
               />
               <div className="sushi-flex-1">
-                <h2 className="sushi-text-gray-900 sushi-text-sm sushi-leading-5 sushi-font-medium">
-                  Account 2
-                </h2>
-                <p className="sushi-text-gray-500 sushi-text-sm sushi-leading-5 sushi-truncate">
-                  0x0000002..
-                </p>
+                <h2 className="sushi-text-gray-900 sushi-text-sm sushi-leading-5 sushi-font-medium">Account 2</h2>
+                <p className="sushi-text-gray-500 sushi-text-sm sushi-leading-5 sushi-truncate">0x0000002..</p>
               </div>
             </div>
             <svg

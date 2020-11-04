@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Tabs from "./Tabs";
-import ExpandButton from "../ExpandButton";
+import ExpandButton from "../../Buttons/ExpandButton";
 import {
   announcements,
   mediums,

@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useTokenData } from "../../classic/vision/contexts/TokenData";
-import { useGlobalData } from "../../classic/vision/contexts/GlobalData";
+import { useTokenData } from "../../services/vision/contexts/TokenData";
+import { useGlobalData } from "../../services/vision/contexts/GlobalData";
 import {
   formattedNum,
   formattedPercent,
   getPoolLink,
   getSwapLink,
   localNumber,
-} from "../../classic/vision/utils";
+} from "../../services/vision/utils";
 
-import ExpandButton from "./ExpandButton";
+import ExpandButton from "../Buttons/ExpandButton";
 
-//import { client } from "../../classic/vision/apollo/client";
+//import { client } from "../../services/vision/apollo/client";
 //import { LIQUID_POSITIONS } from "../../apollo/queries";
 // const getLP = async () => {
 //   let ethPrice = 0;

@@ -1,9 +1,9 @@
 import BigNumber from "bignumber.js";
 import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
-import useAllEarnings from "../../../classic/frontend/hooks/useAllEarnings";
-import useAllStakedValue from "../../../classic/frontend/hooks/useAllStakedValue";
-import useFarms from "../../../classic/frontend/hooks/useFarms";
+import useAllEarnings from "../../../services/frontend/hooks/useAllEarnings";
+import useAllStakedValue from "../../../services/frontend/hooks/useAllStakedValue";
+import useFarms from "../../../services/frontend/hooks/useFarms";
 
 const PendingRewards = () => {
   const [start, setStart] = useState(0);

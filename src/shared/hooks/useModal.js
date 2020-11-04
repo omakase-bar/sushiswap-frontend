@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useCallback, useContext } from "react";
+import { Context } from "../contexts/ModalsContext";
 
-const useModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  return {
-    isOpen,
-    change: () => setIsOpen(!isOpen),
-    show: () => setIsOpen(true),
-    hide: () => setIsOpen(false),
-  };
+const useModal = (modal, key, history) => {
+  const { onDismiss, onPresent } = useContext(Context);
+  const handlePresent = useCallback(() => {
+    onPresent(modal, key, history);
+  }, [key, modal, onPresent]);
+  return [handlePresent, onDismiss];
 };
 
 export default useModal;

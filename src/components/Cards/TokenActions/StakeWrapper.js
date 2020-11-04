@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect, useMemo } from "react";
-import useFarm from "../../../classic/frontend/hooks/useFarm";
+import useFarm from "../../../services/frontend/hooks/useFarm";
 import { useWallet } from "use-wallet";
-import { getContract } from "../../../classic/frontend/utils/erc20";
+import { getContract } from "../../../services/frontend/utils/erc20";
 import Stake from "./Stake";
 
 const StakeWrapper = ({ farmId, apy, setSelected }) => {

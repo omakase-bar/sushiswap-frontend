@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import ClassicSwap from "../../../classic/exchange/pages/Swap/secondary";
-import ClassicPool from "../../../classic/exchange/pages/AddLiquidity/secondary";
-import ClassicRemove from "../../../classic/exchange/pages/RemoveLiquidity/secondary";
+import ClassicSwap from "../../../services/exchange/pages/Swap/secondary";
+import ClassicPool from "../../../services/exchange/pages/AddLiquidity/secondary";
+import ClassicRemove from "../../../services/exchange/pages/RemoveLiquidity/secondary";
 import Stakes from "./Stakes";
-//import Stake from "../../../classic/frontend/views/Farm/components/Stake";
+//import Stake from "../../../services/frontend/views/Farm/components/Stake";
 //import TokenSwap from "../TokenSwap";
 
 const Tabs = ({ selected, setSelected }) => {
@@ -47,46 +47,36 @@ const Tabs = ({ selected, setSelected }) => {
   );
 };
 
-const TokenActionsCard = ({
-  initialSection,
-  title,
-  currencyIdA,
-  currencyIdB,
-  showWallets,
-}) => {
+const TokenActionsCard = ({ initialSection, title, currencyIdA, currencyIdB }) => {
   const [section, setSection] = useState(initialSection);
   return (
-    <div className="sushi-flex sushi-flex-col sushi-rounded-lg sushi-border sushi-border-gray-200 sushi-overflow-hidden">
+    <div className="sushi-shadow-md sushi-flex sushi-flex-col sushi-rounded-lg sushi-border sushi-border-gray-200 sushi-overflow-hidden">
       <div className="sushi-flex-1 sushi-bg-white sushi-p-6 sushi-flex sushi-flex-col sushi-justify-between">
         <div className="sushi-relative sushi-border-b sushi-border-gray-200 sushi-space-y-4 sushi-pb-0">
-          <div className="sushi-space-y-3 sushi-flex sushi-items-center sushi-justify-between sushi-space-y-0">
-            <h3 className="sushi-pt-2 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-gray-900">
-              {title}
-            </h3>
-          </div>
+          {title ? (
+            <div className="sushi-space-y-3 sushi-flex sushi-items-center sushi-justify-between sushi-space-y-0">
+              <h3 className="sushi-pt-2 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-gray-900">
+                {title}
+              </h3>
+            </div>
+          ) : null}
           <Tabs selected={section} setSelected={setSection} />
         </div>
         {
           {
             swap: (
               <div className="sushi-mt-6 sushi-flex-1">
-                <ClassicSwap showWallets={showWallets} />
+                <ClassicSwap />
               </div>
             ),
             pool: (
               <div className="sushi-mt-6 sushi-flex-1">
-                <ClassicPool
-                  currencyIdA={currencyIdA}
-                  currencyIdB={currencyIdB}
-                />
+                <ClassicPool currencyIdA={currencyIdA} currencyIdB={currencyIdB} />
               </div>
             ),
             remove: (
               <div className="sushi-mt-6 sushi-flex-1">
-                <ClassicRemove
-                  currencyIdA={currencyIdA}
-                  currencyIdB={currencyIdB}
-                />
+                <ClassicRemove currencyIdA={currencyIdA} currencyIdB={currencyIdB} />
               </div>
             ),
           }[section]

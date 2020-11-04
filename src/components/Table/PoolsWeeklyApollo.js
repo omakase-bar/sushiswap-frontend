@@ -1,80 +1,207 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React, { useState, useEffect, useMemo, useCallback, useRef, useContext } from "react";
+import { Link } from "react-router-dom";
 import { useWallet } from "use-wallet";
-// For actions
 import BigNumber from "bignumber.js";
-import useAllStakedValue from "../../classic/frontend/hooks/useAllStakedValue";
-import useFarms from "../../classic/frontend/hooks/useFarms";
-import useFarm from "../../classic/frontend/hooks/useFarm";
-import { getContract } from "../../classic/frontend/utils/erc20";
-
-import useAllowance from "../../classic/frontend/hooks/useAllowance";
-import useApprove from "../../classic/frontend/hooks/useApprove";
-import useModal from "../../classic/frontend/hooks/useModal";
-import useStake from "../../classic/frontend/hooks/useStake";
-import useStakedBalance from "../../classic/frontend/hooks/useStakedBalance";
-import useTokenBalance from "../../classic/frontend/hooks/useTokenBalance";
-import useUnstake from "../../classic/frontend/hooks/useUnstake";
-import { getBalanceNumber } from "../../classic/frontend/utils/formatBalance";
-import DepositModal from "../../classic/frontend/views/Farm/components/DepositModal";
-import WithdrawModal from "../../classic/frontend/views/Farm/components/WithdrawModal";
-
-import useEarnings from "../../classic/frontend/hooks/useEarnings";
-import useReward from "../../classic/frontend/hooks/useReward";
-import Value from "../Cards/Balance/Value";
+import Web3 from "web3";
+import ERC20ABI from "../../services/frontend/constants/abi/ERC20.json";
+import { Sushi } from "../../services/frontend/sushi";
+import { getMasterChefContract } from "../../services/frontend/sushi/utils";
+import { getBalanceNumber } from "../../services/frontend/utils/formatBalance";
 
 import _ from "lodash";
-import Toggle from "../ToggleExpand";
+import Toggle from "../Buttons/ExpandWidget";
 import Loading from "./Loading";
+import Error from "./Error";
 import useSortableData from "../../shared/hooks/useSortableData";
-import SushiChef from "../../assets/sushi-chef_bg-fill-light.jpg";
-import "../../assets/shine.css";
-
-import { isAddress } from "../../classic/vision/utils/index.js";
-import logoNotFound from "../../assets/logoNotFound.png";
+import SushiChef from "../../assets/img/sushi-chef_bg-fill-light.jpg";
+import "../../assets/css/shine.css";
 
 import { getPoolData } from "./PoolsWeeklyApolloQuery";
 
-const PoolsWeekly = ({ showWallets }) => {
-  const { account } = useWallet();
+import WalletsModal from "../Modals/Wallets";
+import useModal from "../../shared/hooks/useModal";
+import ExpandButton from "../Buttons/ExpandButton";
+import useFuse from "../../shared/hooks/useFuse";
+import Transition from "../Transition";
+import useOutsideClick from "../../shared/hooks/useOutsideClick";
+import ToggleWallet from "../Toggles/WalletStandalone";
+
+import { formatNumber, sum } from "./Columns/utils";
+import Header from "./Header";
+import ColumnName from "./Columns/Name";
+import ColumnRewardsPer1000 from "./Columns/RewardsPer1000";
+import ColumnROI from "./Columns/ROI";
+import ColumnUnderlyingTokens from "./Columns/UnderlyingTokens";
+import ColumnBalance from "./Columns/Balance";
+import ColumnEarnings from "./Columns/Earnings";
+import ColumnActions from "./Columns/Actions";
+
+import "../../assets/css/freeze-panes.css";
+// type options: "active", "main", "current", "previous"
+const Layout = ({ title, type }) => {
   const [highestAPY, setAPY] = useState();
+  return (
+    <>
+      <Title highestAPY={highestAPY} title={title} />
+      <PoolsQuery setAPY={setAPY} type={type} />
+    </>
+  );
+};
+
+const Title = ({ highestAPY, title }) => {
   return (
     <>
       <div className="sushi-px-4 lg:sushi-flex lg:sushi-items-center lg:sushi-justify-between">
         <div className="sushi-flex-1 sushi-min-w-0">
           <h2 className="sushi-max-w-6xl sushi-mt-8 sushi-px-4 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-cool-gray-900 sushi-">
-            Current Menu of the Week
-            <span class="sushi-ml-3 sushi-inline-flex sushi-items-center sushi-px-3 sushi-py-0.5 sushi-rounded-full sushi-text-sm sushi-font-medium sushi-leading-5 sushi-bg-orange-100 sushi-text-orange-800">
+            {title ? title : "Current Menu"}
+            <span class="sushi-ml-3 sushi-inline-flex sushi-items-center sushi-px-3 sushi-py-0.5 sushi-rounded-md sushi-text-sm sushi-font-medium sushi-leading-5 sushi-bg-orange-100 sushi-text-orange-800">
               Up to {formatNumber(highestAPY, 0)}% APY
             </span>
             <span> ✨</span>
           </h2>
-          <Toggle showWallets={showWallets} widgetPath={"/widgets/weekly/current"} dashboardPath={"/weekly"} />
+          {/* <Toggle widgetPath={"/widgets/weekly/current"} dashboardPath={"/weekly"} /> */}
         </div>
       </div>
-      {!account ? (
-        <div className="sushi-mt-6 md:sushi-flex">
-          <div className="sushi-relative sushi-w-full sushi-mx-auto">
-            <div className="sushi-grid sushi-gap-4 sushi-mx-auto sushi-grid-cols-1 md:sushi-grid-cols-3 lg:sushi-grid-cols-3 lg:sushi-max-w-none">
-              <div className="sushi-col-span-1 md:sushi-col-span-2">
-                <PoolsQuery showWallets={showWallets} setAPY={setAPY} />
-              </div>
-              <div className="">
-                <UnlockWallet showWallets={showWallets} />
-              </div>
-            </div>
-          </div>
-        </div>
+    </>
+  );
+};
+
+const initialColumns = [
+  {
+    name: "Pool",
+    account: false,
+    sortId: "uniswapPair.name",
+    selected: true,
+    component: <ColumnName />,
+  },
+  {
+    name: "Yield per $1,000",
+    account: false,
+    sortId: "rewards.hourlyROI",
+    selected: true,
+    component: <ColumnRewardsPer1000 />,
+  },
+  {
+    name: "ROI",
+    account: false,
+    sortId: "rewards.hourlyROI",
+    selected: true,
+    component: <ColumnROI />,
+  },
+  {
+    name: "Underlying Tokens",
+    account: false,
+    sortId: "balanceUSD",
+    selected: true,
+    component: <ColumnUnderlyingTokens />,
+  },
+  {
+    name: "Balance",
+    account: true,
+    sortId: "tokenBalance",
+    selected: true,
+    component: <ColumnBalance />,
+  },
+  {
+    name: "Earnings",
+    account: true,
+    sortId: "earnings",
+    selected: true,
+    component: <ColumnEarnings />,
+  },
+];
+
+const PoolsQuery = ({ setAPY, type }) => {
+  const [columns, setColumns] = useState(initialColumns);
+  const [pools, setPools] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  // Fetch Data
+  useEffect(() => {
+    async function fetchData() {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        let data = await getPoolData(type ? type : "active");
+        setPools(data.pools);
+        setAPY(data.highestAPY);
+        console.log("APY:", data.highestAPY);
+      } catch (e) {
+        console.log("apollo error:", e);
+        setIsError(true);
+      }
+      setIsLoading(false);
+    }
+    fetchData();
+  }, []);
+  //console.log("APOLLO POOLS:", pools);
+
+  // For Table Search
+  const options = {
+    keys: ["sushiswapId", "name", "id"],
+  };
+  const { result, search, term, reset } = useFuse({
+    data: pools ? pools : [],
+    options,
+  });
+  const flatResult = result.map((a) => (a.item ? a.item : a));
+  //console.log("SEARCH RESULTS:", flatResult);
+
+  return (
+    <>
+      {isError && (
+        <>
+          <TableFilter search={search} term={term} columns={columns} setColumns={setColumns} />
+          <TableAccount>
+            <Loading />
+          </TableAccount>
+        </>
+      )}
+      {isLoading ? (
+        <>
+          <TableFilter search={search} term={term} columns={columns} setColumns={setColumns} />
+          <TableAccount>
+            <Loading />
+          </TableAccount>
+        </>
       ) : (
-        <div className="sushi-mt-6">
-          <PoolsQuery showWallets={showWallets} setAPY={setAPY} />
-        </div>
+        <>
+          <TableFilter search={search} term={term} columns={columns} setColumns={setColumns} />
+          <TableAccount>
+            <TablePools title={"Active Pools on Sushiswap"} pools={flatResult} columns={columns} />
+          </TableAccount>
+        </>
       )}
     </>
   );
 };
 
-const UnlockWallet = ({ showWallets }) => {
+const TableAccount = ({ children }) => {
+  const { account } = useWallet();
+  return (
+    <>
+      {!account ? (
+        <div className="md:sushi-flex">
+          <div className="sushi-relative sushi-w-full sushi-mx-auto">
+            <div className="sushi-grid sushi-gap-4 sushi-mx-auto sushi-grid-cols-1 md:sushi-grid-cols-3 lg:sushi-grid-cols-3 lg:sushi-max-w-none">
+              <div className="sushi-col-span-1 md:sushi-col-span-2">{children}</div>
+              <div className="">
+                <UnlockWallet />
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <>{children}</>
+      )}
+    </>
+  );
+};
+
+const UnlockWallet = () => {
+  const [onPresentWallets] = useModal(<WalletsModal />);
   return (
     <div
       className="relative sushi-h-full sushi-inline-block sushi-min-w-full sushi-align-middle sushi-border-b sushi-border-gray-200 sushi-shadow sm:sushi-rounded-lg"
@@ -93,9 +220,7 @@ const UnlockWallet = ({ showWallets }) => {
           <div className="sushi-text-center">
             <div className="sushi-rounded-md sushi-shadow">
               <button
-                onClick={() => {
-                  showWallets();
-                }}
+                onClick={onPresentWallets}
                 className="sushi-w-full sushi-flex sushi-items-center sushi-justify-center sushi-px-5 sushi-py-3 sushi-border sushi-border-transparent sushi-text-base sushi-leading-6 sushi-font-medium sushi-rounded-md sushi-text-white sushi-bg-orange-600 hover:sushi-bg-orange-700 focus:sushi-outline-none focus:sushi-shadow-outline sushi-transition sushi-duration-150 sushi-ease-in-out"
               >
                 Connect wallet to begin
@@ -109,92 +234,295 @@ const UnlockWallet = ({ showWallets }) => {
   );
 };
 
-const PoolsQuery = ({ showWallets, setAPY }) => {
-  const [pools, setPools] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    async function fetchData() {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        let data = await getPoolData("current");
-        setPools(data.pools);
-        setAPY(data.highestAPY);
-        console.log("APY:", data.highestAPY);
-      } catch (e) {
-        console.log("apollo error:", e);
-        setIsError(true);
-      }
-      setIsLoading(false);
-    }
-    fetchData();
-  }, []);
-  console.log("APOLLO POOLS:", pools);
+const TableFilter = ({ search, term, columns, setColumns }) => {
+  const [isOpen, setOpen] = useState(false);
+  const ref = useRef();
+  useOutsideClick(ref, () => {
+    setOpen(false);
+  });
+  const [onPresentWallets] = useModal(<WalletsModal />);
   return (
     <>
-      {isError && <div>Something went wrong ...</div>}
-      {isLoading ? <Loading /> : <Pools title={"Active Pools on Sushiswap"} pools={pools} showWallets={showWallets} />}
+      <div className="border-t border-gray-200 mt-4 px-4 pt-4 pb-3">
+        <div>
+          <div className="flex rounded-md shadow-sm">
+            <button className="relative flex items-center px-3 py-1.5 rounded-md border border-gray-300 text-sm leading-5 bg-white text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150">
+              <ToggleWallet />
+              <span className="hidden sm:block ml-2">Connect</span>
+            </button>
+            <Search search={search} term={term} />
+            <div className="relative inline-block text-left">
+              <div>
+                <span className="rounded-md shadow-sm">
+                  <button
+                    onClick={() => setOpen(true)}
+                    className="-ml-px relative flex items-center px-3 py-2 rounded-r-md border border-gray-300 text-sm leading-5 bg-white text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150"
+                  >
+                    <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        fillRule="evenodd"
+                        d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span className="hidden sm:block ml-2">Filter</span>
+                  </button>
+                </span>
+              </div>
+              <div ref={ref}>
+                <FilterDropdown isOpen={isOpen} columns={columns} setColumns={setColumns} />
+              </div>
+            </div>
+            {/* <button
+              onClick={onPresentWallets}
+              className="ml-2 relative flex items-center px-3 py-2 rounded-md border border-gray-300 text-sm leading-5 bg-white text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150"
+            >
+              <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+              </svg>
+              <span className="hidden sm:block ml-2">Harvest</span>
+            </button>
+            <button
+              onClick={onPresentWallets}
+              className="ml-2 relative flex items-center px-3 py-2 rounded-md border border-gray-300 text-sm leading-5 bg-white text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150"
+            >
+              <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span className="hidden sm:block ml-2">Migrate</span>
+            </button> */}
+            <button
+              onClick={onPresentWallets}
+              className="ml-2 relative flex items-center px-3 py-2 rounded-md border border-gray-300 text-sm leading-5 bg-white text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150"
+            >
+              <ExpandButton widgetPath={"/widgets/weekly/current"} dashboardPath={"/weekly"} />
+              <span className="hidden sm:block ml-2">Expand</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
 
-const formatNumber = (x, decimal) => {
-  return Number(x)
-    .toFixed(decimal)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const Search = ({ search, term }) => {
+  return (
+    <>
+      <div className="ml-2 relative flex-grow focus-within:z-10">
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fillRule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+        <input
+          className="appearance-none rounded-none block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-l-md text-gray-900 placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150"
+          placeholder="Filter pairs"
+          value={term}
+          onChange={(e) => {
+            search(e.target.value);
+          }}
+        />
+      </div>
+    </>
+  );
 };
 
-const sum = (items, prop) => {
-  return items.reduce(function(a, b) {
-    return a + b[prop];
-  }, 0);
-};
-
-const Pools = ({ title, pools, showWallets }) => {
-  // For regular pool display
+const FilterDropdown = ({ isOpen, columns, setColumns }) => {
   const { account } = useWallet();
-  const total = pools ? sum(pools, "balanceUSD") : undefined;
-  //console.log("TOTAL:", total);
 
-  // For pool actions
-  const [farms] = useFarms();
-  const stakedValue = useAllStakedValue();
-  const sushiIndex = farms.findIndex(({ tokenSymbol }) => tokenSymbol === "SUSHI");
-  const sushiPrice =
-    sushiIndex >= 0 && stakedValue[sushiIndex] ? stakedValue[sushiIndex].tokenPriceInWeth : new BigNumber(0);
-  const BLOCKS_PER_YEAR = new BigNumber(2336000);
-  const SUSHI_PER_BLOCK = new BigNumber(100);
-  console.log("ZIPPO POOLS:", pools);
+  const handleCheckboxChange = (name) => (e) => {
+    let newColumns = [...columns];
+    newColumns = newColumns.map((column) =>
+      column.name === name ? { ...column, selected: e.target.checked } : column
+    );
+    setColumns(newColumns);
+  };
+  return (
+    <>
+      <Transition
+        show={isOpen}
+        enter="ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        <div className="z-10 origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg">
+          <div
+            className="rounded-md bg-white shadow-xs"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            <div className="py-1">
+              {columns.map((column) => {
+                if (column.account === false) {
+                  return (
+                    <div className="block px-4 py-2">
+                      <label className="inline-flex items-center">
+                        <input
+                          defaultChecked={column.selected}
+                          onChange={handleCheckboxChange(column.name)}
+                          type="checkbox"
+                          className="form-checkbox h-4 w-4 border-gray-300 text-orange-600 focus:shadow-outline-orange focus:border-orange-300 transition duration-150 ease-in-out"
+                        />
+                        <span className="ml-2">{column.name}</span>
+                      </label>
+                    </div>
+                  );
+                }
+                if (account && column.account) {
+                  return (
+                    <div className="block px-4 py-2">
+                      <label className="inline-flex items-center">
+                        <input
+                          defaultChecked={column.selected}
+                          onChange={handleCheckboxChange(column.name)}
+                          type="checkbox"
+                          className="form-checkbox h-4 w-4 border-gray-300 text-orange-600 focus:shadow-outline-orange focus:border-orange-300 transition duration-150 ease-in-out"
+                        />
+                        <span className="ml-2">{column.name}</span>
+                      </label>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </>
+  );
+};
+
+// const useMergedStats = (poolStats) => {
+//   const { account } = useWallet();
+//   const [mergedStats, setMergedStats] = useState(poolStats);
+
+//   useEffect(() => {
+//     let accountStats = [];
+//     if (account && poolStats && poolStats.length > 0) {
+//       poolStats.map((pool) => {
+//         // Account
+//         const { pid, lpTokenAddress } = useFarm(pool.sushiswapId);
+//         const { ethereum } = useWallet();
+//         const lpContract = getContract(ethereum, lpTokenAddress);
+//         // Balances
+//         const tokenBalance = useTokenBalance(lpContract.options.address);
+//         const stakedBalance = useStakedBalance(pid);
+//         // Earnings
+//         const earnings = useEarnings(pid);
+//         //
+//         return {
+//           sushiswapId: pool.sushiswapId,
+//           tokenBalance: Number(getBalanceNumber(tokenBalance)),
+//           stakedBalance: Number(getBalanceNumber(stakedBalance)),
+//           earnings: Number(getBalanceNumber(earnings)),
+//         };
+//       });
+//     }
+//     const merged = _.unionBy(poolStats, accountStats, "sushiswapId");
+//     console.log("MERGED STATS:", merged);
+//     setMergedStats(merged);
+//   }, [poolStats]);
+
+//   return mergedStats;
+// };
+
+const TablePools = ({ title, pools, columns }) => {
+  // For regular pool display
+  const { account, ethereum } = useWallet();
+
+  // use to update account stats on every block
+  // const [block, setBlock] = useState(0);
+  // useEffect(() => {
+  //   if (ethereum) {
+  //     const web3 = new Web3(ethereum);
+  //     const interval = setInterval(async () => {
+  //       const latestBlockNumber = await web3.eth.getBlockNumber();
+  //       if (block !== latestBlockNumber) {
+  //         setBlock(latestBlockNumber);
+  //       }
+  //     }, 1000);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [ethereum]);
+
+  const [mergedStats, setMergedStats] = useState();
+  useEffect(() => {
+    if (pools && account) {
+      const getAccountStat = async (pool, web3, account, masterChefContract) => {
+        const lpContract = new web3.eth.Contract(ERC20ABI.abi, pool.id);
+        const tokenBalance = getBalanceNumber(new BigNumber(await lpContract.methods.balanceOf(account).call()));
+        const stakedBalance = getBalanceNumber(
+          new BigNumber((await masterChefContract.methods.userInfo(pool.pid, account).call())["amount"])
+        );
+        const earnings = getBalanceNumber(
+          new BigNumber(await masterChefContract.methods.pendingSushi(pool.pid, account).call())
+        );
+        const stats = {
+          sushiswapId: pool.sushiswapId,
+          tokenBalance: tokenBalance,
+          stakedBalance: stakedBalance,
+          earnings: earnings,
+        };
+        return stats;
+      };
+
+      const fetchAccountStats = async () => {
+        const web3 = new Web3(ethereum);
+        const chainId = Number(ethereum.chainId);
+        const sushi = new Sushi(ethereum, chainId, false, {
+          defaultAccount: ethereum.selectedAddress,
+          defaultConfirmations: 1,
+          autoGasMultiplier: 1.5,
+          testing: false,
+          defaultGas: "6000000",
+          defaultGasPrice: "1000000000000",
+          accounts: [],
+          ethereumNodeTimeout: 10000,
+        });
+        const masterChefContract = getMasterChefContract(sushi);
+        // Run in parallel
+        const promises = pools.map((pool) => getAccountStat(pool, web3, account, masterChefContract));
+        const accountStats = await Promise.all(promises);
+
+        // Run in sequence
+        // let accountStats = [];
+        // for (const pool of pools) {
+        //   const stat = await getAccountStat(pool, web3, account, masterChefContract);
+        //   accountStats.push(stat);
+        // }
+        // console.log("ACCOUNT STATS:", accountStats);
+        const merged = _.merge(pools, accountStats);
+        //console.log("MERGED STATS:", merged);
+        setMergedStats(merged);
+      };
+      fetchAccountStats();
+    }
+  }, [pools]);
 
   // Table Sorting
-  const { items, requestSort, sortConfig } = useSortableData(pools);
+  console.log("MERGED STATS:", mergedStats);
+  const { items, requestSort, sortConfig } = useSortableData(mergedStats ? mergedStats : pools);
   const getClassNamesFor = (name) => {
     if (!sortConfig) {
       return;
     }
     return sortConfig.key === name ? sortConfig.direction : undefined;
   };
-  const headers = [
-    {
-      name: "Pool",
-      sortId: "uniswapPair.name",
-    },
-    {
-      name: "Yield per $1,000",
-      sortId: "rewards.hourlyROI",
-    },
-    {
-      name: "ROI",
-      sortId: "rewards.hourlyROI",
-    },
-    {
-      name: "Underlying Tokens",
-      sortId: "balanceUSD",
-    },
-  ];
+
+  console.log("ITEMS:", items);
 
   return (
     <>
@@ -205,350 +533,64 @@ const Pools = ({ title, pools, showWallets }) => {
           whiteSpace: "nowrap",
         }}
       >
-        <div className="sushi-inline-block sushi-min-w-full sushi-align-middle sushi-border-b sushi-border-gray-200 sushi-shadow sm:sushi-rounded-lg">
+        <div className="sushi-inline-block sushi-min-w-full sushi-align-middle sushi-shadow sm:sushi-rounded-lg">
           <table className="sushi-min-w-full sushi-divide-y sushi-divide-gray-200">
             <thead>
               <tr>
-                {headers.map((header, index) => {
-                  return (
-                    <th
-                      onClick={() => requestSort(header.sortId)}
-                      className="sushi-px-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-500 sushi-uppercase sushi-border-b sushi-border-t sushi-border-gray-200 sushi-bg-gray-50"
-                      style={
-                        index === 0
-                          ? {
-                              position: "-webkit-sticky",
-                              position: "sticky",
-                              width: "16rem",
-                              minWidth: "16rem",
-                              maxWidth: "16rem",
-                              left: "0px",
-                              boxShadow: "10px 0 5px -2px #f3f3f3",
-                            }
-                          : null
-                      }
-                    >
-                      <a href="#" className="sushi-flex sushi-items-center">
-                        <span>{header.name}</span>
-                        {
-                          {
-                            ascending: (
-                              <svg
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                className="sushi-self-start sushi-flex-shrink-0 sushi-w-5 sushi-h-5 sushi-ml-1 sushi--mb-1 sushi-transform sushi-rotate-180"
-                              >
-                                <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h7a1 1 0 100-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z" />
-                              </svg>
-                            ),
-                            descending: (
-                              <svg
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                className="sushi-self-start sushi-flex-shrink-0 sushi-w-5 sushi-h-5 sushi-ml-1 sushi--mb-1"
-                              >
-                                <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h7a1 1 0 100-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z" />
-                              </svg>
-                            ),
-                          }[getClassNamesFor(header.sortId)]
-                        }
-                      </a>
-                    </th>
-                  );
+                {columns.map((header, index) => {
+                  // If no wallet connected and column does not depend on wallet
+                  if (header.account === false && header.selected === true) {
+                    return (
+                      <Header
+                        header={header}
+                        index={index}
+                        requestSort={requestSort}
+                        getClassNamesFor={getClassNamesFor}
+                      />
+                    );
+                  }
+                  if (account && header.account && header.selected === true) {
+                    return (
+                      <Header
+                        header={header}
+                        index={index}
+                        requestSort={requestSort}
+                        getClassNamesFor={getClassNamesFor}
+                      />
+                    );
+                  }
                 })}
-                {account ? (
-                  <>
-                    <th
-                      // onClick={() => requestSort("name")}
-                      className="sushi-pl-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-800 sushi-uppercase sushi-border-b sushi-border-t sushi-border-orange-200 sushi-bg-orange-100"
-                    >
-                      <a href="#" className="sushi-flex sushi-items-center">
-                        <span>Balance</span>
-                      </a>
-                    </th>
-                    <th
-                      //onClick={() => requestSort("name")}
-                      className="sushi-pl-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-800 sushi-uppercase sushi-border-b sushi-border-t sushi-border-orange-200 sushi-bg-orange-100"
-                    >
-                      <a href="#" className="sushi-flex sushi-items-center">
-                        <span>Rewards</span>
-                      </a>
-                    </th>
-                    <th className="sushi-px-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-800 sushi-uppercase sushi-border-b sushi-border-t sushi-border-orange-200 sushi-bg-orange-100"></th>
-                    {/* <th className="sushi-px-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-800 sushi-uppercase sushi-border-b sushi-border-t sushi-border-orange-200 sushi-bg-orange-100"></th> */}
-                  </>
-                ) : null}
               </tr>
             </thead>
             <tbody className="sushi-bg-white sushi-divide-y sushi-divide-gray-200">
-              {pools && items.length > 0
+              {pools && items && items.length > 0
                 ? items.map((pool) => {
                     return (
                       <tr>
-                        <td
-                          className="sushi-px-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200 sushi-bg-white"
-                          style={{
-                            position: "-webkit-sticky",
-                            position: "sticky",
-                            width: "16rem",
-                            minWidth: "16rem",
-                            maxWidth: "16rem",
-                            left: "0px",
-                            boxShadow: "10px 0 5px -2px #f3f3f3",
-                            borderColor: "transparent",
-                          }}
-                        >
-                          <div className="sushi-flex sushi-items-center">
-                            <div className="sushi-flex-shrink-0 sushi-w-10 sushi-h-10 sushi-text-3xl">{pool.icon}</div>
-                            <div className="sushi-ml-4">
-                              <div className="sushi-flex sushi-items-center">
-                                <Link
-                                  to={"/pair/" + pool.uniswapPair.id}
-                                  className="sushi-flex sushi-items-center sushi-text-sm sushi-font-medium sushi-leading-5 sushi-text-gray-900 hover:sushi-underline"
-                                >
-                                  {pool.name}
-                                  <svg
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    className="sushi-w-4 sushi-h-4 sushi-ml-1"
-                                  >
-                                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />{" "}
-                                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                                  </svg>
-                                </Link>{" "}
-                                {pool.new ? (
-                                  <span className="sushi-ml-2 sushi-inline-flex sushi-items-center sushi-px-2.5 sushi-py-0.5 sushi-rounded-full sushi-text-xs sushi-font-medium sushi-leading-4 sushi-bg-teal-100 sushi-text-teal-800">
-                                    New
-                                  </span>
-                                ) : null}
-                              </div>{" "}
-                              <div className="sushi-text-sm sushi-leading-5 sushi-text-gray-500">
-                                Sushiswap {pool.uniswapPair.name}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="sushi-px-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
-                          <div className="sushi-inline-flex sushi-flex-col">
-                            <div className="sushi-flex sushi-items-center">
-                              <div
-                                className="sushi-p-1 sushi-mr-2 sushi-text-xl sushi-transition-colors sushi-duration-300 sushi-rounded sushi-shadow-md sushi-cursor-default hover:sushi-bg-orange-50"
-                                style={{ border: "solid 1px #ee6d48" }}
-                              >
-                                🍣
-                              </div>
-                              <div>
-                                <div>
-                                  {formatNumber(
-                                    (1e3 /
-                                      ((pool.balance / pool.uniswapPair.totalSupply) * pool.uniswapPair.reserveUSD)) *
-                                      ((3600 / 13.115837104072398) * pool.rewards.rewardPerBlock) *
-                                      24,
-                                    3
-                                  )}
-                                </div>
-                                <div className="sushi-text-xs sushi-text-gray-500">SUSHI/day</div>
-                              </div>
-                            </div>
-                            {pool.rewards.multiplier && pool.rewards.multiplier > 1 ? (
-                              <div
-                                className="sushi-self-center sushi-mt-2 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-text-gray-800 sushi-bg-gray-100 sushi-rounded-full sushi-select-none sushi-text-green-800 sushi-bg-green-100 sushi-has-tooltip"
-                                data-original-title="null"
-                              >
-                                <div className="sushi-inline-flex sushi-items-center sushi-px-2.5 sushi-py-0.5">
-                                  {formatNumber(pool.rewards.multiplier, 2)}x Reward
-                                  <svg
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    className="sushi-w-4 sushi-h-4 sushi-ml-0.5 sushi--mr-1 sushi-question-mark-circle"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </div>
-                              </div>
-                            ) : pool.rewards.multiplier && pool.rewards.multiplier !== 1 ? (
-                              <div
-                                className="sushi-self-center sushi-mt-2 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-text-gray-800 sushi-bg-gray-100 sushi-rounded-full sushi-select-none sushi-has-tooltip"
-                                data-original-title="null"
-                              >
-                                <div className="sushi-inline-flex sushi-items-center sushi-px-2.5 sushi-py-0.5">
-                                  {formatNumber(pool.rewards.multiplier, 2)}x Reward
-                                  <svg
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    className="sushi-w-4 sushi-h-4 sushi-ml-0.5 sushi--mr-1 sushi-question-mark-circle"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </div>
-                              </div>
-                            ) : null}
-                          </div>
-                        </td>
-                        <td className="sushi-px-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
-                          <div className="sushi-flex sushi-items-center">
-                            <span>{formatNumber(pool.rewards.hourlyROI * 24 * 100, 2)}%</span>
-                            <span className="sushi-pl-1 sushi-text-xs sushi-leading-3">daily</span>
-                          </div>
-                          <div className="sushi-flex sushi-items-center sushi-text-xs sushi-text-gray-500">
-                            <span>{formatNumber(pool.rewards.hourlyROI * 24 * 30 * 100, 2)}%</span>
-                            <span className="sushi-pl-1 sushi-text-xs sushi-leading-3 sushi-text-gray-500">
-                              monthly
-                            </span>
-                          </div>
-                          <div className="sushi-flex sushi-items-center sushi-text-xs sushi-text-gray-500">
-                            <span>{formatNumber(pool.rewards.hourlyROI * 24 * 365 * 100, 2)}%</span>
-                            <span className="sushi-pl-1 sushi-text-xs sushi-leading-3 sushi-text-gray-500">yearly</span>
-                          </div>
-                        </td>
-                        {/* <td className="sushi-px-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
-                          {formatNumber(pool.balance, 3)}
-                          <div className="sushi-text-sm sushi-leading-5 sushi-text-gray-500">
-                            {pool.sushiswapId}
-                          </div>
-                        </td> */}
-                        <td className="sushi-px-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
-                          <div className="sushi-text-xs">
-                            <div className="sushi-flex sushi-items-center">
-                              <img
-                                src={`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
-                                  pool.uniswapPair.token0.id
-                                )}/logo.png`}
-                                onError={(e) => {
-                                  e.target.onerror = null;
-                                  e.target.src = logoNotFound;
-                                }}
-                                alt={pool.uniswapPair.token0.symbol + " Logo"}
-                                className="sushi-mr-2"
-                                style={{
-                                  width: "1.125rem",
-                                  height: "1.125rem",
-                                }}
-                              />
-                              {formatNumber(
-                                (pool.balance / pool.uniswapPair.totalSupply) * pool.uniswapPair.reserve0,
-                                2
-                              )}{" "}
-                              {pool.uniswapPair.token0.symbol}
-                            </div>
-                            <div className="sushi-flex sushi-items-center sushi-mt-1.5">
-                              <img
-                                src={`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
-                                  pool.uniswapPair.token1.id
-                                )}/logo.png`}
-                                onError={(e) => {
-                                  e.target.onerror = null;
-                                  e.target.src = logoNotFound;
-                                }}
-                                alt={pool.uniswapPair.token1.symbol + " Logo"}
-                                className="sushi-mr-2"
-                                style={{
-                                  width: "1.125rem",
-                                  height: "1.125rem",
-                                }}
-                              />
-                              {formatNumber(
-                                (pool.balance / pool.uniswapPair.totalSupply) * pool.uniswapPair.reserve1,
-                                2
-                              )}{" "}
-                              {pool.uniswapPair.token1.symbol}
-                            </div>
-                            <div className="sushi-flex sushi-items-center sushi-mt-1.5">
-                              <svg viewBox="0 0 20 20" fill="currentColor" className="sushi-w-4 sushi-h-4 sushi-mr-2">
-                                <path
-                                  fillRule="evenodd"
-                                  d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                              ${formatNumber(pool.balanceUSD, 0)} TVL{" "}
-                              {/* {pool.history.dayAgo ? (
-                                pool.history.dayAgo &&
-                                pool.balanceUSD >
-                                  pool.history.dayAgo.balanceUSD ? (
-                                  <svg
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    className="sushi-w-4 sushi-h-4 sushi-mr-2 sushi-text-green-500"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                ) : (
-                                  <svg
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    className="sushi-w-4 sushi-h-4 sushi-mr-2 sushi-text-red-500"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                )
-                              ) : null} */}
-                            </div>
-                          </div>
-                        </td>
-                        {/* <td className="sushi-px-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
-                          <div className="sushi-flex sushi-items-center">
-                            <div>
-                              <div className="sushi-flex sushi-items-center sushi-text-sm sushi-leading-5 sushi-text-gray-900">
-                                ${formatNumber(pool.balanceUSD, 0)}
-                                {"  "}
-                                {pool.history.dayAgo ? (
-                                  pool.history.dayAgo &&
-                                  pool.balanceUSD >
-                                    pool.history.dayAgo.balanceUSD ? (
-                                    <div class="sushi-text-xs sushi-text-green-500">
-                                      (+
-                                      {formatNumber(
-                                        (pool.balanceUSD /
-                                          pool.history.dayAgo.balanceUSD -
-                                          1) *
-                                          100,
-                                        1
-                                      )}
-                                      %)
-                                    </div>
-                                  ) : (
-                                    <div class="sushi-text-xs sushi-text-red-500">
-                                      (
-                                      {formatNumber(
-                                        (pool.balanceUSD /
-                                          pool.history.dayAgo.balanceUSD -
-                                          1) *
-                                          100,
-                                        1
-                                      )}
-                                      %)
-                                    </div>
-                                  )
-                                ) : null}
-                              </div>
-                              <div className="sushi-text-xs sushi-leading-5 sushi-text-gray-500">
-                                  {formatNumber(
-                                    (pool.balanceUSD / total) * 100,
-                                    1
-                                  )}
-                                  % of active pools
-                                </div>
-                            </div>
-                          </div>
-                        </td> */}
-                        {account ? <StakeWrapper key={pool.sushiswapId} farmId={pool.sushiswapId} pool={pool} /> : null}
+                        {/* <ColumnName pool={pool} />
+                        <ColumnRewardsPer1000 pool={pool} />
+                        <ColumnROI pool={pool} />
+                        <ColumnUnderlyingTokens pool={pool} />
+                        {account ? (
+                          <>
+                            <ColumnBalance pool={pool} />
+                            <ColumnEarnings pool={pool} />
+                            <ColumnActions farmId={pool.sushiswapId} pool={pool} />
+                          </>
+                        ) : null} */}
+                        {columns.map((column) => {
+                          if (column.account === false && column.selected === true) {
+                            return React.cloneElement(column.component, { pool });
+                          }
+                          if (account && column.account && column.selected === true) {
+                            return React.cloneElement(column.component, { pool });
+                          }
+                        })}
+                        {account ? (
+                          <>
+                            <ColumnActions farmId={pool.sushiswapId} pool={pool} />
+                          </>
+                        ) : null}
                       </tr>
                     );
                   })
@@ -557,204 +599,57 @@ const Pools = ({ title, pools, showWallets }) => {
           </table>
         </div>
       </div>
+      {!items || (items && items.length === 0) ? <NoResults /> : null}
     </>
   );
 };
 
-const StakeWrapper = ({ farmId, pool }) => {
-  const { pid, lpToken, lpTokenAddress, tokenAddress, earnToken, name, icon } = useFarm(farmId) || {
-    pid: 0,
-    lpToken: "",
-    lpTokenAddress: "",
-    tokenAddress: "",
-    earnToken: "",
-    name: "",
-    icon: "",
-  };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const { ethereum } = useWallet();
-  const lpContract = useMemo(() => {
-    return getContract(ethereum, lpTokenAddress);
-  }, [ethereum, lpTokenAddress]);
-
-  return (
-    <Stake
-      lpContract={lpContract}
-      pid={pid}
-      tokenName={lpToken.toUpperCase()}
-      lpTokenAddress={lpTokenAddress}
-      pool={pool}
-    />
-  );
-};
-
-const Stake = ({ pool, lpContract, pid, tokenName, lpTokenAddress }) => {
-  const history = useHistory();
-  const [requestedApproval, setRequestedApproval] = useState(false);
-  const allowance = useAllowance(lpContract);
-  const { onApprove } = useApprove(lpContract);
-  const tokenBalance = useTokenBalance(lpContract.options.address);
-  const stakedBalance = useStakedBalance(pid);
-  const { onStake } = useStake(pid);
-  const { onUnstake } = useUnstake(pid);
-  const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} onConfirm={onStake} tokenName={tokenName} />);
-  const [onPresentWithdraw] = useModal(
-    <WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={tokenName} />
-  );
-  const handleApprove = useCallback(async () => {
-    //console.log("SEEKING APPROVAL");
-    try {
-      setRequestedApproval(true);
-      const txHash = await onApprove();
-      console.log(txHash);
-      // user rejected tx or didn't go thru
-      if (!txHash) {
-        setRequestedApproval(false);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }, [onApprove, setRequestedApproval]);
-
-  const earnings = useEarnings(pid);
-  const [pendingTx, setPendingTx] = useState(false);
-  const { onReward } = useReward(pid);
-  const { account } = useWallet();
+const NoResults = () => {
   return (
     <>
-      <td className="sushi-pl-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
-        <div className="sushi-text-xs">
-          <div className="sushi-flex sushi-items-center">
-            Available: {Number(getBalanceNumber(tokenBalance)).toFixed(4)}
-          </div>
-          <div className="sushi-flex sushi-items-center sushi-mt-1.5">
-            Staked: {Number(getBalanceNumber(stakedBalance)).toFixed(4)}
-          </div>
-          <div className="sushi-flex sushi-items-center sushi-mt-1.5">{tokenName}</div>
-        </div>
-      </td>
-      <td className="sushi-pl-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
-        <div className="sushi-inline-flex sushi-flex-col">
-          {getBalanceNumber(earnings) > 0 ? (
-            <>
-              <div className="sushi-flex sushi-items-center">
-                <button
-                  disabled={!earnings.toNumber() || pendingTx}
-                  onClick={async () => {
-                    setPendingTx(true);
-                    await onReward();
-                    setPendingTx(false);
-                  }}
-                  className="sushi-p-1 sushi-mr-2 sushi-text-xl sushi-transition-colors sushi-duration-300 sushi-rounded sushi-shadow-md sushi-cursor-default hover:sushi-bg-orange-50"
-                  style={{ border: "1px solid rgb(238, 109, 72)" }}
-                >
-                  🍣
-                </button>
-                <div>
-                  <div>
-                    <Value value={!!account ? getBalanceNumber(earnings) : "Locked"} />{" "}
+      <section className="min-h-full py-12 bg-gray-50 overflow-hidden md:py-20 lg:py-24">
+        <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative">
+            <blockquote className="mt-8">
+              <div className="max-w-3xl mx-auto text-center text-2xl leading-9 font-medium text-gray-900">
+                <p>No results. すごく ごめんね!</p>
+              </div>
+              <footer className="mt-8">
+                <div className="md:flex md:items-center md:justify-center">
+                  {/* <div className="md:flex-shrink-0">
+                    <img
+                      className="mx-auto h-10 w-10 rounded-full"
+                      src=""
+                      alt=""
+                    />
+                  </div> */}
+                  <div className="mt-3 text-center md:mt-0 md:ml-4 md:flex md:items-center">
+                    <Link to="/pairs" className="text-base leading-6 font-medium text-gray-900">
+                      View all pairs
+                    </Link>
+                    <svg
+                      className="hidden md:block mx-1 h-5 w-5 text-orange-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M11 0h3L9 20H6l5-20z" />
+                    </svg>
+                    <a
+                      href="https://forum.sushiswapclassic.org"
+                      target="_blank"
+                      className="text-base leading-6 font-medium text-gray-500"
+                    >
+                      Vote for a menu
+                    </a>
                   </div>
-                  <div className="sushi-text-xs sushi-text-gray-500">SUSHI</div>
                 </div>
-              </div>
-              <div
-                className="sushi-self-center sushi-mt-2 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-rounded-full sushi-select-none sushi-text-orange-800 sushi-bg-orange-100 sushi-has-tooltip"
-                data-original-title="null"
-              >
-                <button
-                  disabled={!earnings.toNumber() || pendingTx}
-                  onClick={async () => {
-                    setPendingTx(true);
-                    await onReward();
-                    setPendingTx(false);
-                  }}
-                  className="sushi-inline-flex sushi-items-center sushi-px-2.5 sushi-py-0.5"
-                >
-                  Click to harvest
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="sushi-flex sushi-items-center">
-                <div className="sushi-p-1 sushi-mr-2 sushi-text-xl sushi-transition-colors sushi-duration-300 sushi-rounded sushi-shadow-md sushi-cursor-default hover:sushi-bg-orange-50">
-                  🤷‍♀️
-                </div>
-                <div>
-                  <div>
-                    <Value value={!!account ? getBalanceNumber(earnings) : "Locked"} />
-                  </div>
-                  <div className="sushi-text-xs sushi-text-gray-500">SUSHI</div>
-                </div>
-              </div>
-              <div
-                className="sushi-self-center sushi-mt-2 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-text-gray-800 sushi-bg-gray-100 sushi-rounded-full sushi-select-none sushi-has-tooltip"
-                data-original-title="null"
-              >
-                <div className="sushi-inline-flex sushi-items-center sushi-px-2.5 sushi-py-0.5">No rewards</div>
-              </div>
-            </>
-          )}
+              </footer>
+            </blockquote>
+          </div>
         </div>
-      </td>
-      <td className="sushi-px-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
-        {!allowance.toNumber() ? (
-          <span className="sushi-inline-flex sushi-rounded-md sushi-shadow-sm">
-            {/* <button
-                  onClick={() => {
-                    history.push("/pair/" + pool.uniswapPair.id);
-                  }}
-                  className="sushi-inline-flex sushi-items-center sushi-px-10 sushi-py-3 sushi-text-sm sushi-font-medium sushi-leading-4 sushi-text-gray-700 sushi-transition sushi-duration-150 sushi-ease-in-out sushi-bg-white sushi-border sushi-border-gray-300 sushi-rounded-md hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-border-blue-300 focus:sushi-shadow-outline-blue active:sushi-text-gray-800 active:sushi-"
-                >
-                  + Liquidity
-                </button> */}
-            <button
-              //disabled={requestedApproval}
-              onClick={handleApprove}
-              className="sushi-inline-flex sushi-items-center sushi-px-2 sushi-py-3 sushi-text-sm sushi-font-medium sushi-leading-4 sushi-text-gray-700 sushi-transition sushi-duration-150 sushi-ease-in-out sushi-bg-white sushi-border sushi-border-gray-300 sushi-rounded-md hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-border-blue-300 focus:sushi-shadow-outline-blue active:sushi-text-gray-800 active:sushi-"
-            >
-              🔒 Approve Staking
-            </button>
-          </span>
-        ) : stakedBalance.eq(new BigNumber(0)) && tokenBalance.eq(new BigNumber(0)) && !allowance.toNumber() ? (
-          <span className="sushi-inline-flex sushi-rounded-md sushi-shadow-sm">
-            <button
-              onClick={() => {
-                history.push("/pair/" + pool.uniswapPair.id);
-              }}
-              className="sushi-inline-flex sushi-items-center sushi-px-10 sushi-py-3 sushi-text-sm sushi-font-medium sushi-leading-4 sushi-text-gray-700 sushi-transition sushi-duration-150 sushi-ease-in-out sushi-bg-white sushi-border sushi-border-gray-300 sushi-rounded-md hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-border-blue-300 focus:sushi-shadow-outline-blue active:sushi-text-gray-800 active:sushi-"
-            >
-              + Liquidity
-            </button>
-          </span>
-        ) : (
-          <>
-            <span className="sushi-inline-flex sushi-rounded-md sushi-shadow-sm">
-              <button
-                onClick={onPresentDeposit}
-                className="sushi-inline-flex sushi-items-center sushi-px-3 sushi-py-3 sushi-text-sm sushi-font-medium sushi-leading-4 sushi-text-gray-700 sushi-transition sushi-duration-150 sushi-ease-in-out sushi-bg-white sushi-border sushi-border-gray-300 sushi-rounded-md hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-border-blue-300 focus:sushi-shadow-outline-blue active:sushi-text-gray-800 active:sushi-"
-              >
-                Stake
-              </button>
-            </span>
-            <span className="sushi-ml-2 sushi-inline-flex sushi-rounded-md sushi-shadow-sm">
-              <button
-                onClick={onPresentWithdraw}
-                //disabled={stakedBalance.eq(new BigNumber(0))}
-                className="sushi-inline-flex sushi-items-center sushi-px-3 sushi-py-3 sushi-text-sm sushi-font-medium sushi-leading-4 sushi-text-gray-700 sushi-transition sushi-duration-150 sushi-ease-in-out sushi-bg-white sushi-border sushi-border-gray-300 sushi-rounded-md hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-border-blue-300 focus:sushi-shadow-outline-blue active:sushi-text-gray-800 active:sushi-"
-              >
-                Unstake
-              </button>
-            </span>
-          </>
-        )}
-      </td>
+      </section>
     </>
   );
 };
 
-export default PoolsWeekly;
+export default Layout;

@@ -27,11 +27,11 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { HttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import App from "./App";
-import "./animations-sushi.css";
+import "./assets/css/animations.css";
 import "./styles-sushi.css"; // compiled, compact, prefixed css
 import "./styles.css"; // remaining css
-import "./assets/neumorphic-sushi.css";
-import "./assets/sushiBelt.css";
+import "./assets/css/neumorphic.css";
+import "./assets/css/kaiten.css";
 import * as serviceWorker from "./service-worker";
 
 // initialize GA

@@ -1,14 +1,14 @@
 import BigNumber from "bignumber.js";
 import React, { useCallback, useState } from "react";
 // Staking SushiX
-import useModal from "../../../classic/frontend/hooks/useModal";
-import useTokenBalance from "../../../classic/frontend/hooks/useTokenBalance";
-import DepositModal from "../../../classic/frontend/views/StakeXSushi/components/DepositModal";
-import { contractAddresses } from "../../../classic/frontend/sushi/lib/constants";
-import useEnter from "../../../classic/frontend/hooks/useEnter";
-import useLeave from "../../../classic/frontend/hooks/useLeave";
-import useAllowanceStaking from "../../../classic/frontend/hooks/useAllowanceStaking";
-import useApproveStaking from "../../../classic/frontend/hooks/useApproveStaking";
+import useModal from "../../../services/frontend/hooks/useModal";
+import useTokenBalance from "../../../services/frontend/hooks/useTokenBalance";
+import DepositModal from "../../../services/frontend/views/StakeXSushi/components/DepositModal";
+import { contractAddresses } from "../../../services/frontend/sushi/lib/constants";
+import useEnter from "../../../services/frontend/hooks/useEnter";
+import useLeave from "../../../services/frontend/hooks/useLeave";
+import useAllowanceStaking from "../../../services/frontend/hooks/useAllowanceStaking";
+import useApproveStaking from "../../../services/frontend/hooks/useApproveStaking";
 
 const StakeSushi = () => {
   //Staking SushiX Mechanism

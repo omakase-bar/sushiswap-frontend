@@ -81,7 +81,7 @@ export async function getPoolData(status) {
   //   totalAllocPointWithoutVesting,
   //   totalAllocPointWithVesting
   // );
-  const sushiPerBlock = 100;
+  const sushiPerBlock = 90; // originally 100
   const baseAllocPoint = 1e3;
 
   //   console.log("DETAILS_1:", {
@@ -142,6 +142,7 @@ export async function getPoolData(status) {
     // });
 
     formatted.push({
+      pid: pair.pid,
       id: pair.id,
       name: pair.name,
       icon: pair.icon,

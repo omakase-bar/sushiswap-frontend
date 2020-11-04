@@ -1,0 +1,33 @@
+.sushi-freeze-cell-header {
+  position: -webkit-sticky;
+  position: sticky;
+  width: 8.5rem;
+  min-width: 8.5rem;
+  max-width: 8.5rem;
+  left: 0px;
+  box-shadow: 10px 0 5px -2px #f3f3f3;
+}
+
+.sushi-freeze-cell {
+  position: -webkit-sticky;
+  position: sticky;
+  width: 8.5rem;
+  min-width: 8.5rem;
+  max-width: 8.5rem;
+  left: 0px;
+  box-shadow: 10px 0 5px -2px #f3f3f3;
+}
+
+@media (min-width: 640px) {
+  .sushi-freeze-cell-header {
+    width: 10rem;
+    min-width: 10rem;
+    max-width: 10rem;
+  }
+
+  .sushi-freeze-cell {
+    width: 12.5rem;
+    min-width: 12.5rem;
+    max-width: 12.5rem;
+  }
+}

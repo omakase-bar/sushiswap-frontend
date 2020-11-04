@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Tabs from "./Tabs";
-import ClassicSwap from "../../../classic/exchange/pages/Swap/secondary";
-import ClassicPool from "../../../classic/exchange/pages/AddLiquidity/secondary";
-import ClassicRemove from "../../../classic/exchange/pages/RemoveLiquidity/secondary";
+import ClassicSwap from "../../../services/exchange/pages/Swap/secondary";
+import ClassicPool from "../../../services/exchange/pages/AddLiquidity/secondary";
+import ClassicRemove from "../../../services/exchange/pages/RemoveLiquidity/secondary";
 import Stakes from "./Stakes";
-//import Stake from "../../../classic/frontend/views/Farm/components/Stake";
+//import Stake from "../../../services/frontend/views/Farm/components/Stake";
 //import TokenSwap from "../TokenSwap";
 
 const TokenActionsCard = ({

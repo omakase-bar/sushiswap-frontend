@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ClassicSwap from "../../classic/exchange/pages/Swap/secondary";
+import ClassicSwap from "../../services/exchange/pages/Swap/secondary";
 
 const Swap = ({ title }) => {
   return (

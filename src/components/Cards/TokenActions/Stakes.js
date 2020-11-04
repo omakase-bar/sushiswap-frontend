@@ -1,10 +1,10 @@
 import React from "react";
-//import Stake from "../../../classic/frontend/views/Farm/components/Stake";
+//import Stake from "../../../services/frontend/views/Farm/components/Stake";
 import StakeWrapper from "./StakeWrapper";
-//import useSushi from "../../../classic/frontend/hooks/useSushi";
-//import { getFarms } from "../../../classic/frontend/sushi/utils";
-import useAllStakedValue from "../../../classic/frontend/hooks/useAllStakedValue";
-import useFarms from "../../../classic/frontend/hooks/useFarms";
+//import useSushi from "../../../services/frontend/hooks/useSushi";
+//import { getFarms } from "../../../services/frontend/sushi/utils";
+import useAllStakedValue from "../../../services/frontend/hooks/useAllStakedValue";
+import useFarms from "../../../services/frontend/hooks/useFarms";
 import { useWallet } from "use-wallet";
 import BigNumber from "bignumber.js";
 

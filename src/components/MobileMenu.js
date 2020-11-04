@@ -1,165 +1,104 @@
 import React from "react";
+import MobileSearch from "./Search/Mobile";
+import MenuItems from "./Sidebar/MenuItems";
+import logo from "../assets/img/logo.png";
 
-const MobileMenu = () => {
+const SearchHeader = ({ selected, changeMenu, isOpen }) => {
   return (
-    <div className="lg:sushi-hidden">
-      <div className="sushi-fixed sushi-inset-0 sushi-flex sushi-z-40">
-        {/*
-  Off-canvas menu overlay, show/hide based on off-canvas menu state.
-  
-  Entering: "transition-opacity ease-linear duration-300"
-    From: "opacity-0"
-    To: "opacity-100"
-  Leaving: "transition-opacity ease-linear duration-300"
-    From: "opacity-100"
-    To: "opacity-0"
-  */}
-        <div className="sushi-fixed sushi-inset-0">
-          <div className="sushi-absolute sushi-inset-0 sushi-bg-orange-600 sushi-opacity-75" />
-        </div>
-        {/*
-  Off-canvas menu, show/hide based on off-canvas menu state.
-  
-  Entering: "transition ease-in-out duration-300 transform"
-    From: "-translate-x-full"
-    To: "translate-x-0"
-  Leaving: "transition ease-in-out duration-300 transform"
-    From: "translate-x-0"
-    To: "-translate-x-full"
-  */}
-        <div className="sushi-relative sushi-flex-1 sushi-flex sushi-flex-col sushi-max-w-xs sushi-w-full sushi-pt-5 sushi-pb-4 sushi-bg-white">
-          <div className="sushi-absolute sushi-top-0 sushi-right-0 sushi--mr-14 sushi-p-1">
-            <button
-              className="sushi-flex sushi-items-center sushi-justify-center sushi-h-12 sushi-w-12 sushi-rounded-full focus:sushi-outline-none focus:sushi-bg-orange-600"
-              aria-label="Close sidebar"
-            >
-              <svg
-                className="sushi-h-6 sushi-w-6 sushi-text-white"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="sushi-flex-shrink-0 sushi-flex sushi-items-center sushi-px-4">
-            <img
-              className="sushi-h-8 sushi-w-auto"
-              src="https://tailwindui.com/img/logos/workflow-logo-purple-on-white.svg"
-              alt="Workflow"
-            />
-          </div>
-          <div className="sushi-mt-5 sushi-flex-1 sushi-h-0 sushi-overflow-y-auto">
-            <nav className="sushi-px-2">
-              <div className="sushi-space-y-1">
-                <a
-                  href="#"
-                  className="sushi-group sushi-flex sushi-items-center sushi-px-2 sushi-py-2 sushi-text-base sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-900 sushi-bg-orange-100 hover:sushi-text-gray-900 hover:sushi-bg-orange-100 focus:sushi-bg-orange-200 focus:sushi-outline-none sushi-transition sushi-ease-in-out sushi-duration-150"
-                >
-                  <svg
-                    className="sushi-mr-3 sushi-h-6 sushi-w-6 sushi-text-gray-500 group-hover:sushi-text-gray-500 group-focus:sushi-text-gray-600 sushi-transition sushi-ease-in-out sushi-duration-150"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    />
-                  </svg>
-                  Home
-                </a>
-                <a
-                  href="#"
-                  className="sushi-group sushi-flex sushi-items-center sushi-px-2 sushi-py-2 sushi-text-base sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-600 hover:sushi-text-gray-900 hover:sushi-bg-orange-50 focus:sushi-bg-orange-50 focus:sushi-outline-none sushi-transition sushi-ease-in-out sushi-duration-150"
-                >
-                  <svg
-                    className="sushi-mr-3 sushi-h-6 sushi-w-6 sushi-text-gray-400 group-hover:sushi-text-gray-500 group-focus:sushi-text-gray-600 sushi-transition sushi-ease-in-out sushi-duration-150"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 10h16M4 14h16M4 18h16"
-                    />
-                  </svg>
-                  My tasks
-                </a>
-                <a
-                  href="#"
-                  className="sushi-group sushi-flex sushi-items-center sushi-px-2 sushi-py-2 sushi-text-base sushi-leading-5 sushi-font-medium sushi-rounded-md sushi-text-gray-600 hover:sushi-text-gray-900 hover:sushi-bg-orange-50 focus:sushi-bg-orange-50 focus:sushi-outline-none sushi-transition sushi-ease-in-out sushi-duration-150"
-                >
-                  <svg
-                    className="sushi-mr-3 sushi-h-6 sushi-w-6 sushi-text-gray-400 group-hover:sushi-text-gray-500 group-focus:sushi-text-gray-600 sushi-transition sushi-ease-in-out sushi-duration-150"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  Recent
-                </a>
+    <>
+      {/* Navbar */}
+      <nav className="sushi-block lg:sushi-hidden sushi-flex-shrink-0 sushi-bg-orange-100">
+        <div className="sushi-max-w-7xl sushi-mx-auto sushi-px-2 sm:sushi-px-4 lg:sushi-px-8">
+          <div className="sushi-relative sushi-flex sushi-items-center sushi-justify-between sushi-h-16">
+            {/* Logo section */}
+            <div className="sushi-flex sushi-items-center sushi-px-2 lg:sushi-px-0 xl:sushi-w-64">
+              <div className="sushi-flex-shrink-0">
+                <img className="sushi-h-8 sushi-w-auto" src={logo} alt="Sushiswap" />
               </div>
-              <div className="sushi-mt-8">
-                <h3
-                  className="sushi-px-3 sushi-text-xs sushi-leading-4 sushi-font-semibold sushi-text-gray-500 sushi-uppercase sushi-tracking-wider"
-                  id="teams-headline"
-                >
-                  Teams
-                </h3>
-                <div
-                  className="sushi-mt-1 sushi-space-y-1"
-                  role="group"
-                  aria-labelledby="teams-headline"
-                >
-                  <a
-                    href="#"
-                    className="sushi-group sushi-flex sushi-items-center sushi-px-3 sushi-py-2 sushi-text-base sushi-leading-5 sushi-font-medium sushi-text-gray-600 sushi-rounded-md hover:sushi-text-gray-900 hover:sushi-bg-orange-50 focus:sushi-outline-none focus:sushi-bg-orange-50 sushi-transition sushi-ease-in-out sushi-duration-150"
-                  >
-                    <span className="sushi-w-2.5 sushi-h-2.5 sushi-mr-4 sushi-bg-indigo-500 sushi-rounded-full" />
-                    <span className="sushi-truncate">Engineering</span>
-                  </a>
-                  <a
-                    href="#"
-                    className="sushi-group sushi-flex sushi-items-center sushi-px-3 sushi-py-2 sushi-text-base sushi-leading-5 sushi-font-medium sushi-text-gray-600 sushi-rounded-md hover:sushi-text-gray-900 hover:sushi-bg-orange-50 focus:sushi-outline-none focus:sushi-bg-orange-50 sushi-transition sushi-ease-in-out sushi-duration-150"
-                  >
-                    <span className="sushi-w-2.5 sushi-h-2.5 sushi-mr-4 sushi-bg-teal-400 sushi-rounded-full" />
-                    <span className="sushi-truncate">Human Resources</span>
-                  </a>
-                  <a
-                    href="#"
-                    className="sushi-group sushi-flex sushi-items-center sushi-px-3 sushi-py-2 sushi-text-base sushi-leading-5 sushi-font-medium sushi-text-gray-600 sushi-rounded-md hover:sushi-text-gray-900 hover:sushi-bg-orange-50 focus:sushi-outline-none focus:sushi-bg-orange-50 sushi-transition sushi-ease-in-out sushi-duration-150"
-                  >
-                    <span className="sushi-w-2.5 sushi-h-2.5 sushi-mr-4 sushi-bg-orange-500 sushi-rounded-full" />
-                    <span className="sushi-truncate">Customer Success</span>
-                  </a>
+            </div>
+            {/* Search section */}
+            <MobileSearch />
+            {/* <div className="sushi-flex-1 sushi-flex sushi-justify-center lg:sushi-justify-end">
+              <div className="sushi-w-full sushi-px-2 lg:sushi-px-6">
+                <label htmlFor="search" className="sushi-sr-only">
+                  Search for anything in Sushiswap...
+                </label>
+                <div className="sushi-relative sushi-text-orange-600 focus-within:sushi-text-gray-400">
+                  <div className="sushi-absolute sushi-inset-y-0 sushi-left-0 sushi-pl-3 sushi-flex sushi-items-center sushi-pointer-events-none">
+                    <svg
+                      className="sushi-h-5 sushi-w-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    id="search"
+                    className="sushi-block sushi-w-full sushi-pl-10 sushi-pr-3 sushi-py-2 sushi-border sushi-border-transparent sushi-rounded-md sushi-leading-5 sushi-bg-orange-50 sushi-text-orange-600 sushi-placeholder-orange-600 focus:sushi-outline-none focus:sushi-bg-white focus:sushi-placeholder-gray-400 focus:sushi-text-gray-900 sm:sushi-text-sm sushi-transition sushi-duration-150 sushi-ease-in-out"
+                    placeholder="Search for anything in Sushiswap..."
+                    type="search"
+                  />
                 </div>
               </div>
-            </nav>
+            </div> */}
+            <div className="sushi-flex lg:sushi-hidden">
+              {/* Mobile menu button */}
+              <button
+                className="sushi-inline-flex sushi-items-center sushi-justify-center sushi-p-2 sushi-rounded-md sushi-text-orange-600 hover:sushi-text-white hover:sushi-bg-orange-200 focus:sushi-outline-none focus:sushi-bg-orange-200 focus:sushi-text-white sushi-transition sushi-duration-150 sushi-ease-in-out"
+                aria-label="Main menu"
+                aria-expanded="false"
+                onClick={() => {
+                  changeMenu();
+                }}
+              >
+                {/* Icon when menu is closed. */}
+                {/*
+                    Heroicon name: menu-alt-1
+                    Menu open: "hidden", Menu closed: "block"
+                */}
+                <svg
+                  className={!isOpen ? "sushi-block sushi-h-6 sushi-w-6" : "sushi-hidden sushi-h-6 sushi-w-6"}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h8m-8 6h16" />
+                </svg>
+                {/* Icon when menu is open. */}
+                {/*
+                    Heroicon name: x
+                    Menu open: "block", Menu closed: "hidden"
+                */}
+                <svg
+                  className={isOpen ? "sushi-block sushi-h-6 sushi-w-6" : "sushi-hidden sushi-h-6 sushi-w-6"}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            {/* Links section */}
           </div>
         </div>
-        <div className="sushi-flex-shrink-0 sushi-w-14">
-          {/* Dummy element to force sidebar to shrink to fit close icon */}
+        {/*
+            Mobile menu, toggle classes based on menu state.
+            Menu open: "block", Menu closed: "hidden"
+        */}
+        <div className={isOpen ? "sushi-block lg:sushi-hidden" : "sushi-hidden lg:sushi-hidden"}>
+          <nav className="sushi-px-3 sushi-py-4">
+            <MenuItems selected={selected} />
+          </nav>
         </div>
-      </div>
-    </div>
+      </nav>
+    </>
   );
 };
 
-export default MobileMenu;
+export default SearchHeader;
