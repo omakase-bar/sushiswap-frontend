@@ -77,13 +77,11 @@ const useSectionState = () => {
   return context;
 };
 
-const Dashboard = () => {
+export const Dashboard = ({ children }) => {
   return (
     <>
       <SectionProvider>
-        <DashboardContainer>
-          <DashboardRoutes />
-        </DashboardContainer>
+        <DashboardContainer>{children ? children : <DashboardRoutes />}</DashboardContainer>
       </SectionProvider>
     </>
   );
@@ -92,7 +90,6 @@ const Dashboard = () => {
 export const DashboardContainer = ({ children }) => {
   const mobileMenu = useMenu();
   const { state } = useSectionState();
-
   return (
     <>
       <div className="sushi-h-screen sushi-flex sushi-overflow-hidden sushi-bg-white">
