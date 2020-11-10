@@ -73,15 +73,16 @@ const PairWidget = ({
                     src={`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
                       token0.id
                     )}/logo.png`}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = logoNotFound;
+                    }}
                     className="sushi-mr-2"
                     style={{ width: "1.125rem", height: "1.125rem" }}
                     alt={formattedSymbol0 + " Logo"}
                   />
                   {token0 && token1
-                    ? `1 ${formattedSymbol0} = ${String(token0Rate).substr(
-                        0,
-                        6
-                      )} ${formattedSymbol1} ${
+                    ? `1 ${formattedSymbol0} = ${String(token0Rate).substr(0, 6)} ${formattedSymbol1} ${
                         parseFloat(token0?.derivedETH) ? "(" + token0USD + ")" : ""
                       }`
                     : "-"}
@@ -105,15 +106,16 @@ const PairWidget = ({
                     src={`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
                       token1.id
                     )}/logo.png`}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = logoNotFound;
+                    }}
                     className="sushi-mr-2"
                     style={{ width: "1.125rem", height: "1.125rem" }}
                     alt={formattedSymbol1 + " Logo"}
                   />
                   {token0 && token1
-                    ? `1 ${formattedSymbol1} = ${String(token1Rate).substr(
-                        0,
-                        6
-                      )} ${formattedSymbol0}  ${
+                    ? `1 ${formattedSymbol1} = ${String(token1Rate).substr(0, 6)} ${formattedSymbol0}  ${
                         parseFloat(token1?.derivedETH) ? "(" + token1USD + ")" : ""
                       }`
                     : "-"}
@@ -131,6 +133,10 @@ const PairWidget = ({
                     src={`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
                       token0.id
                     )}/logo.png`}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = logoNotFound;
+                    }}
                     className="sushi-mr-2"
                     style={{ width: "1.125rem", height: "1.125rem" }}
                     alt={formattedSymbol0 + " Logo"}
@@ -150,6 +156,10 @@ const PairWidget = ({
                     src={`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
                       token1.id
                     )}/logo.png`}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = logoNotFound;
+                    }}
                     className="sushi-mr-2"
                     style={{ width: "1.125rem", height: "1.125rem" }}
                     alt={formattedSymbol1 + " Logo"}
