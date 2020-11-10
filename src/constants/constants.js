@@ -99,7 +99,7 @@ SLP Address on mainnet for reference
 // week4: [ 21, 24, 32, 46, 47, 48, 49, 50, 51, 52],
 // week5: [ 21, 24, 53, 54, 55, 56, 57, 58, 59, 60],
 
-export const votingURL = "https://forum.sushiswapclassic.org/t/pool-rotation-menu-of-the-week-week-46/1154";
+export const votingURL = "https://forum.sushiswapclassic.org/";
 
 const menuSetup = {
   current: [21, 24, 53, 54, 55, 56, 57, 58, 59, 60],
