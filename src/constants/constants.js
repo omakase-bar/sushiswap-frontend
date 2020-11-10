@@ -1024,7 +1024,7 @@ export const supportedPools = [
     symbol: "OUSD-USDT SLP",
     tokenSymbol: "oUSD",
     icon: "‍‍👨🏻‍🍳",
-    uniswapPair: "0USD/USDT",
+    uniswapPair: "oUSD/USDT",
     lpToken: "0xe4455fdec181561e9ffe909dde46aaeaedc55283",
     allocPoint: "200",
   },
