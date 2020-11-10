@@ -97,13 +97,43 @@ SLP Address on mainnet for reference
 // week2: ["22", "24", "25", "31", "32", "33", "34", "35", "36", "37"],
 // week3: [ 22, 24, 32, 33, 38, 39, 40, 41, 42, 43]
 // week4: [ 21, 24, 32, 46, 47, 48, 49, 50, 51, 52],
+// week5: [ 21, 24, 53, 54, 55, 56, 57, 58, 59, 60],
 
 export const votingURL = "https://forum.sushiswapclassic.org/t/pool-rotation-menu-of-the-week-week-46/1154";
 
 const menuSetup = {
-  current: [21, 24, 32, 46, 47, 48, 49, 50, 51, 52],
+  current: [21, 24, 53, 54, 55, 56, 57, 58, 59, 60],
   upcoming: [],
-  previous: [19, 20, 22, 23, 25, 26, 27, 28, 31, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43],
+  previous: [
+    19,
+    20,
+    22,
+    23,
+    25,
+    26,
+    27,
+    28,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+  ],
   main: [12, 0, 1, 2, 3, 4, 37, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 44, 16, 17, 18],
 };
 
@@ -642,7 +672,7 @@ export const supportedPools = [
     icon: "‍👨🏻‍🍳",
     uniswapPair: "wBTC/tBTC",
     lpToken: "0x2dbc7dd86c6cd87b525bd54ea73ebeebbc307f68",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 33,
@@ -835,7 +865,7 @@ export const supportedPools = [
     icon: "‍‍👨🏻‍🍳",
     uniswapPair: "FARM/ETH",
     lpToken: "0x69b39b89f9274a16e8a19b78e5eb47a4d91dac9e",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 47,
@@ -851,7 +881,7 @@ export const supportedPools = [
     icon: "‍‍👨🏻‍🍳",
     uniswapPair: "renBTC/ETH",
     lpToken: "0x0289b9cd5859476ce325aca04309d36addcebdaa",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 48,
@@ -867,7 +897,7 @@ export const supportedPools = [
     icon: "‍‍👨🏻‍🍳",
     uniswapPair: "DOUGH/ETH",
     lpToken: "0x97f34c8e5992eb985c5f740e7ee8c7e48a1de76a",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 49,
@@ -883,7 +913,7 @@ export const supportedPools = [
     icon: "‍‍👨🏻‍🍳",
     uniswapPair: "STAKE/ETH",
     lpToken: "0x9fc5b87b74b9bd239879491056752eb90188106d",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 50,
@@ -899,7 +929,7 @@ export const supportedPools = [
     icon: "‍‍👨🏻‍🍳",
     uniswapPair: "RSR/ETH",
     lpToken: "0x6f58a1aa0248a9f794d13dc78e74fc75140956d7",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 51,
@@ -915,7 +945,7 @@ export const supportedPools = [
     icon: "‍‍👨🏻‍🍳",
     uniswapPair: "tBTC/ETH",
     lpToken: "0xee6d78755e06c31ae7a5ea2b29b35c073dfc00a9",
-    allocPoint: "200",
+    allocPoint: "0",
   },
   {
     pid: 52,
@@ -931,6 +961,134 @@ export const supportedPools = [
     icon: "‍‍👨🏻‍🍳",
     uniswapPair: "AUDIO/ETH",
     lpToken: "0x4f871f310ad0e8a170db0021c0ce066859d37469",
+    allocPoint: "0",
+  },
+  {
+    pid: 53,
+    lpAddresses: {
+      1: "0x364248b2f1f57c5402d244b2d469a35b4c0e9dab",
+    },
+    tokenAddresses: {
+      1: "0x8ab7404063ec4dbcfd4598215992dc3f8ec853d7",
+    },
+    name: "Chef's Menu",
+    symbol: "AKRO-ETH SLP",
+    tokenSymbol: "AKRO",
+    icon: "‍‍👨🏻‍🍳",
+    uniswapPair: "AKRO/ETH",
+    lpToken: "0x364248b2f1f57c5402d244b2d469a35b4c0e9dab",
+    allocPoint: "200",
+  },
+  {
+    pid: 54,
+    lpAddresses: {
+      1: "0xd7c2a4aa31e1bf08dc7ff44c9980fa8573e10c1b",
+    },
+    tokenAddresses: {
+      1: "0xEEF9f339514298C6A857EfCfC1A762aF84438dEE",
+    },
+    name: "Chef's Menu",
+    symbol: "HEZ-ETH SLP",
+    tokenSymbol: "HEZ",
+    icon: "‍‍👨🏻‍🍳",
+    uniswapPair: "HEZ/ETH",
+    lpToken: "0xd7c2a4aa31e1bf08dc7ff44c9980fa8573e10c1b",
+    allocPoint: "200",
+  },
+  {
+    pid: 55,
+    lpAddresses: {
+      1: "0x033ecd066376afec5e6383bc9f1f15be4c62dc89",
+    },
+    tokenAddresses: {
+      1: "0xb1dc9124c395c1e97773ab855d66e879f053a289",
+    },
+    name: "Chef's Menu",
+    symbol: "YAX-ETH SLP",
+    tokenSymbol: "YAX",
+    icon: "‍‍👨🏻‍🍳",
+    uniswapPair: "YAX/ETH",
+    lpToken: "0x033ecd066376afec5e6383bc9f1f15be4c62dc89",
+    allocPoint: "200",
+  },
+  {
+    pid: 56,
+    lpAddresses: {
+      1: "0xe4455fdec181561e9ffe909dde46aaeaedc55283",
+    },
+    tokenAddresses: {
+      1: "0x2a8e1e676ec238d8a992307b495b45b3feaa5e86",
+    },
+    name: "Chef's Menu",
+    symbol: "OUSD-USDT SLP",
+    tokenSymbol: "oUSD",
+    icon: "‍‍👨🏻‍🍳",
+    uniswapPair: "0USD/USDT",
+    lpToken: "0xe4455fdec181561e9ffe909dde46aaeaedc55283",
+    allocPoint: "200",
+  },
+  {
+    pid: 57,
+    lpAddresses: {
+      1: "0x0bff31d8179da718a7ee3669853cf9978c90a24a",
+    },
+    tokenAddresses: {
+      1: "0xEa319e87Cf06203DAe107Dd8E5672175e3Ee976c",
+    },
+    name: "Chef's Menu",
+    symbol: "SURF-ETH SLP",
+    tokenSymbol: "SURF",
+    icon: "‍‍👨🏻‍🍳",
+    uniswapPair: "SURF/ETH",
+    lpToken: "0x0bff31d8179da718a7ee3669853cf9978c90a24a",
+    allocPoint: "200",
+  },
+  {
+    pid: 58,
+    lpAddresses: {
+      1: "0xaf988aff99d3d0cb870812c325c588d8d8cb7de8",
+    },
+    tokenAddresses: {
+      1: "0x1ceb5cb57c4d4e2b2433641b95dd330a33185a44",
+    },
+    name: "Chef's Menu",
+    symbol: "KP3R-ETH SLP",
+    tokenSymbol: "KP3R",
+    icon: "‍‍👨🏻‍🍳",
+    uniswapPair: "KP3R/ETH",
+    lpToken: "0xaf988aff99d3d0cb870812c325c588d8d8cb7de8",
+    allocPoint: "200",
+  },
+  {
+    pid: 59,
+    lpAddresses: {
+      1: "0xc5fa164247d2f8d68804139457146efbde8370f6",
+    },
+    tokenAddresses: {
+      1: "0xCa3FE04C7Ee111F0bbb02C328c699226aCf9Fd33",
+    },
+    name: "Chef's Menu",
+    symbol: "SEEN-ETH SLP",
+    tokenSymbol: "SEEN",
+    icon: "‍‍👨🏻‍🍳",
+    uniswapPair: "SEEN/ETH",
+    lpToken: "0xc5fa164247d2f8d68804139457146efbde8370f6",
+    allocPoint: "200",
+  },
+  {
+    pid: 60,
+    lpAddresses: {
+      1: "0x35a0d9579b1e886702375364fe9c540f97e4517b",
+    },
+    tokenAddresses: {
+      1: "0xF5D669627376EBd411E34b98F19C868c8ABA5ADA",
+    },
+    name: "Chef's Menu",
+    symbol: "AXS-ETH SLP",
+    tokenSymbol: "AXS",
+    icon: "‍‍👨🏻‍🍳",
+    uniswapPair: "AXS/ETH",
+    lpToken: "0x35a0d9579b1e886702375364fe9c540f97e4517b",
     allocPoint: "200",
   },
 ];
