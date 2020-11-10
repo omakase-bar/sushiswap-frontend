@@ -3,7 +3,7 @@ import { MASTERCHEF_POOLS, SUSHI_PAIRS, TOKEN } from "../../apollo/queries";
 import _ from "lodash";
 import axios from "axios";
 
-import { supportedPools, menus } from "../../constants/constants";
+import { supportedPools, menus, sushiRewardsPerBlock } from "../../constants/constants";
 
 export async function getPoolData(status) {
   // status is only "current" or "previous"
@@ -81,7 +81,7 @@ export async function getPoolData(status) {
   //   totalAllocPointWithoutVesting,
   //   totalAllocPointWithVesting
   // );
-  const sushiPerBlock = 90; // originally 100
+  const sushiPerBlock = sushiRewardsPerBlock; // originally 100
   const baseAllocPoint = 1e3;
 
   //   console.log("DETAILS_1:", {
