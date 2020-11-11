@@ -46,10 +46,10 @@ const WalletModal = ({ isOpen, closeModal }) => {
                 </h3>
                 <div className="sushi-mt-2">
                   <p className="sushi-text-sm sushi-leading-5 sushi-text-gray-500">
-                    As of Nov 11, 08:13 UTC Infura is experiencing a service outage for our Ethereum Mainnet API. This
+                    As of Nov 11, 08:13 UTC Infura is experiencing a service outage on their Ethereum Mainnet API. This
                     affects mutliple DeFi sites and services as well as Metamask. Binance has also paused deposits and
-                    withdrawals. Your funds are safe, but you will not be able to use current site functionalities. If
-                    you are interested in token analytics, please use
+                    withdrawals for the time being. Your funds are safe, but you will not be able to use current site
+                    functionalities. If you are interested in viewing token analytics, please use
                     <a
                       href="https://sushiswapanalytics.com/"
                       className="sushi-group sushi-space-x-2 sushi-inline-flex sushi-items-center sushi-font-medium sushi-text-orange-600 hover:sushi-text-orange-900 sushi-transition sushi-ease-in-out sushi-duration-150"
