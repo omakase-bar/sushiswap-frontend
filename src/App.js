@@ -108,11 +108,14 @@ import SwapWrapper from "./pages/Swap";
 import PoolWrapper from "./pages/Pool";
 
 import ModalsProvider from "./shared/contexts/ModalsContext";
+import NoticeModal from "./components/Modals/NoticeStandalone";
+import useModalOpen from "./shared/hooks/useModalOpen";
 
 const App = () => {
   const globalData = useGlobalData();
   const globalChartData = useGlobalChartData();
   const latestBlock = useLatestBlock();
+  const notice = useModalOpen();
   return (
     <>
       {latestBlock &&
@@ -121,6 +124,7 @@ const App = () => {
       globalChartData &&
       Object.keys(globalChartData).length > 0 ? (
         <>
+          <NoticeModal isOpen={notice.isOpen} closeModal={notice.hide} />
           <Router>
             <Web3ReactManager>
               <Switch>
