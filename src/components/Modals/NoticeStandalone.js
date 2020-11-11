@@ -42,7 +42,7 @@ const WalletModal = ({ isOpen, closeModal }) => {
               </div>
               <div className="sushi-mt-3 sushi-text-center sm:sushi-mt-0 sm:sushi-ml-4 sm:sushi-text-left">
                 <h3 className="sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-gray-900" id="modal-headline">
-                  Infura is currently experiencing an service outage.
+                  Infura Service Outage
                 </h3>
                 <div className="sushi-mt-2">
                   <p className="sushi-text-sm sushi-leading-5 sushi-text-gray-500">
@@ -59,7 +59,7 @@ const WalletModal = ({ isOpen, closeModal }) => {
                     until the issue is resolved.
                   </p>
                   <p className="pt-2 sushi-text-sm sushi-leading-5 sushi-text-gray-500">
-                    During this period you will be unable to connect to Metamask and perform trades. We are working with
+                    During this period you may be unable to connect to Metamask and perform trades. We are working with
                     the Infura team to assist them in bringing their services back online for the entire Ethereum
                     ecosystem. Stay tuned.
                   </p>
