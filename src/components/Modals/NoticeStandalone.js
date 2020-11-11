@@ -69,9 +69,19 @@ const WalletModal = ({ isOpen, closeModal }) => {
           </div>
           <div className="sushi-bg-gray-50 sushi-px-4 sushi-py-3 sm:sushi-px-6 sm:sushi-flex sm:sushi-flex-row-reverse">
             <span className="sushi-flex sushi-w-full sushi-rounded-md sushi-shadow-sm sm:sushi-ml-3 sm:sushi-w-auto">
+              <button
+                onClick={() => {
+                  closeModal();
+                }}
+                className="sushi-inline-flex sushi-justify-center sushi-w-full sushi-rounded-md sushi-border sushi-border-transparent sushi-px-4 sushi-py-2 sushi-bg-red-600 sushi-text-base sushi-leading-6 sushi-font-medium sushi-text-white sushi-shadow-sm hover:sushi-bg-red-500 focus:sushi-outline-none focus:sushi-border-red-700 focus:sushi-shadow-outline-red sushi-transition sushi-ease-in-out sushi-duration-150 sm:sushi-text-sm sm:sushi-leading-5"
+              >
+                I Understand, Continue
+              </button>
+            </span>
+            <span className="sushi-flex sushi-w-full sushi-rounded-md sushi-shadow-sm sm:sushi-ml-3 sm:sushi-w-auto">
               <a
                 href="https://status.infura.io/"
-                className="sushi-inline-flex sushi-justify-center sushi-w-full sushi-rounded-md sushi-border sushi-border-transparent sushi-px-4 sushi-py-2 sushi-bg-red-600 sushi-text-base sushi-leading-6 sushi-font-medium sushi-text-white sushi-shadow-sm hover:sushi-bg-red-500 focus:sushi-outline-none focus:sushi-border-red-700 focus:sushi-shadow-outline-red sushi-transition sushi-ease-in-out sushi-duration-150 sm:sushi-text-sm sm:sushi-leading-5"
+                className="sushi-inline-flex sushi-justify-center sushi-w-full sushi-rounded-md sushi-border sushi-border-gray-300 sushi-px-4 sushi-py-2 sushi-bg-white sushi-text-base sushi-leading-6 sushi-font-medium sushi-text-gray-700 sushi-shadow-sm hover:sushi-text-gray-500 focus:sushi-outline-none focus:sushi-border-blue-300 focus:sushi-shadow-outline-blue sushi-transition sushi-ease-in-out sushi-duration-150 sm:sushi-text-sm sm:sushi-leading-5"
               >
                 Latest Infura Updates
               </a>
