@@ -115,7 +115,7 @@ const App = () => {
   const globalData = useGlobalData();
   const globalChartData = useGlobalChartData();
   const latestBlock = useLatestBlock();
-  const notice = useModalOpen();
+  // const notice = useModalOpen();
   return (
     <>
       {latestBlock &&
@@ -124,7 +124,7 @@ const App = () => {
       globalChartData &&
       Object.keys(globalChartData).length > 0 ? (
         <>
-          <NoticeModal isOpen={notice.isOpen} closeModal={notice.hide} />
+          // <NoticeModal isOpen={notice.isOpen} closeModal={notice.hide} />
           <Router>
             <Web3ReactManager>
               <Switch>
