@@ -107,9 +107,10 @@ export const sushiRewardsPerBlock = 80;
 export const votingURL = "https://forum.sushiswapclassic.org/t/pool-rotation-menu-of-the-week-week-46/1154";
 
 const menuSetup = {
-  current: [12, 1, 2, 21, 0, 11, 3, 8, 37, 4, 6, 7, 9, 18, 44, 13, 17],
+  current: [12, 1, 2, 21, 0, 11, 3, 8, 37, 4, 6, 7, 9, 10, 18, 44, 13, 17],
   upcoming: [],
   previous: [
+    15,
     19,
     20,
     22,
@@ -147,7 +148,7 @@ const menuSetup = {
     59,
     60,
   ],
-  main: [12, 1, 2, 21, 0, 11, 3, 8, 37, 4, 6, 7, 9, 18, 44, 13, 17],
+  main: [12, 1, 2, 21, 0, 11, 3, 8, 37, 4, 6, 7, 9, 10, 18, 44, 13, 17],
 };
 
 export const menus = {
