@@ -17,48 +17,50 @@ import useAllEarnings from "../../../services/frontend/hooks/useAllEarnings";
 import useAllStakedValue from "../../../services/frontend/hooks/useAllStakedValue";
 import useFarms from "../../../services/frontend/hooks/useFarms";
 
+import WalletsModal from "../../Modals/Wallets";
+import useModal from "../../../shared/hooks/useModal";
+
 import SushiLogo from "../../../assets/img/logo.png";
+import SushiBelt from "../Balance/SushiBelt";
 
 const Layout = () => {
   const { account } = useWallet();
-  return <>{account ? <Balances /> : <Loading />}</>;
+  return <>{account ? <Balances /> : <ConnectWallet />}</>;
 };
 
-const Loading = () => {
+const ConnectWallet = () => {
+  const [onPresentWallets] = useModal(<WalletsModal />, null, null);
+  const { priceUSD } = useTokenData("0x6b3595068778dd592e39a122f4f5a5cf09c90fe2");
+  const price = priceUSD ? formattedNum(priceUSD, true) : "";
   return (
     <>
-      <div className="bg-white border border-gray-200 shadow overflow-hidden sm:rounded-lg">
-        <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
-          <h3 className="text-lg leading-6 font-medium text-gray-900">Your SushiBar Stats</h3>
-          <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">SUSHI and xSUSHI</p>
-        </div>
-        <div className="px-4 py-5 sm:p-0">
-          <dl>
-            <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">Total SUSHI</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
+      <div className="flex overflow-hidden bg-white">
+        {/* Main column */}
+        {/* Title */}
+        <div className="flex flex-col w-0 flex-1 overflow-hidden">
+          <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+            <div className="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-no-wrap">
+              <div className="ml-4 mt-4">
+                <h3 className="text-lg leading-6 font-medium text-gray-900">SUSHI balance</h3>
+                <p className="mt-1 text-sm leading-5 text-gray-500">1 SUSHI = {price}</p>
+              </div>
+              <div className="ml-4 mt-4 flex-shrink-0">
+                <div className="mx-auto rounded-md shadow-lg">
+                  <button
+                    onClick={onPresentWallets}
+                    className="mx-auto flex items-center justify-center px-4 py-2 border border-transparent leading-6 font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+                  >
+                    Connect Wallet
+                  </button>
+                </div>
+              </div>
             </div>
-            <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">Locked SUSHI</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
+          </div>
+          {/* <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none" tabIndex={0}>
+            <div className="px-20">
+              <SushiBelt />
             </div>
-            <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">Unlocked SUSHI</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
-            </div>
-            <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">Unstaked SUSHI</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
-            </div>
-            <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">Staked SUSHI</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
-            </div>
-            <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">xSUSHI Balance</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
-            </div>
-          </dl>
+          </main> */}
         </div>
       </div>
     </>

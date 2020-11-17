@@ -67,64 +67,69 @@ const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
       });
       let masterChefPools = masterChefStats?.data?.masterChefPools;
       const chefAddress = "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd";
+      // todo: if menu of the week is back it needs to look for it
       const pool = masterChefPools.find((masterChefPool) => {
         return masterChefPool.id === String(pid);
       });
-      console.log(pool, pid, masterChefPools);
-      let poolStatistics = await client.query({
-        query: SUSHI_PAIRS([pool.lpToken], chefAddress),
-        fetchPolicy: "cache-first",
-      });
-      const pairs = poolStatistics?.data?.pairs;
-      const liquidityPositions = poolStatistics?.data?.liquidityPositions;
-      const mergeStatistics = _.map(liquidityPositions, function(lp) {
-        return _.merge(lp, _.find(pairs, { id: lp.pair.id }));
-      });
-      const pair = { ...mergeStatistics[0], ...pool };
-      console.log("PAIR:", pair, pool, mergeStatistics[0]);
+      if (pool && pool.lpToken) {
+        console.log(pool, pid, masterChefPools);
+        let poolStatistics = await client.query({
+          query: SUSHI_PAIRS([pool.lpToken], chefAddress),
+          fetchPolicy: "cache-first",
+        });
+        const pairs = poolStatistics?.data?.pairs;
+        const liquidityPositions = poolStatistics?.data?.liquidityPositions;
+        const mergeStatistics = _.map(liquidityPositions, function(lp) {
+          return _.merge(lp, _.find(pairs, { id: lp.pair.id }));
+        });
+        const pair = { ...mergeStatistics[0], ...pool };
+        console.log("PAIR:", pair, pool, mergeStatistics[0]);
 
-      const sushiswapQuery = await client.query({
-        query: TOKEN("0x6b3595068778dd592e39a122f4f5a5cf09c90fe2"),
-        fetchPolicy: "cache-first",
-      });
-      const sushiswapData = sushiswapQuery.data.token;
-      const ethUSD = pair.reserveUSD / pair.reserveETH;
+        const sushiswapQuery = await client.query({
+          query: TOKEN("0x6b3595068778dd592e39a122f4f5a5cf09c90fe2"),
+          fetchPolicy: "cache-first",
+        });
+        const sushiswapData = sushiswapQuery.data.token;
+        const ethUSD = pair.reserveUSD / pair.reserveETH;
 
-      console.log("SUSHISWAPQUERY:", sushiswapQuery);
-      console.log(ethUSD);
+        //console.log("SUSHISWAPQUERY:", sushiswapQuery);
+        //console.log(ethUSD);
 
-      const token = {
-        price: {
-          ETH: Number(sushiswapData.derivedETH),
-          USD: Number(sushiswapData.derivedETH) * ethUSD,
-        },
-      };
-      // TODO find alternative, since CORS issue.
-      // const ethereum = await axios.get("https://etherchain.org/api/basic_stats");
-      const ethereum = {
-        currentStats: {
-          block_time: ethBlockTime,
-        },
-      };
-      const sushiPerBlock = sushiRewardsPerBlock;
-      const totalAllocPointWithoutVesting = _.sumBy(masterChefPools, function(pool) {
-        if ((pool.pid && pool.pid !== 29) || (pool.id && pool.id !== 29)) {
-          return Number(pool.allocPoint);
-        }
-      });
-      const totalAllocPoint = totalAllocPointWithoutVesting;
-      console.log("TOTALALLOC:", totalAllocPoint);
-      const balanceUSD = pair.totalSupply ? (pair.liquidityTokenBalance / pair.totalSupply) * pair.reserveUSD : 0;
-      const rewardPerBlock = (pair.allocPoint / totalAllocPoint) * sushiPerBlock;
-      const roiPerBlock = balanceUSD ? (rewardPerBlock * token.price.USD) / balanceUSD : 0;
-      const roiPerHour = (3600 / ethereum.currentStats.block_time) * roiPerBlock;
+        const token = {
+          price: {
+            ETH: Number(sushiswapData.derivedETH),
+            USD: Number(sushiswapData.derivedETH) * ethUSD,
+          },
+        };
+        // TODO find alternative, since CORS issue.
+        // const ethereum = await axios.get("https://etherchain.org/api/basic_stats");
+        const ethereum = {
+          currentStats: {
+            block_time: ethBlockTime,
+          },
+        };
+        const sushiPerBlock = sushiRewardsPerBlock;
+        const totalAllocPointWithoutVesting = _.sumBy(masterChefPools, function(pool) {
+          if ((pool.pid && pool.pid !== 29) || (pool.id && pool.id !== 29)) {
+            return Number(pool.allocPoint);
+          }
+        });
+        const totalAllocPoint = totalAllocPointWithoutVesting;
+        //console.log("TOTALALLOC:", totalAllocPoint);
+        const balanceUSD = pair.totalSupply ? (pair.liquidityTokenBalance / pair.totalSupply) * pair.reserveUSD : 0;
+        const rewardPerBlock = (pair.allocPoint / totalAllocPoint) * sushiPerBlock;
+        const roiPerBlock = balanceUSD ? (rewardPerBlock * token.price.USD) / balanceUSD : 0;
+        const roiPerHour = (3600 / ethereum.currentStats.block_time) * roiPerBlock;
 
-      console.log("BALANCEUSD:", balanceUSD);
-      console.log("rewardPerblock:", rewardPerBlock, pair.allocPoint, totalAllocPoint, sushiPerBlock);
-      console.log("roiPerBlock", balanceUSD, rewardPerBlock, token.price.USD, balanceUSD);
-      console.log("ROIPERHOUR:", roiPerHour);
-      console.log("ROIPERYEAR:", roiPerHour * 24 * 365 * 100);
-      setAPR(roiPerHour);
+        // console.log("BALANCEUSD:", balanceUSD);
+        // console.log("rewardPerblock:", rewardPerBlock, pair.allocPoint, totalAllocPoint, sushiPerBlock);
+        // console.log("roiPerBlock", balanceUSD, rewardPerBlock, token.price.USD, balanceUSD);
+        // console.log("ROIPERHOUR:", roiPerHour);
+        // console.log("ROIPERYEAR:", roiPerHour * 24 * 365 * 100);
+        setAPR(roiPerHour);
+      } else {
+        setAPR(0);
+      }
     };
     calculateAPR();
   }, [pid]);
@@ -132,7 +137,7 @@ const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
   return (
     <tr>
       <td className="sushi-pr-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
-        {apr ? (
+        {apr || apr === 0 ? (
           <>
             <div className="sushi-text-sm sushi-text-green-500">{formatNumber(apr * 24 * 365 * 100, 2)}%</div>
             <div className="sushi-mt-1 sushi-text-xs sushi-text-gray-500">per year</div>
@@ -199,60 +204,7 @@ const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
         )}
       </td>
     </tr>
-    // <Card>
-    //   <CardContent>
-    //     <StyledCardContentInner>
-    //       <StyledCardHeader>
-    //         <CardIcon>👨🏻‍🍳</CardIcon>
-    //         <Value value={getBalanceNumber(stakedBalance)} />
-    //         <Label text={`${tokenName} Tokens Staked`} />
-    //       </StyledCardHeader>
-    //       <StyledCardActions>
-    //         {!allowance.toNumber() ? (
-    //           <Button
-    //             disabled={requestedApproval}
-    //             onClick={handleApprove}
-    //             text={`Approve ${tokenName}`}
-    //           />
-    //         ) : (
-    //           <>
-    //             <Button
-    //               disabled={stakedBalance.eq(new BigNumber(0))}
-    //               text="Unstake"
-    //               onClick={onPresentWithdraw}
-    //             />
-    //             <StyledActionSpacer />
-    //             <IconButton onClick={onPresentDeposit}>
-    //               <AddIcon />
-    //             </IconButton>
-    //           </>
-    //         )}
-    //       </StyledCardActions>
-    //     </StyledCardContentInner>
-    //   </CardContent>
-    // </Card>
   );
 };
-// const StyledCardHeader = styled.div`
-//   align-items: center;
-//   display: flex;
-//   flex-direction: column;
-// `;
-// const StyledCardActions = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   margin-top: ${(props) => props.theme.spacing[6]}px;
-//   width: 100%;
-// `;
-// const StyledActionSpacer = styled.div`
-//   height: ${(props) => props.theme.spacing[4]}px;
-//   width: ${(props) => props.theme.spacing[4]}px;
-// `;
-// const StyledCardContentInner = styled.div`
-//   align-items: center;
-//   display: flex;
-//   flex: 1;
-//   flex-direction: column;
-//   justify-content: space-between;
-// `;
+
 export default Stake;

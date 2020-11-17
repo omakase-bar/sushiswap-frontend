@@ -68,7 +68,7 @@ const Stakes = ({ symbol, rows, account, setSelected, showWallets }) => {
                   <tr>
                     <th className="sushi-pr-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-500 sushi-uppercase sushi-border-b sushi-border-gray-200 sushi-">
                       <a href="#" className="sushi-flex sushi-items-center">
-                        <span>APR</span>
+                        <span>SUSHI APR</span>
                       </a>
                     </th>
                     <th className="sushi-px-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-500 sushi-uppercase sushi-border-b sushi-border-gray-200 sushi-">

@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
-import React, { useEffect, useState, useCallback, useMemo } from "react";
-import ExpandButton from "../../Buttons/ExpandButton";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import useSushi from "../../../services/frontend/hooks/useSushi";
 import { useWallet } from "use-wallet";
 import { getContract } from "../../../services/frontend/utils/erc20";
@@ -34,46 +35,47 @@ import { getMasterChefContract } from "../../../services/frontend/sushi/utils";
 
 import ColumnEarnings from "./Columns/Earnings";
 
+import WalletsModal from "../../Modals/Wallets";
+import useModal from "../../../shared/hooks/useModal";
+
 const Layout = () => {
   const { account } = useWallet();
-  return <>{account ? <Account account={account} /> : <Loading />}</>;
+  return <>{account ? <Account account={account} /> : <ConnectWallet />}</>;
 };
 
-const Loading = () => {
+const ConnectWallet = () => {
+  const [onPresentWallets] = useModal(<WalletsModal />, null, null);
   return (
     <>
-      <div className="bg-white border border-gray-200 shadow overflow-hidden sm:rounded-lg">
-        <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
-          <h3 className="text-lg leading-6 font-medium text-gray-900">Your SushiBar Stats</h3>
-          <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">SUSHI and xSUSHI</p>
-        </div>
-        <div className="px-4 py-5 sm:p-0">
-          <dl>
-            <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">Total SUSHI</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
+      <div className="flex overflow-hidden bg-white">
+        {/* Main column */}
+        {/* Title */}
+        <div className="flex flex-col w-0 flex-1 overflow-hidden">
+          <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+            <div className="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-no-wrap">
+              <div className="ml-4 mt-4">
+                <h3 className="text-lg leading-6 font-medium text-gray-900">Liquidity Positions</h3>
+                <Link
+                  to="/pairs"
+                  class="font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
+                >
+                  View all pairs
+                </Link>
+              </div>
+              <div className="ml-4 mt-4 flex-shrink-0">
+                <div className="mx-auto rounded-md shadow-lg">
+                  <button
+                    onClick={onPresentWallets}
+                    className="mx-auto flex items-center justify-center px-4 py-2 border border-transparent leading-6 font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+                  >
+                    Connect Wallet
+                  </button>
+                </div>
+              </div>
             </div>
-            <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">Locked SUSHI</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
-            </div>
-            <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">Unlocked SUSHI</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
-            </div>
-            <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">Unstaked SUSHI</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
-            </div>
-            <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">Staked SUSHI</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
-            </div>
-            <div className="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-              <dt className="text-sm leading-5 font-medium text-gray-500 sm:mt-0 sm:col-span-1">xSUSHI Balance</dt>
-              <dd className="mt-1 text-sm leading-5 text-gray-900"></dd>
-            </div>
-          </dl>
+          </div>
+          {/* <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none" tabIndex={0}>
+          </main> */}
         </div>
       </div>
     </>
@@ -261,7 +263,10 @@ const TableHead = () => {
             <span className="lg:pl-2">Name</span>
           </th>
           <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-white text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Liquidity
+            Unstaked
+          </th>
+          <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-white text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Staked
           </th>
           <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-white text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Total Fees Earned
@@ -322,6 +327,29 @@ const TableRow = ({ position, ethPrice }) => {
           </div>
           <div>
             {formattedNum(poolOwnership * parseFloat(position.pair.reserve1))} {position.pair.token1.symbol}
+          </div>
+        </td>
+        <td className="hidden md:table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">
+          <div className="text-green-500">{formattedNum(position?.fees.sum, true, true)}</div>
+          <div>
+            {parseFloat(position.pair.token0.derivedETH)
+              ? formattedNum(
+                  position?.fees.sum / (parseFloat(position.pair.token0.derivedETH) * ethPrice) / 2,
+                  false,
+                  true
+                )
+              : 0}{" "}
+            {position.pair.token0.symbol}
+          </div>
+          <div>
+            {parseFloat(position.pair.token1.derivedETH)
+              ? formattedNum(
+                  position?.fees.sum / (parseFloat(position.pair.token1.derivedETH) * ethPrice) / 2,
+                  false,
+                  true
+                )
+              : 0}{" "}
+            {position.pair.token1.symbol}
           </div>
         </td>
         <td className="hidden md:table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">

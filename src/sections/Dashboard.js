@@ -276,7 +276,7 @@ const OmakaseBar = () => {
           </nav>
         </div>
       </header>
-      <div className="bg-gray-100 shadow-inner py-6 px-4 space-y-6 sm:p-6">
+      <div className="min-h-full bg-gray-100 shadow-inner py-6 px-4 space-y-6 sm:p-6">
         <div className="shadow sm:rounded-md sm:overflow-hidden">
           <div className="bg-white">
             <CardBalances />
