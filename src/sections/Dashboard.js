@@ -5,7 +5,8 @@ import SectionTabs from "../components/Tabs";
 import SearchHeader from "../components/MobileMenu";
 import Sidebar from "../components/Sidebar/Layout";
 import PageTitle from "../components/PageTitles/Default";
-import MainSearch from "../components/Search/Desktop";
+//import MainSearch from "../components/Search/Desktop";
+import MainSearch from "../services/vision/components/Search/secondary";
 import CardSection from "../components/Cards/Section";
 import useMenu from "../shared/hooks/useMenu";
 // Overview
@@ -180,7 +181,9 @@ const Overview = () => {
     <>
       {/* <IntroBanner /> */}
       <PageTitle title={"👋 いらっしゃいませ「 Welcome Back 」!"} />
-      <MainSearch />
+      <div className="sushi-px-8 my-4 sushi-hidden lg:sushi-block">
+        <MainSearch />
+      </div>
       <div className="sushi-px-8 my-4">
         <span className="sushi-w-full">
           <div className="sushi-flex sushi-items-start sushi-justify-between sushi-space-x-3">
@@ -360,7 +363,10 @@ const MenuOfTheWeek = () => {
   };
   return (
     <>
-      <MainSearch />
+      {/* <MainSearch /> */}
+      <div className="sushi-px-8 my-4 sushi-hidden lg:sushi-block">
+        <MainSearch />
+      </div>
       <WeeklyMenuInfo scrollToMenu={scrollToMenu} />
       <div ref={menuRef} id="menus">
         <WeeklyMenus scrollToCurrent={scrollToCurrent} scrollToPrevious={scrollToPrevious} />
@@ -384,7 +390,10 @@ const Tokens = () => {
   const allTokens = useAllTokenData();
   return (
     <>
-      <MainSearch />
+      {/* <MainSearch /> */}
+      <div className="sushi-px-8 my-4 sushi-hidden lg:sushi-block">
+        <MainSearch />
+      </div>
       <h2 className="sushi-max-w-6xl sushi-mx-auto sushi-mt-8 sushi-px-4 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-cool-gray-900 sm:sushi-px-6 lg:sushi-px-8">
         Tokens on Sushiswap
       </h2>
@@ -410,7 +419,10 @@ const Pools = () => {
   }, []);
   return (
     <>
-      <MainSearch />
+      {/* <MainSearch /> */}
+      <div className="sushi-px-8 my-4 sushi-hidden lg:sushi-block">
+        <MainSearch />
+      </div>
       <TablePools title={"Main Farms"} type={"main"} />
     </>
   );

@@ -1,5 +1,8 @@
 import React from "react";
-import MobileSearch from "./Search/Mobile";
+import { Link } from "react-router-dom";
+//import MobileSearch from "./Search/Mobile";
+import MobileSearch from "../services/vision/components/Search/secondary";
+
 import MenuItems from "./Sidebar/MenuItems";
 import logo from "../assets/img/logo.png";
 
@@ -11,10 +14,10 @@ const SearchHeader = ({ selected, changeMenu, isOpen }) => {
         <div className="sushi-max-w-7xl sushi-mx-auto sushi-px-2 sm:sushi-px-4 lg:sushi-px-8">
           <div className="sushi-relative sushi-flex sushi-items-center sushi-justify-between sushi-h-16">
             {/* Logo section */}
-            <div className="sushi-flex sushi-items-center sushi-px-2 lg:sushi-px-0 xl:sushi-w-64">
-              <div className="sushi-flex-shrink-0">
+            <div className="sushi-flex sushi-items-center sushi-px-2 pr-4 lg:sushi-px-0 xl:sushi-w-64">
+              <Link to="/home" className="sushi-flex-shrink-0">
                 <img className="sushi-h-8 sushi-w-auto" src={logo} alt="Sushiswap" />
-              </div>
+              </Link>
             </div>
             {/* Search section */}
             <MobileSearch />
