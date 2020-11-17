@@ -221,12 +221,17 @@ const Table = ({ positions, ethPrice }) => {
             <div className="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-no-wrap">
               <div className="ml-4 mt-4">
                 <h3 className="text-lg leading-6 font-medium text-gray-900">Liquidity Positions</h3>
-                <p className="mt-1 text-sm leading-5 text-gray-500">View all pairs</p>
+                <Link
+                  to="/pairs"
+                  class="font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
+                >
+                  View all pairs
+                </Link>
               </div>
-              <div className="ml-4 mt-4 flex-shrink-0">
+              {/* <div className="ml-4 mt-4 flex-shrink-0">
                 <h3 className="text-lg text-right leading-6 font-medium text-gray-900">$100</h3>
                 <p className="mt-1 text-sm leading-5 text-gray-500">9887 SUSHI</p>
-              </div>
+              </div> */}
             </div>
           </div>
           {/* Main content */}
@@ -285,6 +290,8 @@ const TableHead = () => {
 const TableRow = ({ position, ethPrice }) => {
   const poolOwnership = position.liquidityTokenBalance / position.pair.totalSupply;
   const valueUSD = poolOwnership * position.pair.reserveUSD;
+
+  console.log("POSITION:", position);
   return (
     <>
       <tr>
@@ -313,10 +320,10 @@ const TableRow = ({ position, ethPrice }) => {
               />
             </div>
             <div className="flex items-center space-x-3 lg:pl-2">
-              <div className="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-pink-600" />
-              <a href="#" className="truncate hover:text-gray-600">
+              {/* <div className="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-pink-600" /> */}
+              <Link to={"/pair/" + position.pair.id} className="truncate hover:text-gray-600">
                 <span>{position.pair.token0.symbol + "-" + position.pair.token1.symbol}</span>
-              </a>
+              </Link>
             </div>
           </div>
         </td>
@@ -330,27 +337,9 @@ const TableRow = ({ position, ethPrice }) => {
           </div>
         </td>
         <td className="hidden md:table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">
-          <div className="text-green-500">{formattedNum(position?.fees.sum, true, true)}</div>
-          <div>
-            {parseFloat(position.pair.token0.derivedETH)
-              ? formattedNum(
-                  position?.fees.sum / (parseFloat(position.pair.token0.derivedETH) * ethPrice) / 2,
-                  false,
-                  true
-                )
-              : 0}{" "}
-            {position.pair.token0.symbol}
-          </div>
-          <div>
-            {parseFloat(position.pair.token1.derivedETH)
-              ? formattedNum(
-                  position?.fees.sum / (parseFloat(position.pair.token1.derivedETH) * ethPrice) / 2,
-                  false,
-                  true
-                )
-              : 0}{" "}
-            {position.pair.token1.symbol}
-          </div>
+          <div className="text-gray-500">[Under Construction]</div>
+          <div>_{position.pair.token0.symbol}</div>
+          <div>_{position.pair.token1.symbol}</div>
         </td>
         <td className="hidden md:table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">
           <div className="text-green-500">{formattedNum(position?.fees.sum, true, true)}</div>
@@ -378,22 +367,22 @@ const TableRow = ({ position, ethPrice }) => {
         <ColumnEarnings position={position} />
         <td className="pr-6">
           <div className="relative flex justify-end items-center">
-            <button
-              type="button"
+            <Link
+              to={"/add/" + position.pair.token0.id + "/" + position.pair.token1.id}
               class="font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
             >
               Add
-            </button>
+            </Link>
           </div>
         </td>
         <td className="pr-6">
           <div className="relative flex justify-end items-center">
-            <button
-              type="button"
+            <Link
+              to={"/remove/" + position.pair.token0.id + "/" + position.pair.token1.id}
               class="font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
             >
               Remove
-            </button>
+            </Link>
           </div>
         </td>
       </tr>

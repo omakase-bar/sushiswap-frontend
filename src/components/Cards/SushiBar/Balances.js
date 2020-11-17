@@ -1,5 +1,6 @@
 import BigNumber from "bignumber.js";
 import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { Link } from "react-router-dom";
 import ExpandButton from "../../Buttons/ExpandButton";
 import useSushi from "../../../services/frontend/hooks/useSushi";
 import { useWallet } from "use-wallet";
@@ -17,11 +18,15 @@ import useAllEarnings from "../../../services/frontend/hooks/useAllEarnings";
 import useAllStakedValue from "../../../services/frontend/hooks/useAllStakedValue";
 import useFarms from "../../../services/frontend/hooks/useFarms";
 
+import StakeSushi from "./StakeSushi";
+import UnstakeSushi from "./UnstakeSushi";
+
 import WalletsModal from "../../Modals/Wallets";
 import useModal from "../../../shared/hooks/useModal";
 
 import SushiLogo from "../../../assets/img/logo.png";
-import SushiBelt from "../Balance/SushiBelt";
+import xSushiLogo from "../../../assets/img/logo-xsushi-background.png";
+//import SushiBelt from "../Balance/SushiBelt";
 
 const Layout = () => {
   const { account } = useWallet();
@@ -169,53 +174,40 @@ const Balances = () => {
         </div>
       ),
       cta: (
-        <button
-          type="button"
-          class="font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
+        <Link
+          to="/weekly"
+          class="font-medium text-orange-600 hover:text-orange-700 transition duration-150 ease-in-out"
         >
           Harvest
-        </button>
+        </Link>
       ),
     },
     {
-      title: "Locked",
-      sushi: totalNotStaked ? `${Number(getBalanceNumber(totalNotStaked)).toFixed(4)} SUSHI` : "",
-      usd: totalNotStakedUSD,
+      title: "Locked (2/3)",
+      sushi: "[Feature Under Construction]",
+      usd: "[Feature Under Construction]",
       cta: (
-        <button
-          type="button"
-          class="font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
+        <a
+          href="https://docs.sushiswap.fi"
+          target="_blank"
+          class="font-medium text-orange-600 hover:text-orange-700 transition duration-150 ease-in-out"
         >
           Learn more
-        </button>
+        </a>
       ),
     },
     {
       title: "Unstaked",
       sushi: totalNotStaked ? `${Number(getBalanceNumber(totalNotStaked)).toFixed(4)} SUSHI` : "",
       usd: totalNotStakedUSD,
-      cta: (
-        <button
-          type="button"
-          class="font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
-        >
-          Stake
-        </button>
-      ),
+      cta: <StakeSushi />,
     },
     {
       title: "Staked",
       sushi: sushiStaked ? `${Number(sushiStaked).toFixed(4)} SUSHI` : "",
       xsushi: xSushiBalance ? `${Number(getBalanceNumber(xSushiBalance)).toFixed(4)} xSUSHI` : "",
       usd: sushiStakedUSD,
-      cta: (
-        <button
-          type="button"
-          class="font-medium text-orange-600 hover:text-orange-500 transition duration-150 ease-in-out"
-        >
-          Unstake
-        </button>
-      ),
+      cta: <UnstakeSushi />,
     },
   ];
   return (
@@ -303,7 +295,11 @@ const TableRow = ({ balance }) => {
         <td className="px-6 py-3 text-sm leading-5 text-gray-500 font-medium">
           <div className="flex items-center space-x-2">
             <div className="flex flex-shrink-0 -space-x-1">
-              <img className="max-w-none h-6 w-6 rounded-full text-white shadow-solid" src={SushiLogo} alt="SUSHI" />
+              <img
+                className="max-w-none h-6 w-6 rounded-full text-white shadow-solid"
+                src={balance.xsushi ? xSushiLogo : SushiLogo}
+                alt="SUSHI"
+              />
             </div>
             <div className="flex items-center space-x-3 lg:pl-2">
               {/* <div className="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-pink-600" /> */}
