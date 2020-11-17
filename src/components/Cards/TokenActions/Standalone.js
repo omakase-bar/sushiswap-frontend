@@ -3,6 +3,7 @@ import ClassicSwap from "../../../services/exchange/pages/Swap/secondary";
 import ClassicPool from "../../../services/exchange/pages/AddLiquidity/secondary";
 import ClassicRemove from "../../../services/exchange/pages/RemoveLiquidity/secondary";
 import Stakes from "./Stakes";
+import { MigrateNotice } from "../../Overview/MigrateNotice";
 //import Stake from "../../../services/frontend/views/Farm/components/Stake";
 //import TokenSwap from "../TokenSwap";
 
@@ -74,9 +75,12 @@ const TokenActionsCard = ({ initialSection, title, currencyIdA, currencyIdB }) =
               </div>
             ),
             migrate: (
-              <div className="sushi-mt-6 sushi-flex-1">
-                <ClassicSwap />
-              </div>
+              <>
+                <MigrateNotice />
+                {/* <div className="sushi-mt-6 sushi-flex-1">
+              <ClassicSwap />
+              </div> */}
+              </>
             ),
             pool: (
               <div className="sushi-mt-6 sushi-flex-1">
