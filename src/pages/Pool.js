@@ -5,12 +5,12 @@ import CardTokenActions from "../components/Cards/TokenActions/Standalone";
 import PageTitle from "../components/PageTitles/Default";
 import Background from "../assets/img/sushi-mountains.jpg";
 
-import { Dashboard } from "../sections/Dashboard";
+import { DashboardContainer } from "../sections/Dashboard";
 
 const Pool = ({ currencyIdA, currencyIdB }) => {
   return (
     <>
-      <Dashboard>
+      <DashboardContainer>
         <div className="sushi-max-w-lg sushi-mx-auto md:sushi-p-10 lg:sushi-mx-0 lg:sushi-p-12">
           <CardTokenActions
             initialSection={"pool"}
@@ -19,7 +19,7 @@ const Pool = ({ currencyIdA, currencyIdB }) => {
             currencyIdB={currencyIdB}
           />
         </div>
-      </Dashboard>
+      </DashboardContainer>
     </>
   );
 };

@@ -116,7 +116,7 @@ export const CurrentMenuWrapper = ({ scrollToCurrent, pathToMenu }) => {
       {pathToMenu ? (
         <div
           style={{ minHeight: "20.5rem" }}
-          className="sushi-border sushi-border-gray-200 sushi-rounded-lg sushi-shadow-md sushi-divide-y sushi-divide-gray-200"
+          className="sushi-bg-white sushi-border sushi-border-gray-200 sushi-rounded-lg sushi-shadow-md sushi-divide-y sushi-divide-gray-200"
         >
           <CurrentMenu pathToMenu={pathToMenu} />
         </div>
@@ -124,7 +124,7 @@ export const CurrentMenuWrapper = ({ scrollToCurrent, pathToMenu }) => {
         <div className="sushi-relative sushi-w-4/5 md:sushi-w-1/3 sushi-mx-auto sushi-pl-6">
           <div
             style={{ minHeight: "19.5rem" }}
-            className="sushi-border sushi-border-gray-200 sushi-rounded-lg sushi-shadow-md sushi-divide-y sushi-divide-gray-200"
+            className="sushi-bg-white sushi-border sushi-border-gray-200 sushi-rounded-lg sushi-shadow-md sushi-divide-y sushi-divide-gray-200"
           >
             <CurrentMenu scrollToCurrent={scrollToCurrent} />
           </div>

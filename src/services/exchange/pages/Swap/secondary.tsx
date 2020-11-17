@@ -506,7 +506,7 @@ export default function Swap() {
           )}
           {showApproveFlow && <ProgressSteps steps={[approval === ApprovalState.APPROVED]} />}
           {isExpertMode && swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null}
-          {betterTradeLinkVersion && <BetterTradeLink version={betterTradeLinkVersion} />}
+          {/* {betterTradeLinkVersion && <BetterTradeLink version={betterTradeLinkVersion} />} */}
         </BottomGrouping>
       </Wrapper>
       <AdvancedSwapDetailsDropdown trade={trade} />

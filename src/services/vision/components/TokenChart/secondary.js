@@ -1,24 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import {
-  Area,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-  Tooltip,
-  AreaChart,
-  BarChart,
-  Bar,
-} from "recharts";
+import { Area, XAxis, YAxis, ResponsiveContainer, Tooltip, AreaChart, BarChart, Bar } from "recharts";
 import { AutoRow, RowBetween, RowFixed } from "../Row";
 
-import {
-  toK,
-  toNiceDate,
-  toNiceDateYear,
-  formattedNum,
-  getTimeframe,
-} from "../../utils";
+import { toK, toNiceDate, toNiceDateYear, formattedNum, getTimeframe } from "../../utils";
 import { OptionButton } from "../ButtonStyled";
 import { darken } from "polished";
 import { useMedia, usePrevious } from "react-use";
@@ -26,7 +11,7 @@ import { timeframeOptions } from "../../constants";
 import { useTokenChartData, useTokenPriceData } from "../../contexts/TokenData";
 import DropdownSelect from "../DropdownSelect";
 import CandleStickChart from "../CandleChart/secondary";
-import LocalLoader from "../LocalLoader";
+import LocalLoader from "../../../../components/CoinLoader";
 import { AutoColumn } from "../Column";
 import { Activity } from "react-feather";
 import { useDarkModeManager } from "../../contexts/LocalStorage";
@@ -104,29 +89,17 @@ const TokenChart = ({ address, color, base }) => {
 
   // switch to hourly data when switched to week window
   useEffect(() => {
-    if (
-      timeWindow === timeframeOptions.WEEK &&
-      prevWindow &&
-      prevWindow !== timeframeOptions.WEEK
-    ) {
+    if (timeWindow === timeframeOptions.WEEK && prevWindow && prevWindow !== timeframeOptions.WEEK) {
       setFrequency(DATA_FREQUENCY.HOUR);
     }
   }, [prevWindow, timeWindow]);
 
   // switch to daily data if switche to month or all time view
   useEffect(() => {
-    if (
-      timeWindow === timeframeOptions.MONTH &&
-      prevWindow &&
-      prevWindow !== timeframeOptions.MONTH
-    ) {
+    if (timeWindow === timeframeOptions.MONTH && prevWindow && prevWindow !== timeframeOptions.MONTH) {
       setFrequency(DATA_FREQUENCY.DAY);
     }
-    if (
-      timeWindow === timeframeOptions.ALL_TIME &&
-      prevWindow &&
-      prevWindow !== timeframeOptions.ALL_TIME
-    ) {
+    if (timeWindow === timeframeOptions.ALL_TIME && prevWindow && prevWindow !== timeframeOptions.ALL_TIME) {
       setFrequency(DATA_FREQUENCY.DAY);
     }
   }, [prevWindow, timeWindow]);
@@ -135,10 +108,7 @@ const TokenChart = ({ address, color, base }) => {
   const below600 = useMedia("(max-width: 600px)");
 
   let utcStartTime = getTimeframe(timeWindow);
-  const domain = [
-    (dataMin) => (dataMin > utcStartTime ? dataMin : utcStartTime),
-    "dataMax",
-  ];
+  const domain = [(dataMin) => (dataMin > utcStartTime ? dataMin : utcStartTime), "dataMax"];
   //const aspect = below1080 ? 60 / 32 : below600 ? 60 / 42 : 60 / 22;
   const aspect = below1080 ? 60 / 32 : below600 ? 60 / 42 : 60 / 33;
 
@@ -163,26 +133,15 @@ const TokenChart = ({ address, color, base }) => {
     <ChartWrapper>
       {below600 ? (
         <RowBetween mb={40}>
-          <DropdownSelect
-            options={CHART_VIEW}
-            active={chartFilter}
-            setActive={setChartFilter}
-            color={color}
-          />
-          <DropdownSelect
-            options={timeframeOptions}
-            active={timeWindow}
-            setActive={setTimeWindow}
-            color={color}
-          />
+          <DropdownSelect options={CHART_VIEW} active={chartFilter} setActive={setChartFilter} color={color} />
+          <DropdownSelect options={timeframeOptions} active={timeWindow} setActive={setTimeWindow} color={color} />
         </RowBetween>
       ) : (
         <RowBetween
           mb={
             chartFilter === CHART_VIEW.LIQUIDITY ||
             chartFilter === CHART_VIEW.VOLUME ||
-            (chartFilter === CHART_VIEW.PRICE &&
-              frequency === DATA_FREQUENCY.LINE)
+            (chartFilter === CHART_VIEW.PRICE && frequency === DATA_FREQUENCY.LINE)
               ? 40
               : 0
           }
@@ -192,9 +151,7 @@ const TokenChart = ({ address, color, base }) => {
             <RowFixed>
               <div className="pt-4 relative pb-5 border-b border-gray-200 space-y-4 sm:pb-0">
                 <div className="space-y-3 md:flex md:items-center md:justify-between md:space-y-0">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">
-                    Market
-                  </h3>
+                  <h3 className="text-lg leading-6 font-medium text-gray-900">Market</h3>
                 </div>
                 <div>
                   <div className="hidden sm:block">
@@ -288,9 +245,7 @@ const TokenChart = ({ address, color, base }) => {
           <AutoRow justify="flex-end" gap="6px" align="flex-start">
             <div className="pt-4 relative pb-5 border-b border-gray-200 space-y-4 sm:pb-0">
               <div className="space-y-3 md:flex md:items-center md:justify-between md:space-y-0">
-                <h3 className="text-lg leading-6 font-medium text-gray-900">
-                  Timeframe
-                </h3>
+                <h3 className="text-lg leading-6 font-medium text-gray-900">Timeframe</h3>
               </div>
               <div>
                 <div className="hidden sm:block">
@@ -353,11 +308,7 @@ const TokenChart = ({ address, color, base }) => {
       )}
       {chartFilter === CHART_VIEW.LIQUIDITY && chartData && (
         <ResponsiveContainer aspect={aspect}>
-          <AreaChart
-            margin={{ top: 0, right: 10, bottom: 6, left: 0 }}
-            barCategoryGap={1}
-            data={chartData}
-          >
+          <AreaChart margin={{ top: 0, right: 10, bottom: 6, left: 0 }} barCategoryGap={1} data={chartData}>
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor={color} stopOpacity={0.35} />
@@ -418,11 +369,7 @@ const TokenChart = ({ address, color, base }) => {
       {chartFilter === CHART_VIEW.PRICE &&
         (frequency === DATA_FREQUENCY.LINE ? (
           <ResponsiveContainer aspect={below1080 ? 60 / 32 : 60 / 16}>
-            <AreaChart
-              margin={{ top: 0, right: 10, bottom: 6, left: 0 }}
-              barCategoryGap={1}
-              data={chartData}
-            >
+            <AreaChart margin={{ top: 0, right: 10, bottom: 6, left: 0 }} barCategoryGap={1} data={chartData}>
               <defs>
                 <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={color} stopOpacity={0.35} />
@@ -484,16 +431,12 @@ const TokenChart = ({ address, color, base }) => {
             <CandleStickChart data={priceData} width={width} base={base} />
           </ResponsiveContainer>
         ) : (
-          <LocalLoader />
+          <LocalLoader small={true} />
         ))}
 
       {chartFilter === CHART_VIEW.VOLUME && (
         <ResponsiveContainer aspect={aspect}>
-          <BarChart
-            margin={{ top: 0, right: 10, bottom: 6, left: 10 }}
-            barCategoryGap={1}
-            data={chartData}
-          >
+          <BarChart margin={{ top: 0, right: 10, bottom: 6, left: 10 }} barCategoryGap={1} data={chartData}>
             <XAxis
               tickLine={false}
               axisLine={false}

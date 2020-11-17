@@ -49,11 +49,7 @@ const PoolsWeekly = ({ showWallets }) => {
             </span>
             <span> ✨</span>
           </h2>
-          <Toggle
-            showWallets={showWallets}
-            widgetPath={"/widgets/weekly/current"}
-            dashboardPath={"/weekly"}
-          />
+          <Toggle showWallets={showWallets} widgetPath={"/widgets/weekly/current"} dashboardPath={"/weekly"} />
         </div>
       </div>
       {!account ? (
@@ -139,11 +135,7 @@ const PoolsQuery = ({ showWallets, setAPY }) => {
   return (
     <>
       {isError && <div>Something went wrong ...</div>}
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <Pools title={"Active Pools on Sushiswap"} pools={pools} showWallets={showWallets} />
-      )}
+      {isLoading ? <Loading /> : <Pools title={"Active Pools on Sushiswap"} pools={pools} showWallets={showWallets} />}
     </>
   );
 };
@@ -172,9 +164,7 @@ const Pools = ({ title, pools, showWallets }) => {
   const stakedValue = useAllStakedValue();
   const sushiIndex = farms.findIndex(({ tokenSymbol }) => tokenSymbol === "SUSHI");
   const sushiPrice =
-    sushiIndex >= 0 && stakedValue[sushiIndex]
-      ? stakedValue[sushiIndex].tokenPriceInWeth
-      : new BigNumber(0);
+    sushiIndex >= 0 && stakedValue[sushiIndex] ? stakedValue[sushiIndex].tokenPriceInWeth : new BigNumber(0);
   const BLOCKS_PER_YEAR = new BigNumber(2336000);
   const SUSHI_PER_BLOCK = new BigNumber(100);
   console.log("ZIPPO POOLS:", pools);
@@ -309,9 +299,7 @@ const Pools = ({ title, pools, showWallets }) => {
                           }}
                         >
                           <div className="sushi-flex sushi-items-center">
-                            <div className="sushi-flex-shrink-0 sushi-w-10 sushi-h-10 sushi-text-3xl">
-                              {pool.icon}
-                            </div>
+                            <div className="sushi-flex-shrink-0 sushi-w-10 sushi-h-10 sushi-text-3xl">{pool.icon}</div>
                             <div className="sushi-ml-4">
                               <div className="sushi-flex sushi-items-center">
                                 <Link
@@ -353,8 +341,7 @@ const Pools = ({ title, pools, showWallets }) => {
                                 <div>
                                   {formatNumber(
                                     (1e3 /
-                                      ((pool.balance / pool.uniswapPair.totalSupply) *
-                                        pool.uniswapPair.reserveUSD)) *
+                                      ((pool.balance / pool.uniswapPair.totalSupply) * pool.uniswapPair.reserveUSD)) *
                                       ((3600 / 13.115837104072398) * pool.rewards.rewardPerBlock) *
                                       24,
                                     3
@@ -419,9 +406,7 @@ const Pools = ({ title, pools, showWallets }) => {
                           </div>
                           <div className="sushi-flex sushi-items-center sushi-text-xs sushi-text-gray-500">
                             <span>{formatNumber(pool.rewards.hourlyROI * 24 * 365 * 100, 2)}%</span>
-                            <span className="sushi-pl-1 sushi-text-xs sushi-leading-3 sushi-text-gray-500">
-                              yearly
-                            </span>
+                            <span className="sushi-pl-1 sushi-text-xs sushi-leading-3 sushi-text-gray-500">yearly</span>
                           </div>
                         </td>
                         {/* <td className="sushi-px-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
@@ -449,8 +434,7 @@ const Pools = ({ title, pools, showWallets }) => {
                                 }}
                               />
                               {formatNumber(
-                                (pool.balance / pool.uniswapPair.totalSupply) *
-                                  pool.uniswapPair.reserve0,
+                                (pool.balance / pool.uniswapPair.totalSupply) * pool.uniswapPair.reserve0,
                                 2
                               )}{" "}
                               {pool.uniswapPair.token0.symbol}
@@ -472,18 +456,13 @@ const Pools = ({ title, pools, showWallets }) => {
                                 }}
                               />
                               {formatNumber(
-                                (pool.balance / pool.uniswapPair.totalSupply) *
-                                  pool.uniswapPair.reserve1,
+                                (pool.balance / pool.uniswapPair.totalSupply) * pool.uniswapPair.reserve1,
                                 2
                               )}{" "}
                               {pool.uniswapPair.token1.symbol}
                             </div>
                             <div className="sushi-flex sushi-items-center sushi-mt-1.5">
-                              <svg
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                className="sushi-w-4 sushi-h-4 sushi-mr-2"
-                              >
+                              <svg viewBox="0 0 20 20" fill="currentColor" className="sushi-w-4 sushi-h-4 sushi-mr-2">
                                 <path
                                   fillRule="evenodd"
                                   d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
@@ -569,13 +548,7 @@ const Pools = ({ title, pools, showWallets }) => {
                             </div>
                           </div>
                         </td> */}
-                        {account ? (
-                          <StakeWrapper
-                            key={pool.sushiswapId}
-                            farmId={pool.sushiswapId}
-                            pool={pool}
-                          />
-                        ) : null}
+                        {account ? <StakeWrapper key={pool.sushiswapId} farmId={pool.sushiswapId} pool={pool} /> : null}
                       </tr>
                     );
                   })
@@ -628,9 +601,7 @@ const Stake = ({ pool, lpContract, pid, tokenName, lpTokenAddress }) => {
   const stakedBalance = useStakedBalance(pid);
   const { onStake } = useStake(pid);
   const { onUnstake } = useUnstake(pid);
-  const [onPresentDeposit] = useModal(
-    <DepositModal max={tokenBalance} onConfirm={onStake} tokenName={tokenName} />
-  );
+  const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} onConfirm={onStake} tokenName={tokenName} />);
   const [onPresentWithdraw] = useModal(
     <WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={tokenName} />
   );
@@ -724,9 +695,7 @@ const Stake = ({ pool, lpContract, pid, tokenName, lpTokenAddress }) => {
                 className="sushi-self-center sushi-mt-2 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-text-gray-800 sushi-bg-gray-100 sushi-rounded-full sushi-select-none sushi-has-tooltip"
                 data-original-title="null"
               >
-                <div className="sushi-inline-flex sushi-items-center sushi-px-2.5 sushi-py-0.5">
-                  No rewards
-                </div>
+                <div className="sushi-inline-flex sushi-items-center sushi-px-2.5 sushi-py-0.5">No rewards</div>
               </div>
             </>
           )}
@@ -751,9 +720,7 @@ const Stake = ({ pool, lpContract, pid, tokenName, lpTokenAddress }) => {
               🔒 Approve Staking
             </button>
           </span>
-        ) : stakedBalance.eq(new BigNumber(0)) &&
-          tokenBalance.eq(new BigNumber(0)) &&
-          !allowance.toNumber() ? (
+        ) : stakedBalance.eq(new BigNumber(0)) && tokenBalance.eq(new BigNumber(0)) && !allowance.toNumber() ? (
           <span className="sushi-inline-flex sushi-rounded-md sushi-shadow-sm">
             <button
               onClick={() => {

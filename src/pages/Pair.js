@@ -14,8 +14,9 @@ import { useColor } from "../services/vision/hooks";
 import { usePairData, usePairTransactions } from "../services/vision/contexts/PairData";
 import { useEthPrice } from "../services/vision/contexts/GlobalData";
 import PairChart from "../services/vision/components/PairChart";
-import TxnList from "../services/vision/components/TxnList";
-import Loader from "../services/vision/components/LocalLoader";
+import TxnList from "../services/vision/components/TxnList/secondary";
+//import Loader from "../services/vision/components/LocalLoader";
+import CoinLoader from "../components/CoinLoader";
 
 const Token = ({ pairAddress, history }) => {
   const mobileMenu = useMenu();
@@ -127,12 +128,13 @@ const Token = ({ pairAddress, history }) => {
       />
       <SectionCards>
         <Panel>
-          <PairChart
+          <PairChart address={pairAddress} color={"#fa7815"} base0={reserve1 / reserve0} base1={reserve0 / reserve1} />
+          {/* <PairChart
             address={pairAddress}
             color={backgroundColor}
             base0={reserve1 / reserve0}
             base1={reserve0 / reserve1}
-          />
+          /> */}
         </Panel>
         {token0 && token1 ? (
           <>
@@ -157,11 +159,11 @@ const Token = ({ pairAddress, history }) => {
               whiteSpace: "nowrap",
             }}
           >
-            <TxnList transactions={transactions} />
+            <TxnList transactions={transactions} color={"#d03801"} />
           </div>
         </div>
       ) : (
-        <Loader />
+        <CoinLoader small={true} />
       )}
     </>
   );

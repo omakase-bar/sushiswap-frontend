@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, createContext, useContext, useReducer } from "react";
 import { Route, Redirect } from "react-router-dom";
+import SectionTabs from "../components/Tabs";
 // Dashboard
 import SearchHeader from "../components/MobileMenu";
 import Sidebar from "../components/Sidebar/Layout";
@@ -8,6 +9,7 @@ import MainSearch from "../components/Search/Desktop";
 import CardSection from "../components/Cards/Section";
 import useMenu from "../shared/hooks/useMenu";
 // Overview
+import CardMigrate from "../components/Cards/Migrate/Layout";
 import CardTokenActions from "../components/Cards/TokenActions/Standalone";
 import { CurrentMenuWrapper } from "../components/WeeklyMenu/Menus";
 import CardChart from "../components/Cards/Chart";
@@ -21,6 +23,10 @@ import CardSummary from "../components/Cards/Summary";
 import CardBalance from "../components/Cards/Balance/Layout";
 import CardResources from "../components/Cards/Resources/Layout";
 import CardSocialMedia from "../components/Cards/SocialMedia/Layout";
+import CardBalances from "../components/Cards/SushiBar/Balances";
+import CardPositions from "../components/Cards/SushiBar/Positions";
+import CardKitchen from "../components/Cards/SushiBar/Kitchen";
+import CardServing from "../components/Cards/SushiBar/Serving";
 // Menu of the Week
 import WeeklyMenuInfo from "../components/WeeklyMenu/Hero";
 import WeeklyMenus from "../components/WeeklyMenu/Menus";
@@ -77,11 +83,13 @@ const useSectionState = () => {
   return context;
 };
 
-export const Dashboard = ({ children }) => {
+const Dashboard = () => {
   return (
     <>
       <SectionProvider>
-        <DashboardContainer>{children ? children : <DashboardRoutes />}</DashboardContainer>
+        <DashboardContainer>
+          <DashboardRoutes />
+        </DashboardContainer>
       </SectionProvider>
     </>
   );
@@ -90,6 +98,7 @@ export const Dashboard = ({ children }) => {
 export const DashboardContainer = ({ children }) => {
   const mobileMenu = useMenu();
   const { state } = useSectionState();
+
   return (
     <>
       <div className="sushi-h-screen sushi-flex sushi-overflow-hidden sushi-bg-white">
@@ -168,56 +177,62 @@ const Overview = () => {
   return (
     <>
       {/* <IntroBanner /> */}
-      <PageTitle title={"👋 いらっしゃいませ ! Welcome Back!"} />
+      <PageTitle title={"👋 いらっしゃいませ「 Welcome Back 」!"} />
       <MainSearch />
-      <div className="sushi-px-8 sushi-mt-4">
+      <div className="sushi-px-8 my-4">
         <span className="sushi-w-full">
           <div className="sushi-flex sushi-items-start sushi-justify-between sushi-space-x-3">
             <GlobalStats />
           </div>
         </span>
       </div>
-      <Flickity
-        className={"flickity-viewport-visible pt-4 overflow-x-hidden outline-none"}
-        elementType={"div"}
-        options={{
-          cellAlign: "left",
-          imagesLoaded: true,
-          pageDots: false,
-          prevNextButtons: false,
-          contain: true,
-        }}
-        disableImagesLoaded={false}
-        reloadOnUpdate // default false
-        static // default false
-      >
-        <div className="relative w-4/5 md:w-2/5 mx-auto pl-6">
-          <CardTokenActions initialSection={"swap"} currencyIdB={"ETH"} />
-        </div>
-        <div className="relative w-4/5 md:w-1/3 mx-auto pl-6">
-          <CurrentMenuWrapper pathToMenu={"/weekly"} />
-        </div>
-        <div className="relative w-4/5 md:w-1/2 mx-auto pl-6">
-          <CardChart>
-            <SushiGlobalChart display="liquidity" />
-          </CardChart>
-        </div>
-        <div className="relative w-4/5 md:w-1/2 mx-auto pl-6">
-          <CardChart>
-            <SushiGlobalChart display="volume" />
-          </CardChart>
-        </div>
-        <div className="relative w-4/5 md:w-1/2 mx-auto pl-6">
-          <CardChart>
-            <UniGlobalChart display="liquidity" />
-          </CardChart>
-        </div>
-        <div className="relative w-4/5 md:w-1/2 mx-auto pl-6">
-          <CardChart>
-            <UniGlobalChart display="volume" />
-          </CardChart>
-        </div>
-      </Flickity>
+      <div className="shadow-inner bg-gray-100">
+        <h3 className="pl-10 pt-4 text-lg leading-6 font-medium text-gray-400">While you're here, you can...</h3>
+        <Flickity
+          className={"flickity-viewport-visible py-4 overflow-x-hidden outline-none"}
+          elementType={"div"}
+          options={{
+            cellAlign: "left",
+            imagesLoaded: true,
+            pageDots: false,
+            prevNextButtons: false,
+            contain: true,
+          }}
+          disableImagesLoaded={false}
+          reloadOnUpdate // default false
+          static // default false
+        >
+          <div className="relative w-4/5 md:w-2/5 mx-auto pl-6">
+            <CardTokenActions initialSection={"swap"} currencyIdB={"ETH"} />
+          </div>
+          {/* <div className="relative w-4/5 md:w-2/5 mx-auto pl-6">
+            <CardMigrate />
+          </div> */}
+          <div className="relative w-4/5 md:w-1/3 mx-auto pl-6">
+            <CurrentMenuWrapper pathToMenu={"/weekly"} />
+          </div>
+          <div className="relative w-4/5 md:w-1/2 mx-auto pl-6">
+            <CardChart>
+              <SushiGlobalChart display="liquidity" />
+            </CardChart>
+          </div>
+          <div className="relative w-4/5 md:w-1/2 mx-auto pl-6">
+            <CardChart>
+              <SushiGlobalChart display="volume" />
+            </CardChart>
+          </div>
+          <div className="relative w-4/5 md:w-1/2 mx-auto pl-6">
+            <CardChart>
+              <UniGlobalChart display="liquidity" />
+            </CardChart>
+          </div>
+          <div className="relative w-4/5 md:w-1/2 mx-auto pl-6">
+            <CardChart>
+              <UniGlobalChart display="volume" />
+            </CardChart>
+          </div>
+        </Flickity>
+      </div>
       <TablePools type={"active"} title={"All active farms"} />
     </>
   );
@@ -230,15 +245,91 @@ const OmakaseBar = () => {
   }, []);
   return (
     <>
-      <PageTitle title={"Sushiswap Information Portal"} />
-      <CardSection>
-        <CardSummary title={"🍱 Summary"} />
-        <CardBalance title={"Your SUSHI Balance"} />
-      </CardSection>
-      <CardSection>
+      <PageTitle title={"Omakase Analytics"} />
+      <header className="bg-white shadow">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8">
+          <nav className="hidden lg:py-2 lg:flex lg:space-x-8" aria-label="Global">
+            <a
+              href="#"
+              className="rounded-md py-2 px-3 inline-flex items-center text-sm leading-5 font-medium text-gray-900 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out"
+            >
+              Account
+            </a>
+            <a
+              href="#"
+              className="rounded-md py-2 px-3 inline-flex items-center text-sm leading-5 font-medium text-gray-900 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out"
+            >
+              Compare Liquidity
+            </a>
+            <a
+              href="#"
+              className="rounded-md py-2 px-3 inline-flex items-center text-sm leading-5 font-medium text-gray-900 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out"
+            >
+              Compare Trading
+            </a>
+            <a
+              href="#"
+              className="rounded-md py-2 px-3 inline-flex items-center text-sm leading-5 font-medium text-gray-900 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out"
+            >
+              Movement
+            </a>
+          </nav>
+        </div>
+      </header>
+      <div className="bg-gray-100 shadow-inner py-6 px-4 space-y-6 sm:p-6">
+        <div className="shadow sm:rounded-md sm:overflow-hidden">
+          <div className="bg-white">
+            <CardBalances />
+          </div>
+        </div>
+        <div className="shadow sm:rounded-md sm:overflow-hidden">
+          <div className="bg-white">
+            <CardPositions />
+          </div>
+        </div>
+      </div>
+
+      {/* <Flickity
+        className={"flickity-viewport-visible shadow-inner py-4 bg-gray-100 overflow-x-hidden outline-none"}
+        elementType={"div"}
+        options={{
+          cellAlign: "left",
+          imagesLoaded: true,
+          pageDots: false,
+          prevNextButtons: false,
+          contain: true,
+        }}
+        disableImagesLoaded={false}
+        reloadOnUpdate
+        static
+      >
+        <div className="relative w-4/5 md:w-2/5 mx-auto pl-4">
+          <CardBalance title={"Your SUSHI Balance"} />
+        </div>
+        <div className="relative w-4/5 md:w-1/3 mx-auto pl-4">
+          <CardBalances title={"Your xSUSHI Balance"} />
+        </div>
+        <div className="relative w-4/5 md:w-1/2 mx-auto px-4">
+          <CardPositions title={"Your xSUSHI Balance"} />
+        </div>
+        <div className="relative w-4/5 md:w-1/2 mx-auto pl-4">
+          <CardKitchen title={"What's Cooking?"} />
+        </div>
+        <div className="relative w-4/5 md:w-1/2 mx-auto pl-4">
+          <CardServing title={"Who's Serving?"} />
+        </div>
+      </Flickity> */}
+      {/* <CardSection>
+        <CardSummary title={"Summary"} />
+        <CardBalance title={"SUSHI Actions"} />
+      </CardSection> */}
+      {/* <div className="sushi-mx-4 sushi-my-6">
+        <CardBalances title={"Your xSUSHI Balance"} />
+      </div> */}
+      {/* <CardSection>
         <CardSocialMedia title={"📣 Social Media"} />
         <CardResources title={"📚 Resources"} />
-      </CardSection>
+      </CardSection> */}
     </>
   );
 };

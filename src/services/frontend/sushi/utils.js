@@ -37,17 +37,7 @@ export const getXSushiStakingContract = (sushi) => {
 export const getFarms = (sushi) => {
   return sushi
     ? sushi.contracts.pools.map(
-        ({
-          pid,
-          name,
-          symbol,
-          icon,
-          tokenAddress,
-          tokenSymbol,
-          tokenContract,
-          lpAddress,
-          lpContract,
-        }) => ({
+        ({ pid, name, symbol, icon, tokenAddress, tokenSymbol, tokenContract, lpAddress, lpContract }) => ({
           pid,
           id: symbol,
           name,
@@ -75,17 +65,9 @@ export const getEarned = async (masterChefContract, pid, account) => {
   return masterChefContract.methods.pendingSushi(pid, account).call();
 };
 
-export const getTotalLPWethValue = async (
-  masterChefContract,
-  wethContract,
-  lpContract,
-  tokenContract,
-  pid
-) => {
+export const getTotalLPWethValue = async (masterChefContract, wethContract, lpContract, tokenContract, pid) => {
   // Get balance of the token address
-  const tokenAmountWholeLP = await tokenContract.methods
-    .balanceOf(lpContract.options.address)
-    .call();
+  const tokenAmountWholeLP = await tokenContract.methods.balanceOf(lpContract.options.address).call();
   const tokenDecimals = await tokenContract.methods.decimals().call();
   // Get the share of lpContract that masterChefContract owns
   const balance = await lpContract.methods.balanceOf(masterChefContract.options.address).call();
@@ -98,9 +80,7 @@ export const getTotalLPWethValue = async (
   const lpWethWorth = new BigNumber(lpContractWeth);
   const totalLpWethValue = portionLp.times(lpWethWorth).times(new BigNumber(2));
   // Calculate
-  const tokenAmount = new BigNumber(tokenAmountWholeLP)
-    .times(portionLp)
-    .div(new BigNumber(10).pow(tokenDecimals));
+  const tokenAmount = new BigNumber(tokenAmountWholeLP).times(portionLp).div(new BigNumber(10).pow(tokenDecimals));
 
   const wethAmount = new BigNumber(lpContractWeth).times(portionLp).div(new BigNumber(10).pow(18));
   return {
@@ -142,6 +122,12 @@ export const getSushiSupply = async (sushi) => {
 
 export const getXSushiSupply = async (sushi) => {
   return new BigNumber(await sushi.contracts.xSushiStaking.methods.totalSupply().call());
+};
+
+export const getTotalSushiStakedInBar = async (sushi) => {
+  return new BigNumber(
+    await sushi.contracts.sushi.methods.balanceOf(sushi.contracts.xSushiStaking.options.address).call()
+  );
 };
 
 export const stake = async (masterChefContract, pid, amount, account) => {

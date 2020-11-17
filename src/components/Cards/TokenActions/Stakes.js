@@ -8,33 +8,29 @@ import useFarms from "../../../services/frontend/hooks/useFarms";
 import { useWallet } from "use-wallet";
 import BigNumber from "bignumber.js";
 
-const APYWrapper = ({ symbol, setSelected, showWallets }) => {
+import WalletsModal from "../../Modals/Wallets";
+import useModal from "../../../shared/hooks/useModal";
+
+const APYWrapper = ({ symbol, setSelected }) => {
   const [farms] = useFarms();
   const { account } = useWallet();
   const stakedValue = useAllStakedValue();
-  const sushiIndex = farms.findIndex(
-    ({ tokenSymbol }) => tokenSymbol === "SUSHI"
-  );
+  const sushiIndex = farms.findIndex(({ tokenSymbol }) => tokenSymbol === "SUSHI");
   const sushiPrice =
-    sushiIndex >= 0 && stakedValue[sushiIndex]
-      ? stakedValue[sushiIndex].tokenPriceInWeth
-      : new BigNumber(0);
+    sushiIndex >= 0 && stakedValue[sushiIndex] ? stakedValue[sushiIndex].tokenPriceInWeth : new BigNumber(0);
   const BLOCKS_PER_YEAR = new BigNumber(2336000);
   const SUSHI_PER_BLOCK = new BigNumber(100);
   const rows = farms.reduce(
     (farmRows, farm, i) => {
-      const farmWithStakedValue = Object.assign(
-        Object.assign(Object.assign({}, farm), stakedValue[i]),
-        {
-          apy: stakedValue[i]
-            ? sushiPrice
-                .times(SUSHI_PER_BLOCK)
-                .times(BLOCKS_PER_YEAR)
-                .times(stakedValue[i].poolWeight)
-                .div(stakedValue[i].totalWethValue)
-            : null,
-        }
-      );
+      const farmWithStakedValue = Object.assign(Object.assign(Object.assign({}, farm), stakedValue[i]), {
+        apy: stakedValue[i]
+          ? sushiPrice
+              .times(SUSHI_PER_BLOCK)
+              .times(BLOCKS_PER_YEAR)
+              .times(stakedValue[i].poolWeight)
+              .div(stakedValue[i].totalWethValue)
+          : null,
+      });
       const newFarmRows = [...farmRows];
       newFarmRows.push(farmWithStakedValue);
       return newFarmRows;
@@ -42,17 +38,10 @@ const APYWrapper = ({ symbol, setSelected, showWallets }) => {
     [[]]
   );
 
-  return (
-    <Stakes
-      rows={rows}
-      symbol={symbol}
-      account={account}
-      setSelected={setSelected}
-      showWallets={showWallets}
-    />
-  );
+  return <Stakes rows={rows} symbol={symbol} account={account} setSelected={setSelected} />;
 };
 const Stakes = ({ symbol, rows, account, setSelected, showWallets }) => {
+  const [onPresentWallets] = useModal(<WalletsModal />, null, null);
   // const sushi = useSushi();
   // const farms = getFarms(sushi);
   // const { account } = useWallet();
@@ -79,7 +68,7 @@ const Stakes = ({ symbol, rows, account, setSelected, showWallets }) => {
                   <tr>
                     <th className="sushi-pr-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-500 sushi-uppercase sushi-border-b sushi-border-gray-200 sushi-">
                       <a href="#" className="sushi-flex sushi-items-center">
-                        <span>APY</span>
+                        <span>APR</span>
                       </a>
                     </th>
                     <th className="sushi-px-4 sushi-py-3 sushi-text-xs sushi-font-medium sushi-leading-4 sushi-tracking-wider sushi-text-left sushi-text-gray-500 sushi-uppercase sushi-border-b sushi-border-gray-200 sushi-">
@@ -128,16 +117,18 @@ const Stakes = ({ symbol, rows, account, setSelected, showWallets }) => {
             </span>
           </div>
           <p className="sushi-mt-4 sushi-text-sm sushi-leading-5">
-            <a href="#" className="sushi-font-medium sushi-text-gray-500 sushi-underline">
+            <a
+              href="https://docs.sushiswap.fi"
+              target="_blank"
+              className="sushi-font-medium sushi-text-gray-500 sushi-underline"
+            >
               Learn more about staking
             </a>
           </p>
           <div className="sushi-mt-12">
             <div className="sushi-rounded-md sushi-shadow">
               <button
-                onClick={() => {
-                  showWallets();
-                }}
+                onClick={onPresentWallets}
                 className="sushi-w-full sushi-flex sushi-items-center sushi-justify-center sushi-px-5 sushi-py-3 sushi-border sushi-border-transparent sushi-text-base sushi-leading-6 sushi-font-medium sushi-rounded-md sushi-text-white sushi-bg-orange-600 hover:sushi-bg-orange-700 focus:sushi-outline-none focus:sushi-shadow-outline sushi-transition sushi-duration-150 sushi-ease-in-out"
               >
                 Connect wallet to begin

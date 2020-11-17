@@ -55,10 +55,14 @@ const Title = ({ highestAPY, title }) => {
         <div className="sushi-flex-1 sushi-min-w-0">
           <h2 className="sushi-max-w-6xl sushi-mt-8 sushi-px-4 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-cool-gray-900 sushi-">
             {title ? title : "Current Menu"}
-            <span class="sushi-ml-3 sushi-inline-flex sushi-items-center sushi-px-3 sushi-py-0.5 sushi-rounded-md sushi-text-sm sushi-font-medium sushi-leading-5 sushi-bg-orange-100 sushi-text-orange-800">
-              Up to {formatNumber(highestAPY, 0)}% APY
-            </span>
-            <span> ✨</span>
+            {highestAPY ? (
+              <>
+                <span class="sushi-ml-3 sushi-inline-flex sushi-items-center sushi-px-3 sushi-py-0.5 sushi-rounded-md sushi-text-sm sushi-font-medium sushi-leading-5 sushi-bg-orange-100 sushi-text-orange-800">
+                  Up to {formatNumber(highestAPY, 0)}% APR
+                </span>
+                <span> ✨</span>
+              </>
+            ) : null}
           </h2>
           {/* <Toggle widgetPath={"/widgets/weekly/current"} dashboardPath={"/weekly"} /> */}
         </div>

@@ -7,11 +7,7 @@ import { provider } from "web3-core";
 import { Contract } from "web3-eth-contract";
 
 import { getAllowance } from "../utils/erc20";
-import {
-  getMasterChefContract,
-  getSushiContract,
-  getXSushiStakingContract,
-} from "../sushi/utils";
+import { getMasterChefContract, getSushiContract, getXSushiStakingContract } from "../sushi/utils";
 
 const useAllowanceStaking = () => {
   const [allowance, setAllowance] = useState(new BigNumber(0));
@@ -21,12 +17,10 @@ const useAllowanceStaking = () => {
   const stakingContract = getXSushiStakingContract(sushi);
 
   const fetchAllowance = useCallback(async () => {
-    const allowance = await getAllowance(
-      lpContract,
-      account,
-      stakingContract.options.address
-    );
-    setAllowance(new BigNumber(allowance));
+    if (account) {
+      const allowance = await getAllowance(lpContract, account, stakingContract.options.address);
+      setAllowance(new BigNumber(allowance));
+    }
   }, [account, stakingContract, lpContract]);
 
   useEffect(() => {

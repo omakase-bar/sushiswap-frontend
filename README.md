@@ -1,21 +1,12 @@
-# Sushiswap Trading Frontend
+# SushiSwap Shiny Frontend
 
-This directory is a brief example of a fully featured frontend framework for Sushiswap. It is currently hosted on vercel for high availability serverless purposes.
+This directory is the fully featured frontend framework for SushiSwap.
 
 To begin:
-
-copy .env.template to .env
 
 ```shell
 $ npm install 
 $ npm run dev
-```
-
-To build (obfuscate and compress css):
-
-```shell
-$ npm run build
-$ serve -s
 ```
 
 ## Features
@@ -40,26 +31,6 @@ This project contains frontend components for the following screens:
 ## Future Development
 
 - Additional Styles:
-- Sushiswap Canon
-- Sushiswap Future
-- Sushiswap Neumorphic
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/vercel/tree/master/examples/create-react-app-functions)
-
-_Live Example: https://create-react-app.now-examples.now.sh/_
-
-### How We Created This Example
-
-To get started with React, along with [Serverless Functions](https://vercel.com/docs/v2/serverless-functions/introduction), with Vercel, you can use the [Create-React-App CLI](https://reactjs.org/docs/create-a-new-react-app.html#create-react-app) to initialize the project:
-
-```shell
-$ npx create-react-app my-app
-```
-
-### Deploying From Your Terminal
-
-You can deploy your new React project, along with [Serverless Functions](https://vercel.com/docs/v2/serverless-functions/introduction), with a single command from your terminal using [Vercel CLI](https://vercel.com/download):
-
-```shell
-$ vercel
-```
+- SushiSwap Canon
+- SushiSwap Future
+- SushiSwap Neumorphic

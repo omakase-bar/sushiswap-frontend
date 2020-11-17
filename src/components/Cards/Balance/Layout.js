@@ -4,6 +4,7 @@ import Value from "./Value";
 import PendingRewards from "./PendingRewards";
 import SushiBelt from "./SushiBelt";
 import StakeSushi from "./StakeSushi";
+import UnstakeSushi from "./UnstakeSushi";
 import ExpandButton from "../../Buttons/ExpandButton";
 //Summary Statistics
 import { useWallet } from "use-wallet";
@@ -37,8 +38,13 @@ const BalanceCard = () => {
       <div className="sushi-flex-1 sushi-bg-white sushi-p-6 sushi-flex sushi-flex-col sushi-justify-between">
         <div className="sushi-relative sushi-pb-5 sushi-border-b sushi-border-gray-200 sushi-space-y-4 sm:sushi-pb-0">
           <div className="sushi-space-y-3 sushi-flex sushi-items-center sushi-justify-between sushi-space-y-0">
-            <h3 className="sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-gray-900">Your SUSHI Balance</h3>
-            <ExpandButton widgetPath={"/widgets/balance"} dashboardPath={"/omakase-bar"} />
+            <div className="sushi-pb-5">
+              <h3 className="sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-gray-900">SUSHI Actions</h3>
+              {/* <p className="sushi-mt-1 sushi-max-w-2xl sushi-text-sm sushi-leading-5 sushi-text-gray-500">
+                Do something with SUSHI
+              </p> */}
+            </div>
+            {/* <ExpandButton widgetPath={"/widgets/balance"} dashboardPath={"/omakase"} /> */}
           </div>
         </div>
         <div className="sushi-mt-6 sushi-flex-1 sushi-relative">
@@ -67,7 +73,7 @@ const BalanceCard = () => {
                   onClick={() => {
                     history.push("/token/0x6b3595068778dd592e39a122f4f5a5cf09c90fe2");
                   }}
-                  className="sushi-mr-4 sushi-w-16 sushi-h-20 sushi-text-3xl sushi-rounded-md sushi-shadow-md"
+                  className="sushi-mr-4 sushi-w-16 sushi-h-24 sushi-text-3xl sushi-rounded-md sushi-shadow-md"
                   style={{
                     border: "1px solid rgb(238, 109, 72)",
                     backgroundColor: "#feeddc",
@@ -75,13 +81,17 @@ const BalanceCard = () => {
                 >
                   🍣
                   <br />
-                  <p className="sushi-text-sm">Buy</p>
+                  <p className="text-xs font-medium">
+                    Buy
+                    <br />
+                    SUSHI
+                  </p>
                 </button>
               </div>
               <div className="sushi-z-10 sushi-flex sushi-items-center sushi-justify-center sushi-flex-shrink-0">
                 {!account ? (
                   <button
-                    className="sushi-mr-4 sushi-w-16 sushi-h-20 sushi-text-3xl sushi-rounded-md sushi-shadow-md"
+                    className="sushi-mr-4 sushi-w-16 sushi-h-24 sushi-text-3xl sushi-rounded-md sushi-shadow-md"
                     style={{
                       border: "1px solid rgb(238, 109, 72)",
                       backgroundColor: "#feeddc",
@@ -89,10 +99,35 @@ const BalanceCard = () => {
                   >
                     ⛏️
                     <br />
-                    <p className="sushi-text-sm">Stake</p>
+                    <p className="text-xs font-medium">
+                      Stake
+                      <br />
+                      SUSHI
+                    </p>
                   </button>
                 ) : (
                   <StakeSushi />
+                )}
+              </div>
+              <div className="sushi-z-10 sushi-flex sushi-items-center sushi-justify-center sushi-flex-shrink-0">
+                {!account ? (
+                  <button
+                    className="sushi-mr-4 sushi-w-16 sushi-h-24 sushi-text-3xl sushi-rounded-md sushi-shadow-md"
+                    style={{
+                      border: "1px solid rgb(238, 109, 72)",
+                      backgroundColor: "#feeddc",
+                    }}
+                  >
+                    🎣
+                    <br />
+                    <p className="text-xs font-medium">
+                      Unstake
+                      <br />
+                      SUSHI
+                    </p>
+                  </button>
+                ) : (
+                  <UnstakeSushi />
                 )}
               </div>
               <div className="sushi-z-10 sushi-flex sushi-items-center sushi-justify-center sushi-flex-shrink-0">
@@ -100,7 +135,7 @@ const BalanceCard = () => {
                   onClick={() => {
                     history.push("/pools");
                   }}
-                  className="sushi-mr-4 sushi-w-16 sushi-h-20 sushi-text-3xl sushi-rounded-md sushi-shadow-md"
+                  className="sushi-mr-4 sushi-w-16 sushi-h-24 sushi-text-3xl sushi-rounded-md sushi-shadow-md"
                   style={{
                     border: "1px solid rgb(238, 109, 72)",
                     backgroundColor: "#feeddc",
@@ -108,7 +143,10 @@ const BalanceCard = () => {
                 >
                   🎑
                   <br />
-                  <p className="sushi-text-sm">Harvest</p>
+                  <p className="text-xs font-medium">
+                    Harvest
+                    <br /> Rewards
+                  </p>
                 </button>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 // import styled from "styled-components";
 // import Button from "../../../services/frontend/components/Button";
 // import Card from "../../../services/frontend/components/Card";
@@ -22,6 +22,11 @@ import WithdrawModal from "../../../services/frontend/views/Farm/components/With
 
 import Loader from "../../../services/exchange/components/Loader";
 
+import { client, masterChef } from "../../../apollo/client";
+import { MASTERCHEF_POOLS, SUSHI_PAIRS, TOKEN } from "../../../apollo/queries";
+import { sushiRewardsPerBlock } from "../../../constants/constants";
+import _ from "lodash";
+
 const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
   const [requestedApproval, setRequestedApproval] = useState(false);
   const allowance = useAllowance(lpContract);
@@ -30,19 +35,9 @@ const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
   const stakedBalance = useStakedBalance(pid);
   const { onStake } = useStake(pid);
   const { onUnstake } = useUnstake(pid);
-  const [onPresentDeposit] = useModal(
-    <DepositModal
-      max={tokenBalance}
-      onConfirm={onStake}
-      tokenName={tokenName}
-    />
-  );
+  const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} onConfirm={onStake} tokenName={tokenName} />);
   const [onPresentWithdraw] = useModal(
-    <WithdrawModal
-      max={stakedBalance}
-      onConfirm={onUnstake}
-      tokenName={tokenName}
-    />
+    <WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={tokenName} />
   );
   const handleApprove = useCallback(async () => {
     //console.log("SEEKING APPROVAL");
@@ -58,6 +53,75 @@ const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
       console.log(e);
     }
   }, [onApprove, setRequestedApproval]);
+
+  // Work around to determine APR:
+  const [apr, setAPR] = useState(apy);
+  useEffect(() => {
+    const calculateAPR = async () => {
+      let masterChefStats = await masterChef.query({
+        query: MASTERCHEF_POOLS(),
+        fetchPolicy: "cache-first",
+      });
+      let masterChefPools = masterChefStats?.data?.masterChefPools;
+      const chefAddress = "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd";
+      const pool = masterChefPools.find((masterChefPool) => {
+        return masterChefPool.id === String(pid);
+      });
+      console.log(pool, pid, masterChefPools);
+      let poolStatistics = await client.query({
+        query: SUSHI_PAIRS([pool.lpToken], chefAddress),
+        fetchPolicy: "cache-first",
+      });
+      const pairs = poolStatistics?.data?.pairs;
+      const liquidityPositions = poolStatistics?.data?.liquidityPositions;
+      const mergeStatistics = _.map(liquidityPositions, function(lp) {
+        return _.merge(lp, _.find(pairs, { id: lp.pair.id }));
+      });
+      const pair = { ...mergeStatistics[0], ...pool };
+      console.log("PAIR:", pair, pool, mergeStatistics[0]);
+
+      const sushiswapQuery = await client.query({
+        query: TOKEN("0x6b3595068778dd592e39a122f4f5a5cf09c90fe2"),
+        fetchPolicy: "cache-first",
+      });
+      const sushiswapData = sushiswapQuery.data.token;
+      const ethUSD = pair.reserveUSD / pair.reserveETH;
+
+      const token = {
+        price: {
+          ETH: Number(sushiswapData.derivedETH),
+          USD: Number(sushiswapData.derivedETH) * ethUSD,
+        },
+      };
+      // TODO find alternative, since CORS issue.
+      // const ethereum = await axios.get("https://etherchain.org/api/basic_stats");
+      const ethereum = {
+        currentStats: {
+          block_time: 13.422548262548263,
+        },
+      };
+      const sushiPerBlock = sushiRewardsPerBlock;
+      const totalAllocPointWithoutVesting = _.sumBy(masterChefPools, function(pool) {
+        if ((pool.pid && pool.pid !== 29) || (pool.id && pool.id !== 29)) {
+          return Number(pool.allocPoint);
+        }
+      });
+      const totalAllocPoint = totalAllocPointWithoutVesting;
+      console.log("TOTALALLOC:", totalAllocPoint);
+      const balanceUSD = pair.totalSupply ? (pair.liquidityTokenBalance / pair.totalSupply) * pair.reserveUSD : 0;
+      const rewardPerBlock = (pair.allocPoint / totalAllocPoint) * sushiPerBlock;
+      const roiPerBlock = balanceUSD ? (rewardPerBlock * token.price.USD) / balanceUSD : 0;
+      const roiPerHour = (3600 / ethereum.currentStats.block_time) * roiPerBlock;
+
+      console.log("BALANCEUSD:", balanceUSD);
+      console.log("rewardPerblock:", rewardPerBlock, pair.allocPoint, totalAllocPoint, sushiPerBlock);
+      console.log("roiPerBlock", balanceUSD, rewardPerBlock, token.price.USD, balanceUSD);
+      console.log("ROIPERHOUR:", roiPerHour);
+      setAPR(roiPerHour);
+    };
+    calculateAPR();
+  }, [pid]);
+
   return (
     <tr>
       <td className="sushi-pr-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
@@ -90,9 +154,7 @@ const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
         <div className="sushi-mt-1 sushi-text-xs sushi-text-gray-500">{tokenName}</div>
       </td>
       <td className="sushi-pl-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
-        {stakedBalance.eq(new BigNumber(0)) &&
-        tokenBalance.eq(new BigNumber(0)) &&
-        !allowance.toNumber() ? (
+        {stakedBalance.eq(new BigNumber(0)) && tokenBalance.eq(new BigNumber(0)) && !allowance.toNumber() ? (
           <span className="sushi-inline-flex sushi-rounded-md sushi-shadow-sm">
             <button
               onClick={() => {

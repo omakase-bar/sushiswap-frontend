@@ -13,6 +13,10 @@ const Tabs = ({ selected, setSelected }) => {
       id: "swap",
     },
     {
+      title: "Migrate",
+      id: "migrate",
+    },
+    {
       title: "+ Liquidity",
       id: "pool",
     },
@@ -65,6 +69,11 @@ const TokenActionsCard = ({ initialSection, title, currencyIdA, currencyIdB }) =
         {
           {
             swap: (
+              <div className="sushi-mt-6 sushi-flex-1">
+                <ClassicSwap />
+              </div>
+            ),
+            migrate: (
               <div className="sushi-mt-6 sushi-flex-1">
                 <ClassicSwap />
               </div>

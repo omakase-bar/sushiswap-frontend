@@ -1,3 +1,11 @@
+.scale-small {
+  transform: scale(0.6, 0.6);
+  -ms-transform: scale(0.6, 0.6); /* IE 9 */
+  -webkit-transform: scale(0.6, 0.6); /* Safari and Chrome */
+  -o-transform: scale(0.6, 0.6); /* Opera */
+  -moz-transform: scale(0.6, 0.6); /* Firefox */
+}
+
 .loader {
   height: 400px;
   display: flex;

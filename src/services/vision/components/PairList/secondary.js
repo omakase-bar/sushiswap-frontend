@@ -153,9 +153,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
     if (pairData && pairData.token0 && pairData.token1) {
       const liquidity = formattedNum(pairData.reserveUSD, true);
       const volume = formattedNum(pairData.oneDayVolumeUSD, true);
-      const apy = formattedPercent(
-        (pairData.oneDayVolumeUSD * 0.003 * 365 * 100) / pairData.reserveUSD
-      );
+      const apy = formattedPercent((pairData.oneDayVolumeUSD * 0.003 * 365 * 100) / pairData.reserveUSD);
       //console.log("PAIRDATA:", pairData);
       return (
         <DashGrid style={{ height: "48px" }} disbaleLinks={disbaleLinks} focus={true}>
@@ -237,12 +235,8 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
           </DataText>
           <DataText area="liq">{liquidity}</DataText>
           <DataText area="vol">{volume}</DataText>
-          {!below1080 && (
-            <DataText area="volWeek">{formattedNum(pairData.oneWeekVolumeUSD, true)}</DataText>
-          )}
-          {!below1080 && (
-            <DataText area="fees">{formattedNum(pairData.oneDayVolumeUSD * 0.003, true)}</DataText>
-          )}
+          {!below1080 && <DataText area="volWeek">{formattedNum(pairData.oneWeekVolumeUSD, true)}</DataText>}
+          {!below1080 && <DataText area="fees">{formattedNum(pairData.oneDayVolumeUSD * 0.003, true)}</DataText>}
           {!below1080 && <DataText area="apy">{apy}</DataText>}
         </DashGrid>
       );
@@ -258,14 +252,11 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
         const pairA = pairs[addressA];
         const pairB = pairs[addressB];
         if (sortedColumn === SORT_FIELD.APY) {
-          const apy0 =
-            parseFloat(pairA.oneDayVolumeUSD * 0.003 * 356 * 100) / parseFloat(pairA.reserveUSD);
-          const apy1 =
-            parseFloat(pairB.oneDayVolumeUSD * 0.003 * 356 * 100) / parseFloat(pairB.reserveUSD);
+          const apy0 = parseFloat(pairA.oneDayVolumeUSD * 0.003 * 356 * 100) / parseFloat(pairA.reserveUSD);
+          const apy1 = parseFloat(pairB.oneDayVolumeUSD * 0.003 * 356 * 100) / parseFloat(pairB.reserveUSD);
           return apy0 > apy1 ? (sortDirection ? -1 : 1) * 1 : (sortDirection ? -1 : 1) * -1;
         }
-        return parseFloat(pairA[FIELD_TO_VALUE[sortedColumn]]) >
-          parseFloat(pairB[FIELD_TO_VALUE[sortedColumn]])
+        return parseFloat(pairA[FIELD_TO_VALUE[sortedColumn]]) > parseFloat(pairB[FIELD_TO_VALUE[sortedColumn]])
           ? (sortDirection ? -1 : 1) * 1
           : (sortDirection ? -1 : 1) * -1;
       })
@@ -274,11 +265,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
         return (
           pairAddress && (
             <div key={index}>
-              <ListItem
-                key={index}
-                index={(page - 1) * ITEMS_PER_PAGE + index + 1}
-                pairAddress={pairAddress}
-              />
+              <ListItem key={index} index={(page - 1) * ITEMS_PER_PAGE + index + 1} pairAddress={pairAddress} />
               <Divider />
             </div>
           )
@@ -327,8 +314,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.VOL_7DAYS ? true : !sortDirection);
               }}
             >
-              Volume (7d){" "}
-              {sortedColumn === SORT_FIELD.VOL_7DAYS ? (!sortDirection ? "↑" : "↓") : ""}
+              Volume (7d) {sortedColumn === SORT_FIELD.VOL_7DAYS ? (!sortDirection ? "↑" : "↓") : ""}
             </ClickableText>
           </Flex>
         )}
@@ -354,8 +340,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.APY ? true : !sortDirection);
               }}
             >
-              1y Fees / Liquidity{" "}
-              {sortedColumn === SORT_FIELD.APY ? (!sortDirection ? "↑" : "↓") : ""}
+              1y Fees / Liquidity {sortedColumn === SORT_FIELD.APY ? (!sortDirection ? "↑" : "↓") : ""}
             </ClickableText>
             <QuestionHelper text={"Based on 24hr volume annualized"} />
           </Flex>

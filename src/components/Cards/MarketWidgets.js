@@ -108,6 +108,31 @@ const MarketWidgets = ({
             </div>
           </div>
         </div>
+        <div className="sushi-flex sushi-items-center sushi-overflow-hidden sushi-bg-white sushi-rounded-lg">
+          <div className="sushi-flex-grow">
+            <div className="sushi-flex sushi-items-center">
+              <div className="sushi-flex-1 sushi-w-0">
+                <dl>
+                  <dt className="sushi-text-sm sushi-font-medium sushi-leading-5 sushi-text-gray-500 sushi-truncate">
+                    Volume (24hrs)
+                  </dt>
+                  <dd className="sushi-flex sushi-items-baseline">
+                    <div>
+                      <div className="sushi-flex sushi-items-center sushi-text-2xl sushi-font-semibold sushi-leading-8 sushi-text-gray-900">
+                        {/* $118,121,122 */}
+                        {volume}
+                        <div className="sushi-ml-1 sushi-font-normal sushi-text-sm sushi-text-green-500">
+                          {/* &nbsp;+1.4% */}
+                          {volumeChange}
+                        </div>
+                      </div>
+                    </div>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

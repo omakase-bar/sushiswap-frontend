@@ -8,8 +8,9 @@ import TokenChart from "../services/vision/components/TokenChart/secondary";
 import { formattedNum, formattedPercent, localNumber } from "../services/vision/utils";
 import { useTokenData, useTokenTransactions } from "../services/vision/contexts/TokenData";
 import { useColor } from "../services/vision/hooks";
-import TxnList from "../services/vision/components/TxnList";
-import Loader from "../services/vision/components/LocalLoader";
+import TxnList from "../services/vision/components/TxnList/secondary";
+import CoinLoader from "../components/CoinLoader";
+//import Loader from "../services/vision/components/LocalLoader";
 
 const Token = ({ address, history }) => {
   const {
@@ -69,7 +70,8 @@ const Token = ({ address, history }) => {
       <SectionCards>
         {/* <CardMarket title={"Market"} /> */}
         <Panel>
-          <TokenChart address={address} color={backgroundColor} base={priceUSD} />
+          <TokenChart address={address} color={"#fa7815"} base={priceUSD} />
+          {/* <TokenChart address={address} color={backgroundColor} base={priceUSD} /> */}
         </Panel>
         <CardTokenActions
           initialSection={"swap"}
@@ -88,11 +90,11 @@ const Token = ({ address, history }) => {
               whiteSpace: "nowrap",
             }}
           >
-            <TxnList transactions={transactions} />
+            <TxnList transactions={transactions} color={"#d03801"} />
           </div>
         </div>
       ) : (
-        <Loader />
+        <CoinLoader />
       )}
     </>
   );
