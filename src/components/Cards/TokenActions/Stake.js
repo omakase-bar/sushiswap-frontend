@@ -24,7 +24,10 @@ import Loader from "../../../services/exchange/components/Loader";
 
 import { client, masterChef } from "../../../apollo/client";
 import { MASTERCHEF_POOLS, SUSHI_PAIRS, TOKEN } from "../../../apollo/queries";
-import { sushiRewardsPerBlock } from "../../../constants/constants";
+import { sushiRewardsPerBlock, ethBlockTime } from "../../../constants/constants";
+import { formatNumber } from "../../Table/Columns/utils";
+import { useTokenData } from "../../../services/vision/contexts/TokenData";
+
 import _ from "lodash";
 
 const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
@@ -55,7 +58,7 @@ const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
   }, [onApprove, setRequestedApproval]);
 
   // Work around to determine APR:
-  const [apr, setAPR] = useState(apy);
+  const [apr, setAPR] = useState();
   useEffect(() => {
     const calculateAPR = async () => {
       let masterChefStats = await masterChef.query({
@@ -87,6 +90,9 @@ const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
       const sushiswapData = sushiswapQuery.data.token;
       const ethUSD = pair.reserveUSD / pair.reserveETH;
 
+      console.log("SUSHISWAPQUERY:", sushiswapQuery);
+      console.log(ethUSD);
+
       const token = {
         price: {
           ETH: Number(sushiswapData.derivedETH),
@@ -97,7 +103,7 @@ const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
       // const ethereum = await axios.get("https://etherchain.org/api/basic_stats");
       const ethereum = {
         currentStats: {
-          block_time: 13.422548262548263,
+          block_time: ethBlockTime,
         },
       };
       const sushiPerBlock = sushiRewardsPerBlock;
@@ -117,6 +123,7 @@ const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
       console.log("rewardPerblock:", rewardPerBlock, pair.allocPoint, totalAllocPoint, sushiPerBlock);
       console.log("roiPerBlock", balanceUSD, rewardPerBlock, token.price.USD, balanceUSD);
       console.log("ROIPERHOUR:", roiPerHour);
+      console.log("ROIPERYEAR:", roiPerHour * 24 * 365 * 100);
       setAPR(roiPerHour);
     };
     calculateAPR();
@@ -125,16 +132,9 @@ const Stake = ({ lpContract, pid, tokenName, apy, setSelected }) => {
   return (
     <tr>
       <td className="sushi-pr-4 sushi-py-4 sushi-text-sm sushi-whitespace-no-wrap sushi-border-b sushi-border-gray-200">
-        {apy ? (
+        {apr ? (
           <>
-            <div className="sushi-text-sm sushi-text-green-500">
-              {apy
-                .times(new BigNumber(100))
-                .toNumber()
-                .toLocaleString("en-US")
-                .slice(0, -1)}
-              %
-            </div>
+            <div className="sushi-text-sm sushi-text-green-500">{formatNumber(apr * 24 * 365 * 100, 2)}%</div>
             <div className="sushi-mt-1 sushi-text-xs sushi-text-gray-500">per year</div>
           </>
         ) : (

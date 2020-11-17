@@ -97,14 +97,14 @@ const Dashboard = () => {
 
 export const DashboardContainer = ({ children }) => {
   const mobileMenu = useMenu();
-  const { state } = useSectionState();
+  //const { state } = useSectionState();
 
   return (
     <>
       <div className="sushi-h-screen sushi-flex sushi-overflow-hidden sushi-bg-white">
-        <Sidebar selected={state.section} />
+        <Sidebar />
         <div className="sushi-flex sushi-flex-col sushi-w-0 sushi-flex-1 sushi-overflow-hidden">
-          <SearchHeader changeMenu={mobileMenu.change} isOpen={mobileMenu.isOpen} selected={state.section} />
+          <SearchHeader changeMenu={mobileMenu.change} isOpen={mobileMenu.isOpen} />
           <main
             className="sushi-flex-1 sushi-relative sushi-z-0 sushi-overflow-y-auto focus:sushi-outline-none"
             tabIndex={0}
