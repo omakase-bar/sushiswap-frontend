@@ -57,10 +57,26 @@ const Title = ({ highestAPY, title }) => {
             {title ? title : "Current Menu"}
             {highestAPY ? (
               <>
-                <span class="sushi-ml-3 sushi-inline-flex sushi-items-center sushi-px-3 sushi-py-0.5 sushi-rounded-md sushi-text-sm sushi-font-medium sushi-leading-5 sushi-bg-orange-100 sushi-text-orange-800">
+                <span className="sushi-ml-3 sushi-inline-flex sushi-items-center sushi-px-3 sushi-py-0.5 sushi-rounded-md sushi-text-sm sushi-font-medium sushi-leading-5 sushi-bg-orange-100 sushi-text-orange-800">
                   Up to {formatNumber(highestAPY, 0)}% APR
                 </span>
-                <span> ✨</span>
+                <span className="sushi-mr-3"> ✨</span>
+                <a href="https://docs.sushiswap.fi/faq#vesting" target="_blank">
+                  <span className="mt-2 sushi-inline-flex sushi-items-center sushi-px-2 sushi-py-0.5 sushi-rounded-md sushi-text-sm sushi-font-medium sushi-leading-5 sushi-bg-gray-100 sushi-text-gray-800">
+                    <svg
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      class="sushi-w-4 sushi-h-4 sushi-mr-1 sushi-question-mark-circle"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                    Note: 2/3 Reward Vesting in Effect
+                  </span>
+                </a>
               </>
             ) : null}
           </h2>

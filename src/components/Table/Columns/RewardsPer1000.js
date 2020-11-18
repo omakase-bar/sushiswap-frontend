@@ -33,7 +33,7 @@ const ColumnRewardsPer1000 = ({ pool }) => {
             >
               <div className="sushi-inline-flex sushi-items-center sushi-px-2.5 sushi-py-0.5">
                 {formatNumber(pool.rewards.multiplier, 2)}x Reward
-                <svg
+                {/* <svg
                   viewBox="0 0 20 20"
                   fill="currentColor"
                   className="sushi-w-4 sushi-h-4 sushi-ml-0.5 sushi--mr-1 sushi-question-mark-circle"
@@ -43,7 +43,7 @@ const ColumnRewardsPer1000 = ({ pool }) => {
                     d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
                     clipRule="evenodd"
                   />
-                </svg>
+                </svg> */}
               </div>
             </div>
           ) : pool.rewards.multiplier && pool.rewards.multiplier !== 1 ? (

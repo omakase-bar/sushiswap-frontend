@@ -437,7 +437,10 @@ const Pairs = () => {
   const allPairs = useAllPairData();
   return (
     <>
-      <MainSearch />
+      {/* <MainSearch /> */}
+      <div className="sushi-px-8 my-4 sushi-hidden lg:sushi-block">
+        <MainSearch />
+      </div>
       <h2 className="sushi-max-w-6xl sushi-mx-auto sushi-mt-8 sushi-px-4 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-cool-gray-900 sm:sushi-px-6 lg:sushi-px-8">
         Trading pairs on Sushiswap
       </h2>
