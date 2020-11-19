@@ -13,7 +13,7 @@ import useMenu from "../shared/hooks/useMenu";
 import CardCurrentMenu from "../components/Overview/CurrentMenu";
 import CardMigrateNotice from "../components/Overview/MigrateNotice";
 import CardMigrate from "../components/Cards/Migrate/Layout";
-import CardTokenActions from "../components/Cards/TokenActions/Standalone";
+import CardTokenActions from "../components/Cards/TokenActions/StandaloneWithoutRemove";
 import { CurrentMenuWrapper } from "../components/WeeklyMenu/Menus";
 import CardChart from "../components/Cards/Chart";
 import SushiGlobalChart from "../services/vision/components/GlobalChart";

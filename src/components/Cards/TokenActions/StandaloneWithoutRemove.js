@@ -26,10 +26,10 @@ const Tabs = ({ selected, setSelected }) => {
       title: "+ Liquidity",
       id: "pool",
     },
-    {
-      title: "- Liquidity",
-      id: "remove",
-    },
+    // {
+    //   title: "- Liquidity",
+    //   id: "remove",
+    // },
   ];
   return (
     <div>
@@ -82,9 +82,6 @@ const TokenActionsCard = ({ initialSection, title, currencyIdA, currencyIdB }) =
             migrate: (
               <>
                 <MigrateNotice />
-                {/* <div className="sushi-mt-6 sushi-flex-1">
-              <ClassicSwap />
-              </div> */}
               </>
             ),
             limit: (
@@ -97,11 +94,11 @@ const TokenActionsCard = ({ initialSection, title, currencyIdA, currencyIdB }) =
                 <ClassicPool currencyIdA={currencyIdA} currencyIdB={currencyIdB} />
               </div>
             ),
-            remove: (
-              <div className="sushi-mt-6 sushi-flex-1">
-                <ClassicRemove currencyIdA={currencyIdA} currencyIdB={currencyIdB} />
-              </div>
-            ),
+            // remove: (
+            //   <div className="sushi-mt-6 sushi-flex-1">
+            //     <ClassicRemove currencyIdA={currencyIdA} currencyIdB={currencyIdB} />
+            //   </div>
+            // ),
           }[section]
         }
       </div>
