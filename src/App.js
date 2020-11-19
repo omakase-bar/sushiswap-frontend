@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 //import { isMobile } from "react-device-detect";
+import BoringApp from "./services/boring";
 
 import CoinLoader from "./components/CoinLoader";
 import BentoBox from "./pages/BentoBox";
@@ -132,6 +133,7 @@ const App = () => {
             <Web3ReactManager>
               <Switch>
                 {/* Playground Routes */}
+                <Route exact path="/boring" component={BoringApp} />
                 <Route exact path="/wallet" component={Wallet} />
                 <Route exact path="/widget/bentobox" component={BentoBox} />
                 {/* Dashboard Routes */}

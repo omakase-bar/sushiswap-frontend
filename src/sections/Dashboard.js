@@ -260,7 +260,7 @@ const OmakaseBar = () => {
     <>
       <PageTitle title={"Omakase Analytics"} />
       <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8">
+        <div className="px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8">
           <nav className="hidden lg:py-2 lg:flex lg:space-x-8" aria-label="Global">
             <a
               href="#"

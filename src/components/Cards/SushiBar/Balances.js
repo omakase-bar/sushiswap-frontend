@@ -312,11 +312,11 @@ const TableRow = ({ balance }) => {
             </div>
           </div>
         </td>
-        <td className="hidden md:table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-900 text-right">
+        <td className="table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-900 text-right">
           <div>{balance.sushi}</div>
           {balance.xsushi ? <div>({balance.xsushi})</div> : null}
         </td>
-        <td className="hidden md:table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">
+        <td className="table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">
           {balance.usd}
         </td>
         <td className="pr-6">

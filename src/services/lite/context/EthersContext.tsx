@@ -77,7 +77,7 @@ export const EthersContextProvider = ({ children }) => {
       const web3 = new ethers.providers.Web3Provider(ethereum);
       const alchemy = new ethers.providers.AlchemyProvider(
         web3.network,
-        "production" === process.env.NODE_ENV ? "gSgAj0Ntfsn-DOKKlUhjqeUlePrVX8va" : "yLD5iJzUEo_Kvlg_PwMXl7N9ESK2_b6E"
+        "production" === process.env.NODE_ENV ? "DnNxl6bicDp7fp7nF_G23RWIeCGu8xsd" : "DgnfFsj5PXR37FkOmUVJ9GtfDsKws446"
       );
       setProvider(alchemy);
       setSigner(await web3.getSigner());

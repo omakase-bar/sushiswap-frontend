@@ -267,16 +267,16 @@ const TableHead = () => {
           <th className="px-6 py-3 border-b border-gray-200 bg-white text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             <span className="lg:pl-2">Name</span>
           </th>
-          <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-white text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+          <th className="table-cell px-6 py-3 border-b border-gray-200 bg-white text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Unstaked
           </th>
           <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-white text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Staked
           </th>
-          <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-white text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+          <th className="table-cell px-6 py-3 border-b border-gray-200 bg-white text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Total Fees Earned
           </th>
-          <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-white text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+          <th className="table-cell px-6 py-3 border-b border-gray-200 bg-white text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Rewards
           </th>
           <th className="pr-6 py-3 border-b border-gray-200 bg-white text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider" />
@@ -327,7 +327,7 @@ const TableRow = ({ position, ethPrice }) => {
             </div>
           </div>
         </td>
-        <td className="hidden md:table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">
+        <td className="table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">
           <div className="text-gray-900">{formattedNum(valueUSD, true, true)}</div>
           <div>
             {formattedNum(poolOwnership * parseFloat(position.pair.reserve0))} {position.pair.token0.symbol}
@@ -341,7 +341,7 @@ const TableRow = ({ position, ethPrice }) => {
           <div>_{position.pair.token0.symbol}</div>
           <div>_{position.pair.token1.symbol}</div>
         </td>
-        <td className="hidden md:table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">
+        <td className="table-cell px-6 py-3 whitespace-no-wrap text-sm leading-5 text-gray-500 text-right">
           <div className="text-green-500">{formattedNum(position?.fees.sum, true, true)}</div>
           <div>
             {parseFloat(position.pair.token0.derivedETH)
