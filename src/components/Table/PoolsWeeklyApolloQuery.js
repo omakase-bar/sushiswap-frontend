@@ -106,7 +106,7 @@ export async function getPoolData(status) {
     },
   });
   const etherscanData = etherscanQuery.data;
-  //console.log("ETHERSCAN_DATA:", etherscanData);
+  console.log("ETHERSCAN_DATA:", etherscanData);
 
   const ethUSD = mergeConstants[0].reserveUSD / mergeConstants[0].reserveETH;
   const token = {
