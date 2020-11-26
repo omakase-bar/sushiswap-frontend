@@ -48,18 +48,32 @@ import Settings from "../../components/Settings/secondary";
 
 import WalletsModal from "../../../../components/Modals/Wallets";
 import useModal from "../../../../shared/hooks/useModal";
+import { isAddress } from "../../utils";
 
-export default function Swap() {
+export default function Swap({ outputCurrency }) {
   // @ts-ignore
   const [onPresentWallets] = useModal(<WalletsModal />, null, null);
-  const loadedUrlParams = useDefaultsFromURLSearch();
+  const loadedUrlParams = useDefaultsFromURLSearch(outputCurrency);
+
+  // const formattedOutputCurrency = isAddress(outputCurrency);
+  // const outputToken = useCurrency(formattedOutputCurrency ? formattedOutputCurrency : undefined);
+  // console.log("OUTPUT:", outputToken);
 
   // token warning stuff
   const [loadedInputCurrency, loadedOutputCurrency] = [
     useCurrency(loadedUrlParams?.inputCurrencyId),
     useCurrency(loadedUrlParams?.outputCurrencyId),
   ];
-  const [dismissTokenWarning, setDismissTokenWarning] = useState<boolean>(false);
+
+  // console.log(
+  //   "OUTPUT CURRENCY:",
+  //   outputCurrency,
+  //   formattedOutputCurrency,
+  //   loadedUrlParams?.outputCurrencyId,
+  //   loadedOutputCurrency
+  // );
+
+  const [dismissTokenWarning, setDismissTokenWarning] = useState<boolean>(true);
   const urlLoadedTokens: Token[] = useMemo(
     () => [loadedInputCurrency, loadedOutputCurrency]?.filter((c): c is Token => c instanceof Token) ?? [],
     [loadedInputCurrency, loadedOutputCurrency]

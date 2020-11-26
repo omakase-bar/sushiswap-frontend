@@ -7,23 +7,14 @@ import Stakes from "./Stakes";
 //import Stake from "../../../services/frontend/views/Farm/components/Stake";
 //import TokenSwap from "../TokenSwap";
 
-const TokenActionsCard = ({
-  initialSection,
-  title,
-  symbol,
-  currencyIdA,
-  currencyIdB,
-  showWallets,
-}) => {
+const TokenActionsCard = ({ initialSection, title, symbol, currencyIdA, currencyIdB, showWallets }) => {
   const [section, setSection] = useState(initialSection);
   return (
     <div className="sushi-flex sushi-flex-col sushi-rounded-lg sushi-border sushi-border-gray-200 sushi-overflow-hidden">
       <div className="sushi-flex-1 sushi-bg-white sushi-p-6 sushi-flex sushi-flex-col sushi-justify-between">
         <div className="sushi-relative sushi-border-b sushi-border-gray-200 sushi-space-y-4 sushi-pb-0">
           <div className="sushi-space-y-3 sushi-flex sushi-items-center sushi-justify-between sushi-space-y-0">
-            <h3 className="sushi-pt-2 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-gray-900">
-              {title}
-            </h3>
+            <h3 className="sushi-pt-2 sushi-text-lg sushi-leading-6 sushi-font-medium sushi-text-gray-900">{title}</h3>
           </div>
           <Tabs selected={section} setSelected={setSection} />
         </div>
@@ -31,32 +22,22 @@ const TokenActionsCard = ({
           {
             swap: (
               <div className="sushi-mt-6 sushi-flex-1">
-                <ClassicSwap />
+                <ClassicSwap outputCurrency={currencyIdA} />
               </div>
             ),
             pool: (
               <div className="sushi-mt-6 sushi-flex-1">
-                <ClassicPool
-                  currencyIdA={currencyIdA}
-                  currencyIdB={currencyIdB}
-                />
+                <ClassicPool currencyIdA={currencyIdA} currencyIdB={currencyIdB} />
               </div>
             ),
             remove: (
               <div className="sushi-mt-6 sushi-flex-1">
-                <ClassicRemove
-                  currencyIdA={currencyIdA}
-                  currencyIdB={currencyIdB}
-                />
+                <ClassicRemove currencyIdA={currencyIdA} currencyIdB={currencyIdB} />
               </div>
             ),
             stake: (
               <div className="sushi-flex-1">
-                <Stakes
-                  symbol={symbol}
-                  setSelected={setSection}
-                  showWallets={showWallets}
-                />
+                <Stakes symbol={symbol} setSelected={setSection} showWallets={showWallets} />
               </div>
             ),
           }[section]
